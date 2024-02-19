@@ -190,7 +190,7 @@ def get_EI_optimal_lambda_vs1(raw,lambdas_, window_size=5000, overlap=1):
 
 
 
-def get_EI_optimal_vs2(raw, window_size=5000, overlap=1):
+def get_ei_optimal_vs2(raw, window_size=5000, overlap=1):
     #Making a matrix of U_n, where the rows are every channel and the columns are the windows
     #Getting the channels
     channels = raw.ch_names
@@ -203,8 +203,8 @@ def get_EI_optimal_vs2(raw, window_size=5000, overlap=1):
     U_n_matrix=np.zeros((n_channels,n_windows))
     ER_matrix=np.zeros((n_channels,n_windows))
     ER_n_array=np.zeros(n_channels)
-    derivates_d1_matrix=np.zeros((n_channels,n_windows))
-    derivates_d2_matrix=np.zeros((n_channels,n_windows))
+    derivates_d1_matrix=np.zeros((n_channels,n_windows-1))
+    derivates_d2_matrix=np.zeros((n_channels,n_windows-2))
     #Alarm time array
     alarm_time=np.zeros(n_channels)
 
@@ -233,10 +233,7 @@ def get_EI_optimal_vs2(raw, window_size=5000, overlap=1):
         d2_ER=np.diff(d_ER)/dt
         derivates_d2_matrix[k,:]=d2_ER
         alarm_time[k]=np.argmax(d2_ER)
-        print(f'Alarm time for channel {k} is {alarm_time[k]}')
-           
-
-        
+        print(f'Alarm time for channel {k} is {alarm_time[k]}')        
     #Getting EI
     N0=np.min(alarm_time)
     Ei=[]
@@ -247,10 +244,27 @@ def get_EI_optimal_vs2(raw, window_size=5000, overlap=1):
     #sum from detection time to the end of the signal
     for k in range(n_channels):
         Ei.append(((1/(alarm_time[k]-N0+tau))*np.sum(ER_matrix[k,int(alarm_time[k]):int(alarm_time[k]+H)])))
-
     Ei_n=Ei/np.max(Ei)
-
     return Ei_n, ER_matrix, U_n_matrix, ER_n_array, alarm_time, derivates_d1_matrix, derivates_d2_matrix
 
 
-
+#Function for ploting matriz from EI
+def plotting_ei(Ei_n, ER_matrix,channels=None, derivatives_d1=None):
+    if derivatives_d1 is None:
+        fig, axs = plt.subplots(2)
+        fig.suptitle('EI and ER')
+        axs[0].imshow(ER_matrix,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
+        axs[0].set_title('ER')
+        axs[1].bar(channels,Ei_n)
+        axs[1].set_title('EI')
+        plt.show()
+    else:
+        fig, axs = plt.subplots(3)
+        fig.suptitle('EI and ER')
+        axs[0].imshow(ER_matrix,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
+        axs[0].set_title('ER')
+        axs[1].bar(channels,Ei_n)
+        axs[1].set_title('EI')
+        axs[2].imshow(derivates_d1_mcmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
+        axs[2].set_title('Derivates_d1')
+        plt.show()
