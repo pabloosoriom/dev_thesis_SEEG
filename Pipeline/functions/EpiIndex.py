@@ -58,7 +58,16 @@ def get_EI(raw, window_size=5000, overlap=1,lambda_=125):
         #Saving the U_n values in the matrix
         U_n_matrix[k,:]=U_n
         #Getting the alarm time
-        alarm_time[k]=alarm_times[0]
+        try:
+            alarm_time[k]=alarm_times[0]
+            print(f'Alarm time for channel {k} is {alarm_time[k]}')
+        except:
+            alarm_time[k]=0
+            print(f'No alarm time detected for channel {k}')
+            print('Setting alarm time to 0, please check the lambda value')
+
+            print('-------------------')
+        
         
     #Getting EI
     N0=np.min(alarm_time)
@@ -248,23 +257,45 @@ def get_ei_optimal_vs2(raw, window_size=5000, overlap=1):
     return Ei_n, ER_matrix, U_n_matrix, ER_n_array, alarm_time, derivates_d1_matrix, derivates_d2_matrix
 
 
+
 #Function for ploting matriz from EI
-def plotting_ei(Ei_n, ER_matrix,channels=None, derivatives_d1=None):
+def plotting_ei(Ei_n, ER_matrix,channels, derivatives_d1=None):
     if derivatives_d1 is None:
-        fig, axs = plt.subplots(2)
-        fig.suptitle('EI and ER')
-        axs[0].imshow(ER_matrix,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
-        axs[0].set_title('ER')
-        axs[1].bar(channels,Ei_n)
-        axs[1].set_title('EI')
+        plt.imshow(ER_matrix,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
+        #colorbar
+        plt.colorbar()
+        plt.yticks(np.arange(len(channels)), channels)
+        plt.xlabel('Window number')
+        plt.ylabel('Channel name')
+        plt.title('ER_n')
+        plt.show()
+
+        #Plting a barplt of the EI values for every channel
+        plt.bar(channels,Ei_n)
+        plt.xlabel('Channel name')
+        plt.ylabel('EI')
         plt.show()
     else:
-        fig, axs = plt.subplots(3)
-        fig.suptitle('EI and ER')
-        axs[0].imshow(ER_matrix,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
-        axs[0].set_title('ER')
-        axs[1].bar(channels,Ei_n)
-        axs[1].set_title('EI')
-        axs[2].imshow(derivates_d1_mcmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
-        axs[2].set_title('Derivates_d1')
+        plt.imshow(ER_matrix,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
+        #colorbar
+        plt.colorbar()
+        plt.yticks(np.arange(len(channels)), channels)
+        plt.xlabel('Window number')
+        plt.ylabel('Channel name')
+        plt.title('ER_n')
+        plt.show()
+
+        #Plting a barplt of the EI values for every channel
+        plt.bar(channels,Ei_n)
+        plt.xlabel('Channel name')
+        plt.ylabel('EI')
+        plt.show()
+
+        plt.imshow(derivatives_d1,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
+        #colorbar
+        plt.colorbar()
+        plt.yticks(np.arange(len(channels)), channels)
+        plt.xlabel('Window number')
+        plt.ylabel('Channel name')
+        plt.title('ER_n')
         plt.show()
