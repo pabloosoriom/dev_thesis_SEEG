@@ -129,7 +129,7 @@ def compute_adjacency_graph(raw,data=None, matrix_name=None, threshold=0.5, plot
     return a_thresholded,G
 
 def plot_adjacency_graph(adjacency):
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(20, 10))
     G = adjacency.to_graph()
     pos = nx.kamada_kawai_layout(G)
     node_and_degree = G.degree()
@@ -158,4 +158,59 @@ def plot_adjacency_graph(adjacency):
     plt.title('Degree per channel', fontsize=20)
     plt.show()
     return G
+
+
+def calculate_and_plot_granger_causality(epochs, signals_a, signals_b,verbose=True, fmin=5, fmax=30, gc_n_lags=20,plot=True):
+    indices_ab = (np.array([signals_a]), np.array([signals_b]))  # A => B
+    indices_ba = (np.array([signals_b]), np.array([signals_a]))  # B => A
+
+
+    gc_ab = spectral_connectivity_epochs(
+        epochs,
+        method=["gc"],
+        indices=indices_ab,
+        fmin=fmin,
+        fmax=fmax,
+        rank=(np.array([5]), np.array([5])),
+        gc_n_lags=gc_n_lags,
+        verbose=verbose,
+    )  # A => B
+
+    gc_ba = spectral_connectivity_epochs(
+        epochs,
+        method=["gc"],
+        indices=indices_ba,
+        fmin=fmin,
+        fmax=fmax,
+        rank=(np.array([5]), np.array([5])),
+        gc_n_lags=gc_n_lags,
+        verbose=verbose,
+        )  # B => A
+
+    freqs = gc_ab.freqs
+
+    # Plot GC: [A => B]
+    if plot == True:
+        fig, axis = plt.subplots(1, 1)
+        axis.plot(freqs, gc_ab.get_data()[0], linewidth=2, label='A => B')
+        axis.set_xlabel("Frequency (Hz)")
+        axis.set_ylabel("Connectivity (A.U.)")
+        fig.suptitle("GC: [A => B] and [B => A]")
+
+        # Plot GC: [B => A]
+        axis.plot(freqs, gc_ba.get_data()[0], linewidth=2, label='B => A')
+        axis.legend()
+        plt.show()
+
+        # Plot Net GC: [A => B] - [B => A]
+        net_gc = gc_ab.get_data() - gc_ba.get_data()  # [A => B] - [B => A]
+        fig, axis = plt.subplots(1, 1)
+        axis.plot((freqs[0], freqs[-1]), (0, 0), linewidth=2, linestyle="--", color="k")
+        axis.plot(freqs, net_gc[0], linewidth=2)
+        axis.set_xlabel("Frequency (Hz)")
+        axis.set_ylabel("Connectivity (A.U.)")
+        fig.suptitle("Net GC: [A => B] - [B => A]")
+        plt.show()
+
+    return gc_ab, gc_ba, freqs
 
