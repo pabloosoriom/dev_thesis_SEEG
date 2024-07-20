@@ -4,6 +4,8 @@ import mne
 from mne_connectivity import spectral_connectivity_epochs
 from sklearn.metrics import pairwise_distances
 from nltools.data import Brain_Data, Design_Matrix, Adjacency
+import matplotlib.animation as animation
+from mne_connectivity import spectral_connectivity_time
 import networkx as nx
 import seaborn as sns
 import numpy as np
@@ -213,4 +215,56 @@ def calculate_and_plot_granger_causality(epochs, signals_a, signals_b,verbose=Tr
         plt.show()
 
     return gc_ab, gc_ba, freqs
+
+def create_connectivity_animation(epochs, raw, bands, method='pli', output_file='connectivity_animation.gif'):
+    # Define parameters for the CWT
+    sfreq = epochs.info['sfreq']
+    freqs = np.linspace(3.5, 45, 50)  # Define the range of frequencies
+
+    # Initialize a list to store connectivity matrices
+    conn_matrices = []
+
+    # Compute the time-resolved connectivity
+    con_time = spectral_connectivity_time(
+        epochs, 
+        freqs=freqs, 
+        method=method, 
+        sfreq=sfreq, 
+        mode="cwt_morlet", 
+        faverage=True
+    )
+
+    #Save connectivity data to a file
+    np.save('connectivity_data_vs1.npy', con_time.get_data(output='dense'))
+
+    # Extract connectivity matrices for each frequency band
+    for band, (fmin, fmax) in bands.items():
+        foi = list(bands.keys()).index(band)  # Frequency of interest
+        conn_matrices.append(con_time.get_data(output='dense')[foi])
+
+    # Convert list of arrays to numpy array for animation
+    connectivity_data = np.array(conn_matrices)
+    #Print the shape of the connectivity data
+    print(connectivity_data.shape)
+
+    #Save connectivity data to a file
+    np.save('connectivity_data.npy', connectivity_data)
+
+
+
+    # Create animation
+    def update_plot(frame, connectivity_data, im, band):
+        im.set_array(connectivity_data[frame][band])
+        return [im]
+
+    fig, ax = plt.subplots()
+    band = 'alpha'  # Choose a frequency band for the animation
+    im = ax.imshow(connectivity_data[0][band], vmin=0, vmax=1, cmap='viridis')
+
+    ani = animation.FuncAnimation(
+        fig, update_plot, frames=len(connectivity_data), fargs=(connectivity_data, im, band), blit=True
+    )
+
+    ani.save(output_file, writer='imagemagick')
+    plt.show()
 

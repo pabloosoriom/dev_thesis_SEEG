@@ -10,86 +10,92 @@ import seaborn as sns
 
 from functions.EpiIndex import *
 from functions.Connectivity import *
+from functions.preprocessing import *
 
 
 import sys
-
-def main():
-   import sys
 import time
+
 
 def main():
     # Start measuring execution time
     start_time = time.time()
 
     # Redirect output to a file
-    sys.stdout = open('.lightning_studio/EpiPlan /Pipeline/outputs/output.txt', 'w')
+    output_path = '/home/pablo/works/dev_thesis_SEEG/data/outputs/'
+    input_path = '/home/pablo/works/dev_thesis_SEEG/data/'
+    patient = 'pte_6'
 
-    data = mne.io.read_raw_edf("/teamspace/studios/this_studio/.lightning_studio/EpiPlan /data/pte6_1_28_38.edf", preload=True, infer_types=True)
-    print(f"Total data: {data.n_times}, with a total time of {data.n_times/data.info['sfreq']} seconds")
-    raw=data.copy().crop(5300, 5900)
-    print(f"Data reduced to: {raw.n_times} samples, with a total time of {raw.n_times/raw.info['sfreq']} seconds")
+    # # #Filtering
+    raw_cleaned = mne.io.read_raw_fif(input_path + patient + '_cleaned.fif', preload=True)
+    # # #raw_cleaned, fig = clean_data(raw, 'Cz')
+    raw_high_pass, fig1 = high_pass_filter(raw_cleaned)
+    raw_low_pass, fig2 = low_pass_filter(raw_high_pass)
+    print(raw_low_pass)
+    print(raw_low_pass.info)
 
-    # Get the channel names
-    ch_names = raw.ch_names
+    # # #Save the figures and the filtered data
+    fig1.savefig(output_path + patient + '_high_pass_filter.png')
+    fig2.savefig(output_path + patient + '_low_pass_filter.png')
+    raw_low_pass = set_names(raw_low_pass)
+    raw_low_pass.save(output_path + patient + '_filtered.fif', overwrite=True)
 
-    # Dictionary to hold channel types
-    channel_types = {}
 
-    # Set all channel types to 'seeg'
-    for ch_name in ch_names:
-        channel_types[ch_name] = 'seeg'
+    # # # Epoching
+    raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
+    t_sec=raw.n_times/raw.info['sfreq']
+    epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/5, preload=True)
+    print(epochs)
 
-    # Set the channel types
-    raw.set_channel_types(channel_types)
+    # # # Connectivity
+    
+    # Define frequency bands
+    bands = {'theta': (3.5, 7.5)}
 
-    # Verify that the channel types are correctly set
-    print(raw.info)
+    # Create the connectivity animation
+    create_connectivity_animation(
+        epochs=epochs,
+        raw=raw,
+        bands=bands,
+        method='pli',
+        output_file=output_path + patient + '_connectivity_animation.gif'
+    )
 
-    # Using a reference channel
-    reference_channel = 'MKR2+'
-    correlation_values = np.corrcoef(raw[reference_channel][0], raw.get_data())[0, 1:]
-    correlation_threshold = 0.4
-    outlier_channels = np.where(np.abs(correlation_values) < correlation_threshold)[0]
+    # print('Problematic channels dropped from the main database')
 
-    print(f'Problematic channel 1: {raw.ch_names[64]}')
-    print(f'Problematic channel 2: {raw.ch_names[129]}')
+    # channels = raw.ch_names
 
-    raw.drop_channels([raw.ch_names[64], raw.ch_names[129]])
+    # Ei_n1, ER_matrix1, U_n_matrix, ER_n_array, alarm_time = get_EI(raw)
 
-    print('Problematic channels dropped from the main database')
+    # plotting_ei(Ei_n1, ER_matrix1, channels, save_path='.lightning_studio/EpiPlan /Pipeline/outputs')
 
-    channels = raw.ch_names
+    # # Save Ei_n1 matrix to CSV
+    # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/Ei_n1.csv', Ei_n1, delimiter=';')
 
-    Ei_n1, ER_matrix1, U_n_matrix, ER_n_array, alarm_time = get_EI(raw)
+    # # Save ER_matrix1 matrix to CSV
+    # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/ER_matrix1.csv', ER_matrix1, delimiter=';')
 
-    plotting_ei(Ei_n1, ER_matrix1, channels, save_path='.lightning_studio/EpiPlan /Pipeline/outputs')
+    # # Save U_n_matrix matrix to CSV
+    # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/U_n_matrix.csv', U_n_matrix, delimiter=';')
 
-    # Save Ei_n1 matrix to CSV
-    np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/Ei_n1.csv', Ei_n1, delimiter=';')
+    # # Save ER_n_array matrix to CSV
+    # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/ER_n_array.csv', ER_n_array, delimiter=';')
 
-    # Save ER_matrix1 matrix to CSV
-    np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/ER_matrix1.csv', ER_matrix1, delimiter=';')
-
-    # Save U_n_matrix matrix to CSV
-    np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/U_n_matrix.csv', U_n_matrix, delimiter=';')
-
-    # Save ER_n_array matrix to CSV
-    np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/ER_n_array.csv', ER_n_array, delimiter=';')
-
-    # Save alarm_time matrix to CSV
-    np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/alarm_time.csv', alarm_time, delimiter=';')
-    # Stop measuring execution time
+    # # Save alarm_time matrix to CSV
+    # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/alarm_time.csv', alarm_time, delimiter=';')
+    # # Stop measuring execution time
     end_time = time.time()
     execution_time = end_time - start_time
 
-    # Print and save the execution time
     print(f'Total execution time: {execution_time} seconds')
-    with open('.lightning_studio/EpiPlan/Pipeline/output.txt', 'a') as f:
-        f.write(f'\nTotal execution time: {execution_time} seconds\n')
+
+    # # Print and save the execution time
+    # print(f'Total execution time: {execution_time} seconds')
+    # with open('.lightning_studio/EpiPlan/Pipeline/output.txt', 'a') as f:
+    #     f.write(f'\nTotal execution time: {execution_time} seconds\n')
 
     # Close the redirected output file
-    sys.stdout.close()
+    # sys.stdout.close()
 
 
 
