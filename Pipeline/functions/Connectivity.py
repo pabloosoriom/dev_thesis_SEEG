@@ -220,8 +220,9 @@ def calculate_and_plot_granger_causality(epochs, signals_a, signals_b,verbose=Tr
 
 def create_connectivity_animation(epochs, output_path,method='pli'):
    # Freq bands of interest
-    Freq_Bands = {"theta": [4.0, 7.5], "alpha": [7.5, 13.0], 
-                  "beta": [13.0, 30.0],'gamma':[30.0,45.0]}
+    # Freq_Bands = {"theta": [4.0, 7.5], "alpha": [7.5, 13.0], 
+    #               "beta": [13.0, 30.0],'gamma':[30.0,45.0]}
+    Freq_Bands = {"alpha": [7.5, 45]}
     n_freq_bands = len(Freq_Bands)
     min_freq = np.min(list(Freq_Bands.values()))
     max_freq = np.max(list(Freq_Bands.values()))
@@ -244,8 +245,9 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
         fmin=fmin,
         fmax=fmax,
         mode="cwt_morlet", 
-        faverage=False,
-        
+        faverage=True,
+        n_jobs=5,
+        n_cycles=1   
     )
 
     #Save connectivity data to a file

@@ -16,7 +16,8 @@ from functions.preprocessing import *
 import sys
 import time
 
-
+mne.set_config('MNE_MEMMAP_MIN_SIZE', '10M') 
+mne.set_config('MNE_CACHE_DIR', '/dev/shm')
 def main():
     # Start measuring execution time
     start_time = time.time()
@@ -24,13 +25,14 @@ def main():
     # Redirect output to a file
     output_path = '/home/pablo/works/dev_thesis_SEEG/data/outputs/'
     input_path = '/home/pablo/works/dev_thesis_SEEG/data/'
-    patient = 'pte_6'
+    patient = 'pteSR_10seg'
 
     # # #Filtering
-    raw_cleaned = mne.io.read_raw_fif(input_path + patient + '_cleaned.fif', preload=True)
-    # # #raw_cleaned, fig = clean_data(raw, 'Cz')
+    raw_cleaned = mne.io.read_raw_fif(input_path + patient + '.fif', preload=True)
+    # raw_cleaned, fig = clean_data(raw, "cc'1")
     raw_high_pass, fig1 = high_pass_filter(raw_cleaned)
     raw_low_pass, fig2 = low_pass_filter(raw_high_pass)
+
     print(raw_low_pass)
     print(raw_low_pass.info)
 
@@ -44,7 +46,7 @@ def main():
     # # # Epoching
     raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
     t_sec=raw.n_times/raw.info['sfreq']
-    epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/15, preload=True)
+    epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/150, preload=True)
     print(epochs)
 
     # # # Connectivity
@@ -55,41 +57,41 @@ def main():
         output_path=output_path + patient + '_'
     )
 
-    # print('Problematic channels dropped from the main database')
+    # # print('Problematic channels dropped from the main database')
 
-    # channels = raw.ch_names
+    # # channels = raw.ch_names
 
-    # Ei_n1, ER_matrix1, U_n_matrix, ER_n_array, alarm_time = get_EI(raw)
+    # # Ei_n1, ER_matrix1, U_n_matrix, ER_n_array, alarm_time = get_EI(raw)
 
-    # plotting_ei(Ei_n1, ER_matrix1, channels, save_path='.lightning_studio/EpiPlan /Pipeline/outputs')
+    # # plotting_ei(Ei_n1, ER_matrix1, channels, save_path='.lightning_studio/EpiPlan /Pipeline/outputs')
 
-    # # Save Ei_n1 matrix to CSV
-    # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/Ei_n1.csv', Ei_n1, delimiter=';')
+    # # # Save Ei_n1 matrix to CSV
+    # # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/Ei_n1.csv', Ei_n1, delimiter=';')
 
-    # # Save ER_matrix1 matrix to CSV
-    # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/ER_matrix1.csv', ER_matrix1, delimiter=';')
+    # # # Save ER_matrix1 matrix to CSV
+    # # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/ER_matrix1.csv', ER_matrix1, delimiter=';')
 
-    # # Save U_n_matrix matrix to CSV
-    # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/U_n_matrix.csv', U_n_matrix, delimiter=';')
+    # # # Save U_n_matrix matrix to CSV
+    # # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/U_n_matrix.csv', U_n_matrix, delimiter=';')
 
-    # # Save ER_n_array matrix to CSV
-    # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/ER_n_array.csv', ER_n_array, delimiter=';')
+    # # # Save ER_n_array matrix to CSV
+    # # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/ER_n_array.csv', ER_n_array, delimiter=';')
 
-    # # Save alarm_time matrix to CSV
-    # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/alarm_time.csv', alarm_time, delimiter=';')
-    # # Stop measuring execution time
+    # # # Save alarm_time matrix to CSV
+    # # np.savetxt('.lightning_studio/EpiPlan/Pipeline/outputs/alarm_time.csv', alarm_time, delimiter=';')
+    # # # Stop measuring execution time
     end_time = time.time()
     execution_time = end_time - start_time
 
     print(f'Total execution time: {execution_time} seconds')
 
-    # # Print and save the execution time
-    # print(f'Total execution time: {execution_time} seconds')
-    # with open('.lightning_studio/EpiPlan/Pipeline/output.txt', 'a') as f:
-    #     f.write(f'\nTotal execution time: {execution_time} seconds\n')
+    # # # Print and save the execution time
+    # # print(f'Total execution time: {execution_time} seconds')
+    # # with open('.lightning_studio/EpiPlan/Pipeline/output.txt', 'a') as f:
+    # #     f.write(f'\nTotal execution time: {execution_time} seconds\n')
 
-    # Close the redirected output file
-    # sys.stdout.close()
+    # # Close the redirected output file
+    # # sys.stdout.close()
 
 
 
