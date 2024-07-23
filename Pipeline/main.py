@@ -44,21 +44,15 @@ def main():
     # # # Epoching
     raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
     t_sec=raw.n_times/raw.info['sfreq']
-    epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/5, preload=True)
+    epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/15, preload=True)
     print(epochs)
 
     # # # Connectivity
-    
     # Define frequency bands
-    bands = {'theta': (3.5, 7.5)}
-
     # Create the connectivity animation
     create_connectivity_animation(
         epochs=epochs,
-        raw=raw,
-        bands=bands,
-        method='pli',
-        output_file=output_path + patient + '_connectivity_animation.gif'
+        output_path=output_path + patient + '_'
     )
 
     # print('Problematic channels dropped from the main database')
@@ -155,7 +149,5 @@ def plotting_ei(Ei_n, ER_matrix, channels, derivatives_d1=None, save_path=None):
         else:
             plt.show()
 
-
-
-main()
-
+if __name__ == "__main__":
+    main()
