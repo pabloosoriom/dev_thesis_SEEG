@@ -18,6 +18,7 @@ import time
 
 mne.set_config('MNE_MEMMAP_MIN_SIZE', '10M') 
 mne.set_config('MNE_CACHE_DIR', '/dev/shm')
+
 def main():
     # Start measuring execution time
     start_time = time.time()
@@ -25,10 +26,14 @@ def main():
     # Redirect output to a file
     output_path = '/home/pablo/works/dev_thesis_SEEG/data/outputs/'
     input_path = '/home/pablo/works/dev_thesis_SEEG/data/'
-    patient = 'pteSR_10seg'
+    patient = 'SR_subseg'
 
     # # #Filtering
     raw_cleaned = mne.io.read_raw_fif(input_path + patient + '.fif', preload=True)
+
+    #Additional steps 
+    #Eliminate a channel
+    raw_cleaned.drop_channels(['EKG+'])
     # raw_cleaned, fig = clean_data(raw, "cc'1")
     raw_high_pass, fig1 = high_pass_filter(raw_cleaned)
     raw_low_pass, fig2 = low_pass_filter(raw_high_pass)
@@ -46,7 +51,7 @@ def main():
     # # # Epoching
     raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
     t_sec=raw.n_times/raw.info['sfreq']
-    epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/150, preload=True)
+    epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/50, preload=True)
     print(epochs)
 
     # # # Connectivity

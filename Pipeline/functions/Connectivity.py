@@ -222,7 +222,7 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
    # Freq bands of interest
     # Freq_Bands = {"theta": [4.0, 7.5], "alpha": [7.5, 13.0], 
     #               "beta": [13.0, 30.0],'gamma':[30.0,45.0]}
-    Freq_Bands = {"alpha": [7.5, 45]}
+    Freq_Bands = {"alpha": [13.0,45.0]}
     n_freq_bands = len(Freq_Bands)
     min_freq = np.min(list(Freq_Bands.values()))
     max_freq = np.max(list(Freq_Bands.values()))
@@ -246,12 +246,11 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
         fmax=fmax,
         mode="cwt_morlet", 
         faverage=True,
-        n_jobs=5,
-        n_cycles=1   
+        n_jobs=5
     )
 
     #Save connectivity data to a file
-    np.save(output_path+'connectivity_data_dense.npy', con_time.get_data(output='dense'))
+    np.save(output_path+f'connectivity_data_high_freq_{method}_dense.npy', con_time.get_data(output='dense'))
     con_mat=con_time.get_data(output='dense')
     print(con_mat.shape)
         

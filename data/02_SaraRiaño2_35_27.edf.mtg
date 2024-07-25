@@ -1,0 +1,783 @@
+<!DOCTYPE AnyWaveMontage>
+<Montage>
+   <Channel name="n'1">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="n'2">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="n'3">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="n'4">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="n'5">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="n'6">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="n'7">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="n'8">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="n'9">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="n'10">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="n'11">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'1">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'2">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'3">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'4">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'5">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'6">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'7">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'8">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'9">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'10">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'11">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'12">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'13">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'14">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="cc'15">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="m'1">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="m'2">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="m'3">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="EKG+">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="m'4">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="m'5">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="m'6">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="m'7">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="m'8">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="m'9">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="m'10">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'1">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'2">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'3">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'4">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'5">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'6">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'7">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'8">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'9">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'10">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'11">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'12">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'13">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'14">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="sc'15">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'1">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'2">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'3">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'4">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'5">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'6">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'7">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'8">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'9">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'10">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'11">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="lp'12">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="MKR1+">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'1">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'2">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'3">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'4">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'5">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'6">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'7">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'8">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'9">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'10">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'11">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="y'12">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="oc'1">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="oc'2">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="oc'3">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="oc'4">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="oc'5">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="oc'6">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="oc'7">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="oc'8">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="oc'9">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="oc'10">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'1">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'2">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'3">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'4">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'5">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'6">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'7">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'8">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'9">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'10">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'11">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="op'12">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'1">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'2">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'3">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'4">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'5">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'6">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'7">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'8">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'9">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'10">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'11">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'12">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'13">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'14">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'15">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'16">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'17">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pi'18">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'1">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'2">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'3">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'4">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'5">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'6">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'7">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'8">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'9">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'10">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'11">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="pa'12">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+   <Channel name="MKR2+">
+      <type>EEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" highPass="-1" lowPass="-1"/>
+   </Channel>
+</Montage>
