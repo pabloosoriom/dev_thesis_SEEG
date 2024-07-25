@@ -54,12 +54,16 @@ def main():
     epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/50, preload=True)
     print(epochs)
 
+    #method
+    method = 'pli'
+    print(f'Connectivity method: {method}')
     # # # Connectivity
     # Define frequency bands
     # Create the connectivity animation
     create_connectivity_animation(
         epochs=epochs,
-        output_path=output_path + patient + '_'
+        output_path=output_path + patient + '_',
+        method=method
     )
 
     # # print('Problematic channels dropped from the main database')

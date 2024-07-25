@@ -222,7 +222,7 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
    # Freq bands of interest
     # Freq_Bands = {"theta": [4.0, 7.5], "alpha": [7.5, 13.0], 
     #               "beta": [13.0, 30.0],'gamma':[30.0,45.0]}
-    Freq_Bands = {"alpha": [13.0,45.0]}
+    Freq_Bands = {"theta+alpha": [4.0,13.0]}
     n_freq_bands = len(Freq_Bands)
     min_freq = np.min(list(Freq_Bands.values()))
     max_freq = np.max(list(Freq_Bands.values()))
@@ -250,7 +250,7 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
     )
 
     #Save connectivity data to a file
-    np.save(output_path+f'connectivity_data_high_freq_{method}_dense.npy', con_time.get_data(output='dense'))
+    np.save(output_path+f'connectivity_data_low_freq_{method}_dense.npy', con_time.get_data(output='dense'))
     con_mat=con_time.get_data(output='dense')
     print(con_mat.shape)
         
@@ -271,7 +271,7 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
         return Image.open(buf)
 
     # Create the animation
-    def create_animation(array, bands, ch_names):
+    def create_animation(array, bands, ch_names,method='pli'):
         for i, band_name in enumerate(bands):
             frames = []
             print(f"Creating animation for band: {band_name}")
@@ -282,9 +282,9 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
                 frames.append(frame_img)
 
             # Save the frames as an animated GIF
-            frames[0].save(output_path+f'{band_name}_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
+            frames[0].save(output_path+f'{band_name}_+f{method}+_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
     
-    create_animation(con_mat, Freq_Bands.keys(), epochs.ch_names)
+    create_animation(con_mat, Freq_Bands.keys(), epochs.ch_names,method=method)
 
     return con_time
 
