@@ -10,6 +10,7 @@ import networkx as nx
 import seaborn as sns
 import numpy as np
 from PIL import Image
+import json
 import io
 
 
@@ -118,10 +119,10 @@ def compute_adjacency_graph(raw,data=None, matrix_name=None, threshold=0.5, plot
             raise ValueError("Please provide the name of the matrix.")
         matrix = data
     
-    if plot:
-        sns.heatmap(matrix, square=True, vmin=-1, vmax=1, cmap='RdBu_r')
-        plt.title(f'{matrix_name} Matrix')
-        plt.show()
+    # if plot:
+    #     sns.heatmap(matrix, square=True, vmin=-1, vmax=1, cmap='RdBu_r')
+    #     plt.title(f'{matrix_name} Matrix')
+    #     plt.show()
     
     a = Adjacency(matrix,labels=[x for x in chanels])
     print(f'Adjacency matrix for {matrix_name} matrix')
@@ -162,6 +163,79 @@ def plot_adjacency_graph(adjacency):
     plt.title('Degree per channel', fontsize=20)
     plt.show()
     return G
+
+
+
+# def compute_adjacency_graph(raw, data=None, matrix_name=None, plot=True):
+#     channels = raw.ch_names
+#     if data is None:
+#         # Use correlation matrix if no specific matrix is provided
+#         matrix_name = "Correlation"
+#         data = []
+#         for i in range(len(channels)):
+#             data.append(raw.get_data(picks=channels[i]))
+
+#         # Pearson correlation
+#         corr = []
+#         for i in range(len(channels)):
+#             for j in range(len(channels)):
+#                 corr.append(np.corrcoef(data[i][0], data[j][0])[0][1])
+
+#         # Reshape the correlation list to a matrix
+#         corr = np.array(corr).reshape(len(channels), len(channels))
+#         matrix = corr
+#     else:
+#         if matrix_name is None:
+#             raise ValueError("Please provide the name of the matrix.")
+#         matrix = data
+    
+#     if plot:
+#         sns.heatmap(matrix, square=True, vmin=-1, vmax=1, cmap='RdBu_r')
+#         plt.title(f'{matrix_name} Matrix')
+#         plt.show()
+    
+#     a = Adjacency(matrix, labels=[x for x in channels])
+#     print(f'Adjacency matrix for {matrix_name} matrix')
+
+#     if plot:
+#         G = plot_adjacency_graph(a)
+    
+#     return a, G
+
+# def plot_adjacency_graph(adjacency):
+#     plt.figure(figsize=(20, 10))
+#     G = adjacency.to_graph()
+#     pos = nx.kamada_kawai_layout(G)
+#     node_and_degree = G.degree()
+    
+#     # Draw edges with weights
+#     edges, weights = zip(*nx.get_edge_attributes(G, 'weight').items())
+#     nx.draw_networkx_edges(G, pos, edgelist=edges, width=[w*5 for w in weights], alpha=0.5)
+    
+#     # Draw nodes and labels
+#     nx.draw_networkx_labels(G, pos, font_size=14, font_color='darkslategray')
+#     nx.draw_networkx_nodes(G, pos, nodelist=list(dict(node_and_degree).keys()),
+#                            node_size=[x[1]*100 for x in node_and_degree],
+#                            node_color=list(dict(node_and_degree).values()),
+#                            cmap=plt.cm.Reds_r, linewidths=2, edgecolors='darkslategray', alpha=1)
+#     plt.title('Adjacency Graph')
+#     plt.show()
+
+#     # Degree histogram
+#     plt.hist(dict(G.degree).values(), bins=20, color='lightseagreen', alpha=0.7)
+#     plt.ylabel('Frequency', fontsize=18)
+#     plt.xlabel('Degree', fontsize=18)
+#     plt.show()
+
+#     # Degree per channel plot
+#     plt.figure(figsize=(20, 15))
+#     plt.barh(list(dict(G.degree).keys()), list(dict(G.degree).values()), color='lightseagreen')
+#     plt.xlabel('Degree', fontsize=18)
+#     plt.ylabel('Channel', fontsize=18)
+#     plt.title('Degree per channel', fontsize=20)
+#     plt.show()
+
+#     return G
 
 
 def calculate_and_plot_granger_causality(epochs, signals_a, signals_b,verbose=True, fmin=5, fmax=30, gc_n_lags=20,plot=True):
@@ -236,25 +310,69 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
 
     sfreq = epochs.info['sfreq']
 
-    # Compute the time-resolved connectivity
-    con_time = spectral_connectivity_time(
-        epochs, 
-        freqs=freqs, 
-        method=method, 
-        sfreq=sfreq, 
-        fmin=fmin,
-        fmax=fmax,
-        mode="cwt_morlet", 
-        faverage=True,
-        n_jobs=5
-    )
+    if method != 'gc':
+        # Compute the time-resolved connectivity
+        con_time = spectral_connectivity_time(
+            epochs, 
+            freqs=freqs, 
+            method=method, 
+            sfreq=sfreq, 
+            fmin=fmin,
+            fmax=fmax,
+            mode="cwt_morlet", 
+            faverage=True,
+            n_jobs=5
+        )
+        #Save connectivity data to a file
+        np.save(output_path+f'connectivity_data_low_freq_{method}_dense.npy', con_time.get_data(output='dense'))
+        con_mat=con_time.get_data(output='dense')
+        print(con_mat.shape)
 
-    #Save connectivity data to a file
-    np.save(output_path+f'connectivity_data_low_freq_{method}_dense.npy', con_time.get_data(output='dense'))
-    con_mat=con_time.get_data(output='dense')
-    print(con_mat.shape)
-        
-    # Create animation for every band in the bands dictionary
+    else:
+        print('Granger causality')
+        dict_gc = create_granger_regions(epochs,freqs,fmin,fmax,sfreq)
+        #Save dictionary
+        np.save(output_path+f'connectivity_data_low_freq_{method}_dense.npy', dict_gc)
+        with open(output_path+f'connectivity_data_low_freq_{method}_dense.json', 'w') as json_file:
+            json.dump(dict_gc, json_file)
+     # Generate all possible pairs of channels (excluding self-connections)
+        # channels = epochs.ch_names
+        # n_channels = len(channels)
+        # n_epochs = len(epochs)
+
+        # # Initialize a 3D matrix to store Granger causality values
+        # gc_matrix = np.zeros((n_epochs, n_channels, n_channels))
+
+        # # Loop over each epoch
+        # for epoch_idx in range(n_epochs):
+        #     print(f"Processing epoch {epoch_idx + 1}/{n_epochs}...")
+            
+        #     # Generate all possible pairs of channels (excluding self-connections)
+        #     indices = [(np.array(i), np.array(j)) for i in range(n_channels) for j in range(n_channels) if i != j]
+        #     print(indices)
+            
+        #     # Extract the data for the current epoch
+        #     current_epoch = epochs[epoch_idx]
+            
+        #     # Calculate Granger causality for each pair of channels
+        #     for set_idx in indices:
+        #         con = spectral_connectivity_epochs(
+        #             current_epoch,
+        #             method="gc",
+        #             indices=set_idx,
+        #             fmin=fmin,
+        #             fmax=fmax,
+        #             mode="cwt_morlet", 
+        #             faverage=True,
+        #             n_jobs=5
+        #         )
+        #         # Extract Granger causality value
+        #         gc_value = con.get_data(output="dense")[0, 0]
+                
+        #         # Store the value in the matrix
+        #         i, j = set_idx[0][0], set_idx[1][0]
+        #         gc_matrix[epoch_idx, i, j] = gc_value
+    # # Create animation for every band in the bands dictionary
     def create_frame(matrix, band_name, ch_names, frame_number):
         plt.figure(figsize=(10, 10))
         sns.heatmap(matrix, xticklabels=ch_names, yticklabels=ch_names, cmap='viridis')
@@ -271,7 +389,7 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
         return Image.open(buf)
 
     # Create the animation
-    def create_animation(array, bands, ch_names,method='pli'):
+    def create_animation(array, bands, ch_names,method):
         for i, band_name in enumerate(bands):
             frames = []
             print(f"Creating animation for band: {band_name}")
@@ -282,10 +400,75 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
                 frames.append(frame_img)
 
             # Save the frames as an animated GIF
-            frames[0].save(output_path+f'{band_name}_+f{method}+_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
+            frames[0].save(output_path+f'{band_name}_{method}_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
     
     create_animation(con_mat, Freq_Bands.keys(), epochs.ch_names,method=method)
 
-    return con_time
+    # return con_time
+    return print('Connectivity animation created')
+
+def create_granger_regions(epochs,freqs,fmin,fmax,sfreq):
+    # Group channels based on their prefixes
+    channel_groups = {}
+    for idx, channel in enumerate(epochs.ch_names):
+        prefix = ''.join(filter(str.isalpha, channel))
+        if prefix in channel_groups:
+            channel_groups[prefix].append(idx)
+        else:
+            channel_groups[prefix] = [idx]
+
+
+    for prefix, channels in channel_groups.items():
+        print(f'{prefix}: {channels}')
 
     
+    def calculate_and_plot_granger_causality(epochs, signals_a, signals_b, freqs, fmin, fmax, sfreq):
+        indices_ab = (np.array([signals_a]), np.array([signals_b]))  # A => B
+        indices_ba = (np.array([signals_b]), np.array([signals_a]))  # B => A
+
+
+        gc_ab = spectral_connectivity_time(
+            epochs, 
+            freqs=freqs, 
+            indices=indices_ab,
+            method='gc', 
+            sfreq=sfreq, 
+            fmin=fmin,
+            fmax=fmax,
+            mode="cwt_morlet", 
+            faverage=True,
+            n_jobs=5
+            
+        )  # A => B
+
+        gc_ba = spectral_connectivity_time(
+            epochs, 
+            freqs=freqs, 
+            indices=indices_ba,
+            method='gc', 
+            sfreq=sfreq, 
+            fmin=fmin,
+            fmax=fmax,
+            mode="cwt_morlet", 
+            faverage=True,
+            n_jobs=5
+            
+        )# B => A
+        return gc_ab, gc_ba
+    #Create a dictionary to store the Granger causality values for every pair of prefixes
+    gc_values = {}
+    for j, prefix1 in enumerate(channel_groups.keys()):
+        for k, prefix2 in enumerate(channel_groups.keys()):
+            if j != k:
+               print(f"Calculating GC for {prefix1} => {prefix2}")
+               A=channel_groups[prefix1]
+               B=channel_groups[prefix2]
+               gc_ab, gc_ba = calculate_and_plot_granger_causality(epochs, A, B, freqs, fmin, fmax, sfreq)
+               gc_values[(prefix1,prefix2)] = gc_ab.get_data(output='dense')
+               gc_values[(prefix2,prefix1)] = gc_ba.get_data(output='dense')
+    
+    return gc_values
+
+
+    
+

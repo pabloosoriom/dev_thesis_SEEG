@@ -51,11 +51,11 @@ def main():
     # # # Epoching
     raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
     t_sec=raw.n_times/raw.info['sfreq']
-    epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/50, preload=True)
-    print(epochs)
+    epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/5, preload=True)
+    print(epochs)   
 
     #method
-    method = 'pli'
+    method = 'gc'
     print(f'Connectivity method: {method}')
     # # # Connectivity
     # Define frequency bands
