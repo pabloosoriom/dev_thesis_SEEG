@@ -292,11 +292,11 @@ def calculate_and_plot_granger_causality(epochs, signals_a, signals_b,verbose=Tr
 
     return gc_ab, gc_ba, freqs
 
-def create_connectivity_animation(epochs, output_path,method='pli'):
+def create_connectivity(epochs, output_path,method='pli',animation=True,state=''):
    # Freq bands of interest
     # Freq_Bands = {"theta": [4.0, 7.5], "alpha": [7.5, 13.0], 
     #               "beta": [13.0, 30.0],'gamma':[30.0,45.0]}
-    Freq_Bands = {"theta+alpha": [4.0,13.0]}
+    Freq_Bands = {"beta+gamma": [13.0, 45.0]}
     n_freq_bands = len(Freq_Bands)
     min_freq = np.min(list(Freq_Bands.values()))
     max_freq = np.max(list(Freq_Bands.values()))
@@ -324,7 +324,7 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
             n_jobs=5
         )
         #Save connectivity data to a file
-        np.save(output_path+f'connectivity_data_low_freq_{method}_dense.npy', con_time.get_data(output='dense'))
+        np.save(output_path+f'connectivity_data_high_freq_{method}_dense.npy', con_time.get_data(output='dense'))
         con_mat=con_time.get_data(output='dense')
         print(con_mat.shape)
 
@@ -402,8 +402,20 @@ def create_connectivity_animation(epochs, output_path,method='pli'):
             # Save the frames as an animated GIF
             frames[0].save(output_path+f'{band_name}_{method}_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
     
-    create_animation(con_mat, Freq_Bands.keys(), epochs.ch_names,method=method)
-
+    if animation:
+        create_animation(con_mat, Freq_Bands.keys(), epochs.ch_names,method=method)
+    else:
+        print('Connectivity data saved')
+        #Create a figure with averaged data over all epochs
+        fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+        matrix=con_mat[:,:,:,0]
+        sns.heatmap(np.mean(matrix, axis=0), xticklabels=epochs.ch_names, yticklabels=epochs.ch_names, cmap='viridis')
+        plt.xticks(fontsize=8, rotation=90)
+        plt.yticks(fontsize=8)
+        plt.title(f'{method} connectivity for all epochs in {state} state ')
+        #save the figure
+        plt.savefig(output_path+f'{method}_connectivity.png')
+        
     # return con_time
     return print('Connectivity animation created')
 

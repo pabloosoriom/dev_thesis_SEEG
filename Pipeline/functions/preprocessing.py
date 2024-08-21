@@ -12,8 +12,8 @@ from mne import io
 import numpy as np
 import matplotlib.pyplot as plt
 
-def clean_data(raw, reference_channel, correlation_threshold=0.1):
-    # Step 1: Determine outlier channels based on correlation
+def bad_channels_filter(raw, reference_channel, correlation_threshold=0.1):
+    # Step 1: Determine bad channels based on correlation
     ch_names = raw.ch_names
     correlation_values = np.corrcoef(raw[reference_channel][0], raw.get_data())[0, 1:]
     outlier_channels = np.where(np.abs(correlation_values) < correlation_threshold)[0]
@@ -54,7 +54,7 @@ def clean_data(raw, reference_channel, correlation_threshold=0.1):
     
     return raw_cleaned, fig
 
-def high_pass_filter(raw, high_pass_freq = 0.16 , verbose=True):
+def high_pass_filter(raw, high_pass_freq = 0.16 , verbose=False):
     raw_high_pass = raw.copy().filter(l_freq=high_pass_freq, h_freq=None)
     
     if verbose:
@@ -63,7 +63,7 @@ def high_pass_filter(raw, high_pass_freq = 0.16 , verbose=True):
     
     return raw_high_pass, fig
 
-def low_pass_filter(raw, high_cutoff=97, verbose=True):
+def low_pass_filter(raw, high_cutoff=97, verbose=False):
     raw_low_pass = raw.copy().filter(l_freq=None, h_freq=high_cutoff)
     
     if verbose:
@@ -88,15 +88,18 @@ def set_names(raw, type='seeg'):
     return raw
 
 
-# # #Testing filter functions
-# raw_cleaned = mne.io.read_raw_fif('/home/pablo/works/dev_thesis_SEEG/data/pte_6_cleaned.fif', preload=True)
-# # #raw_cleaned, fig = clean_data(raw, 'Cz')
-# raw_high_pass, fig1 = high_pass_filter(raw_cleaned)
-# raw_low_pass, fig2 = low_pass_filter(raw_high_pass)
-# print(raw_low_pass)
-# print(raw_low_pass.info)
-# # #Save the figures 
-# fig1.savefig('/home/pablo/works/dev_thesis_SEEG/data/pte_6_high_pass_filter.png')
-# fig2.savefig('/home/pablo/works/dev_thesis_SEEG/data/pte_6_low_pass_filter.png')
-# raw_low_pass = set_names(raw_low_pass)
-# raw_low_pass.save('/home/pablo/works/dev_thesis_SEEG/data/pte_6_filtered.fif', overwrite=True)
+def line_noise_filter(raw, notch_freqs=[60, 120, 180, 240], verbose=False):
+    raw_notch = raw.copy().notch_filter(freqs=notch_freqs, filter_length='auto', 
+                                        notch_widths=None, trans_bandwidth=1, 
+                                        method='fir', iir_params=None,
+                                        mt_bandwidth=None, p_value=0.05, 
+                                        picks=None, n_jobs=5, copy=True, 
+                                        phase='zero', fir_window='hamming', 
+                                        fir_design='firwin', pad='reflect_limited')
+    
+    if verbose:
+        fig = raw.plot_psd()
+        fig = raw_notch.plot_psd()
+    
+    return raw_notch, fig
+
