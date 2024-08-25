@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import mne
 from mne import io
+from scipy.fft import fft, fftfreq
 
 
 import numpy as np
@@ -54,22 +55,15 @@ def bad_channels_filter(raw, reference_channel, correlation_threshold=0.1):
     
     return raw_cleaned, fig
 
-def high_pass_filter(raw, high_pass_freq = 0.16 , verbose=False):
-    raw_high_pass = raw.copy().filter(l_freq=high_pass_freq, h_freq=None)
-    
-    if verbose:
-        fig = raw.plot_psd()
-        fig = raw_high_pass.plot_psd()
-    
-    return raw_high_pass, fig
 
-def low_pass_filter(raw, high_cutoff=97, verbose=False):
-    raw_low_pass = raw.copy().filter(l_freq=None, h_freq=high_cutoff)
+
+def pass_filter(raw, high_pass=1,low_pass=110, verbose=False):
+    raw_low_pass = raw.copy().filter(l_freq=high_pass, h_freq=low_pass)
     
-    if verbose:
-        fig = raw.plot_psd()
-        fig = raw_low_pass.plot_psd()
     
+    fig = raw.plot_psd()
+    fig = raw_low_pass.plot_psd()
+
     return raw_low_pass, fig
 
 def set_names(raw, type='seeg'):
@@ -87,19 +81,89 @@ def set_names(raw, type='seeg'):
     print('Channel types set to "seeg"')
     return raw
 
+def find_powerline_freqs(raw):
+    #Getting the total time of the recording
+    total_time = raw.times[-1]
+    #Getting the sampling frequency
+    sfreq = raw.info['sfreq']
+    #Getting the number of channels
+    n_channels = raw.info['nchan']
 
-def line_noise_filter(raw, notch_freqs=[60, 120, 180, 240], verbose=False):
-    raw_notch = raw.copy().notch_filter(freqs=notch_freqs, filter_length='auto', 
+    sampling_rate = sfreq  # Hz
+    T = 1.0 / sampling_rate  # Sample spacing
+    t = np.arange(0, int(total_time), T)
+
+    miu_s=np.linspace(0.6,0.95,7)
+
+    means=[]
+
+    for miu in miu_s:
+        power_line_freqs_pos=[]
+        for ch in range(n_channels):
+            # Simulating a signal with power line interference at 50 Hz and its harmonics
+            signal = raw.get_data()[ch]
+
+            # Perform FFT
+            N = len(t)  # Number of samples
+            yf = fft(signal)  # Compute the fast Fourier transform
+            xf = fftfreq(N, T)[:N // 2]  # Frequencies corresponding to the FFT result
+
+            # Get the magnitude of the FFT (only positive frequencies)
+            magnitude = np.abs(yf[:N // 2])
+            threshold = np.max(magnitude) * miu
+        # Find frequencies where magnitude exceeds the threshold
+            power_line_freqs = xf[magnitude > threshold]
+            power_line_freqs_pos.append(power_line_freqs[power_line_freqs>0])
+        
+        means.append(np.mean(np.concatenate(power_line_freqs_pos)))
+
+    print(f"Possible Power line Frequencies Detected: {means}")
+
+    return means
+
+
+    
+def line_noise_filter(raw, notch_freqs, verbose=False):
+    raw_notch = raw.notch_filter(freqs=notch_freqs, filter_length='auto', 
                                         notch_widths=None, trans_bandwidth=1, 
                                         method='fir', iir_params=None,
                                         mt_bandwidth=None, p_value=0.05, 
-                                        picks=None, n_jobs=5, copy=True, 
-                                        phase='zero', fir_window='hamming', 
+                                        picks=None, n_jobs=5, phase='zero', fir_window='hamming', 
                                         fir_design='firwin', pad='reflect_limited')
     
     if verbose:
-        fig = raw.plot_psd()
-        fig = raw_notch.plot_psd()
-    
+        fig, ax = plt.subplots(2)
+
+        raw.plot_psd(ax=ax[0], color='blue',average=True)
+        raw_notch.plot_psd(ax=ax[1], color='red',average=True)
+
+        ax[0].set_title('Original signal')
+        ax[0].set_ylabel('Power (dB)')
+        ax[1].set_title('Signal after power noise removal')
+        ax[1].set_xlabel('Frequency (Hz)')
+        ax[1].set_ylabel('Power (dB)')
+
+        fig.set_tight_layout(True)
+        plt.show()
+
+      
     return raw_notch, fig
+
+
+def tag_high_amplitude(epochs):
+    #Threshold for identifying high amplitude transients
+    threshold = 3000  # in microvolts (µV)
+
+    # Create a list to store the indices of epochs with high amplitude transients
+    bad_epochs = []
+
+    # Iterate over epochs
+    for i, epoch in enumerate(epochs):
+        # Check if the absolute value of any sample in the epoch exceeds the threshold
+        if np.max(np.abs(epoch)) > threshold:
+            bad_epochs.append(i)
+        
+
+    return bad_epochs
+
 

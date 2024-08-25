@@ -12,6 +12,7 @@ import numpy as np
 from PIL import Image
 import json
 import io
+from scipy.signal import hilbert
 
 
 
@@ -292,7 +293,45 @@ def calculate_and_plot_granger_causality(epochs, signals_a, signals_b,verbose=Tr
 
     return gc_ab, gc_ba, freqs
 
-def create_connectivity(epochs, output_path,method='pli',animation=True,state=''):
+
+
+   
+
+
+def create_connectivity(epochs, output_path,method='pli',animation=False,state=''):
+    ### Important functions###
+    def create_frame(matrix, band_name, ch_names, frame_number):
+        plt.figure(figsize=(10, 10))
+        sns.heatmap(matrix, xticklabels=ch_names, yticklabels=ch_names, cmap='viridis')
+        plt.xticks(fontsize=8, rotation=90)
+        plt.yticks(fontsize=8)
+        plt.title(f'{band_name} - (Epoch) {frame_number}')
+        
+        # Save the plot to a Pillow image using an in-memory buffer
+        buf = io.BytesIO()
+        plt.tight_layout()
+        plt.savefig(buf, format='png')
+        plt.close()
+        buf.seek(0)
+        return Image.open(buf)
+
+    # Create the animation
+    def create_animation(array, bands, ch_names,method):
+        for i, band_name in enumerate(bands):
+            frames = []
+            print(f"Creating animation for band: {band_name}")
+            for j in range(array.shape[0]):
+                matrix = array[j, :, :, i]
+                print(j)
+                frame_img = create_frame(matrix, band_name, ch_names, j)
+                frames.append(frame_img)
+
+            # Save the frames as an animated GIF
+            frames[0].save(output_path+f'{band_name}_{method}_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
+    
+
+
+
    # Freq bands of interest
     # Freq_Bands = {"theta": [4.0, 7.5], "alpha": [7.5, 13.0], 
     #               "beta": [13.0, 30.0],'gamma':[30.0,45.0]}
@@ -310,7 +349,7 @@ def create_connectivity(epochs, output_path,method='pli',animation=True,state=''
 
     sfreq = epochs.info['sfreq']
 
-    if method != 'gc':
+    if method == 'pli' :
         # Compute the time-resolved connectivity
         con_time = spectral_connectivity_time(
             epochs, 
@@ -328,7 +367,51 @@ def create_connectivity(epochs, output_path,method='pli',animation=True,state=''
         con_mat=con_time.get_data(output='dense')
         print(con_mat.shape)
 
-    else:
+    elif method =='aec':
+       
+        #Get the band-pass signal for every frequency of interest
+        filtered_epochs= frequency_bands(epochs=epochs)
+        
+        #At first we need to mirror-padd at both ends for applying the Hilbert transform properly
+        # Apply to all epochs and channels in a specific band (e.g., 'low_gamma')
+        hilbert_transformed_data_bands={}
+        envelop_data_bands={}
+        phase_data_bands={}
+        for bands in filtered_epochs.keys():
+            hilbert_transformed_data = []
+            envelop_list=[]
+            phase_list=[]
+            for epoch_data in filtered_epochs[bands]:
+                transformed_epoch,envelop,phase = apply_hilbert_transform(epoch_data)
+                hilbert_transformed_data.append(transformed_epoch)
+                envelop_list.append(envelop)
+                phase_list.append(phase)
+
+            hilbert_transformed_data = np.array(hilbert_transformed_data)  # Shape: (n_epochs, n_channels, epoch_length)
+            hilbert_transformed_data_bands[bands]=hilbert_transformed_data
+            envelop_list=np.array(envelop_list)
+            envelop_data_bands[bands]=envelop_list
+            phase_list=np.array(phase_list)
+            phase_data_bands[bands]=phase_list
+
+        # Calculate AEC for each frequency band and epoch
+        aec_results = {}
+        for band, envelopes in envelop_data_bands.items():
+            aec_results[band] = []
+            print(f'Calculating results for band {band}')
+            for envelope in envelopes:                
+                aec_matrix = calculate_aec(envelope)
+                aec_results[band].append(aec_matrix)
+            aec_results[band] = np.array(aec_results[band])
+        #Transform the dictionary in a four dimenstional matrix, where the 4th dimension is the band
+        aec_results = np.array([aec_results[band] for band in aec_results.keys()])
+        # # Create a new MNE Epochs object with the trimmed data
+        # info = epochs.info  # Keep the original info
+        # new_epochs = mne.EpochsArray(trimmed_data, info, epoch_time=epochs.times)
+        
+        create_animation(aec_results, list(Freq_Bands.keys()), epochs.ch_names,method=method)
+    elif method == 'gc':
+
         print('Granger causality')
         dict_gc = create_granger_regions(epochs,freqs,fmin,fmax,sfreq)
         #Save dictionary
@@ -373,35 +456,6 @@ def create_connectivity(epochs, output_path,method='pli',animation=True,state=''
         #         i, j = set_idx[0][0], set_idx[1][0]
         #         gc_matrix[epoch_idx, i, j] = gc_value
     # # Create animation for every band in the bands dictionary
-    def create_frame(matrix, band_name, ch_names, frame_number):
-        plt.figure(figsize=(10, 10))
-        sns.heatmap(matrix, xticklabels=ch_names, yticklabels=ch_names, cmap='viridis')
-        plt.xticks(fontsize=8, rotation=90)
-        plt.yticks(fontsize=8)
-        plt.title(f'{band_name} - (Epoch) {frame_number}')
-        
-        # Save the plot to a Pillow image using an in-memory buffer
-        buf = io.BytesIO()
-        plt.tight_layout()
-        plt.savefig(buf, format='png')
-        plt.close()
-        buf.seek(0)
-        return Image.open(buf)
-
-    # Create the animation
-    def create_animation(array, bands, ch_names,method):
-        for i, band_name in enumerate(bands):
-            frames = []
-            print(f"Creating animation for band: {band_name}")
-            for j in range(array.shape[0]):
-                matrix = array[j, :, :, i]
-                print(j)
-                frame_img = create_frame(matrix, band_name, ch_names, j)
-                frames.append(frame_img)
-
-            # Save the frames as an animated GIF
-            frames[0].save(output_path+f'{band_name}_{method}_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
-    
     if animation:
         create_animation(con_mat, Freq_Bands.keys(), epochs.ch_names,method=method)
     else:
@@ -418,6 +472,62 @@ def create_connectivity(epochs, output_path,method='pli',animation=True,state=''
         
     # return con_time
     return print('Connectivity animation created')
+
+
+def get_amplitude_envelope(epoch_data):
+    analytic_signal = hilbert(epoch_data, axis=1)  # Apply Hilbert transform along time axis
+    amplitude_envelope = np.abs(analytic_signal)   # Get amplitude envelope
+    return amplitude_envelope
+
+
+def frequency_bands(epochs):
+    frequency_bands = {
+    'theta': (4, 8),
+    'alpha': (8, 12),
+    'beta': (15, 25),
+    'low_gamma': (35, 50),
+    'high_gamma1': (70, 110)
+    }
+
+    filtered_epochs = {}
+    for band, (l_freq, h_freq) in frequency_bands.items():
+        filtered_epochs[band] = epochs.copy().filter(l_freq, h_freq, fir_design='firwin', phase='zero-double',n_jobs=5)
+        #No more frequencies are considered to accomplish the Nysquist-shannon sampling theorem
+    
+    return filtered_epochs
+
+def get_envelop(epoch_data):
+    return np.abs(epoch_data)
+
+# Function for mirror padding and Hilbert transform
+def apply_hilbert_transform(epoch_data):
+    # Mirror padding the epoch data (pad by mirroring the first and last samples)
+    padding_length = 1000  # Padding with half of the epoch length
+    padded_data = np.pad(epoch_data, ((0, 0), (padding_length, padding_length)), mode='reflect')
+
+    # Apply Hilbert transform
+    analytic_signal = hilbert(padded_data, axis=1)
+
+    # Trim the padding to retrieve the original epoch length
+    trimmed_analytic_signal = analytic_signal[:, padding_length:-padding_length]
+    envelop=np.abs(trimmed_analytic_signal)
+    phase=np.angle(trimmed_analytic_signal)
+
+    return trimmed_analytic_signal,envelop,phase
+
+def calculate_aec(amplitude_envelopes):
+    n_channels = amplitude_envelopes.shape[0]
+    aec_matrix = np.zeros((n_channels, n_channels))
+    
+    for i in range(n_channels):
+        for j in range(i, n_channels):
+            correlation = np.corrcoef(amplitude_envelopes[i], amplitude_envelopes[j])[0, 1]
+            aec_matrix[i, j] = correlation
+            aec_matrix[j, i] = correlation  # Symmetric matrix
+            
+    return aec_matrix
+
+
 
 def create_granger_regions(epochs,freqs,fmin,fmax,sfreq):
     # Group channels based on their prefixes

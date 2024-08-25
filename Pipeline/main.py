@@ -31,33 +31,47 @@ def main():
     
 
     # # #Reading the data
-    raw = mne.io.read_raw_fif(input_path + 'ictal-epo_0' + '.fif', preload=True)
+    raw = mne.io.read_raw_fif(input_path + 'ictal-epo_6' + '.fif', preload=True)
 
-    #Additional steps 
+     #Additional steps 
     #Eliminate a channel
     # raw_cleaned.drop_channels(['EKG+'])
-    # raw_cleaned, fig = clean_data(raw, "cc'1")
-    raw_high_pass, fig1 = high_pass_filter(raw_cleaned)
-    raw_low_pass, fig2 = low_pass_filter(raw_high_pass)
 
-    print(raw_low_pass)
-    print(raw_low_pass.info)
+    #Pass filter 
+    raw_filtered1,_=pass_filter(raw)
 
-    # # #Save the figures and the filtered data
-    fig1.savefig(output_path + patient + '_high_pass_filter.png')
-    fig2.savefig(output_path + patient + '_low_pass_filter.png')
-    raw_low_pass = set_names(raw_low_pass)
-    raw_low_pass.save(output_path + patient + '_filtered.fif', overwrite=True)
+    # #Find the Possible Power Line Frequencies
+    # possible_freqs=find_powerline_freqs(raw)
+    # plf=np.mean(possible_freqs)
 
+    #Remove Possible Power Line Frequencies 
+    raw_filtered,_ = line_noise_filter(raw_filtered1,[60,120],True)    
+     
+    #Setting names
+    raw_filtered = set_names(raw_filtered)
+
+    #Save filtered raw
+    raw_filtered.save(output_path + patient + '_filtered.fif', overwrite=True)
+
+   
 
     # # # Epoching
     raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
     t_sec=raw.n_times/raw.info['sfreq']
-    epochs=mne.make_fixed_length_epochs(raw, duration=t_sec/5, preload=True)
-    print(epochs)   
+    epochs=mne.make_fixed_length_epochs(raw, duration=6, preload=True)
 
+
+    print(epochs.info)   
+
+    #Tagging epochs with high amplitude transients
+    bad_epochs=tag_high_amplitude(epochs)
+
+    if bad_epochs:
+        epochs.drop(bad_epochs)
+
+    
     #method
-    method = 'gc'
+    method = 'aec'
     print(f'Connectivity method: {method}')
     # # # Connectivity
     # Define frequency bands
@@ -66,7 +80,7 @@ def main():
         epochs=epochs,
         output_path=output_path + patient + '_',
         method=method,
-        animation=True
+        animation=False
     )
 
     # # print('Problematic channels dropped from the main database')
@@ -223,6 +237,6 @@ def plotting_ei(Ei_n, ER_matrix, channels, derivatives_d1=None, save_path=None):
         else:
             plt.show()
 
-# if __name__ == "__main__":
-#     main()
-segment_processing()
+if __name__ == "__main__":
+    main()
+# segment_processing()
