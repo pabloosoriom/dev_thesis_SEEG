@@ -124,7 +124,7 @@ def find_powerline_freqs(raw):
 
     
 def line_noise_filter(raw, notch_freqs, verbose=False):
-    raw_notch = raw.notch_filter(freqs=notch_freqs, filter_length='auto', 
+    raw_notch = raw.copy().notch_filter(freqs=notch_freqs, filter_length='auto', 
                                         notch_widths=None, trans_bandwidth=1, 
                                         method='fir', iir_params=None,
                                         mt_bandwidth=None, p_value=0.05, 

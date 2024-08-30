@@ -368,7 +368,6 @@ def create_connectivity(epochs, output_path,method='pli',animation=False,state='
         print(con_mat.shape)
 
     elif method =='aec':
-       
         #Get the band-pass signal for every frequency of interest
         filtered_epochs= frequency_bands(epochs=epochs)
         
@@ -404,12 +403,17 @@ def create_connectivity(epochs, output_path,method='pli',animation=False,state='
                 aec_results[band].append(aec_matrix)
             aec_results[band] = np.array(aec_results[band])
         #Transform the dictionary in a four dimenstional matrix, where the 4th dimension is the band
+        #Saving a npy file for every band
+        for band in aec_results.keys():
+            np.save(output_path+f'connectivity_data_{band}_{method}_dense.npy', aec_results[band])
+
         aec_results = np.array([aec_results[band] for band in aec_results.keys()])
-        # # Create a new MNE Epochs object with the trimmed data
-        # info = epochs.info  # Keep the original info
-        # new_epochs = mne.EpochsArray(trimmed_data, info, epoch_time=epochs.times)
-        
-        create_animation(aec_results, list(Freq_Bands.keys()), epochs.ch_names,method=method)
+        aec_results= np.transpose(aec_results,(1,2,3,0))
+        # # # Create a new MNE Epochs object with the trimmed data
+        # # info = epochs.info  # Keep the original info
+        # # new_epochs = mne.EpochsArray(trimmed_data, info, epoch_time=epochs.times)
+        print(f'Creating animations for {list(filtered_epochs.keys())}')
+        create_animation(aec_results, list(filtered_epochs.keys()), epochs.ch_names,method=method)
     elif method == 'gc':
 
         print('Granger causality')
@@ -460,15 +464,15 @@ def create_connectivity(epochs, output_path,method='pli',animation=False,state='
         create_animation(con_mat, Freq_Bands.keys(), epochs.ch_names,method=method)
     else:
         print('Connectivity data saved')
-        #Create a figure with averaged data over all epochs
-        fig, ax = plt.subplots(1, 1, figsize=(10, 10))
-        matrix=con_mat[:,:,:,0]
-        sns.heatmap(np.mean(matrix, axis=0), xticklabels=epochs.ch_names, yticklabels=epochs.ch_names, cmap='viridis')
-        plt.xticks(fontsize=8, rotation=90)
-        plt.yticks(fontsize=8)
-        plt.title(f'{method} connectivity for all epochs in {state} state ')
-        #save the figure
-        plt.savefig(output_path+f'{method}_connectivity.png')
+        # #Create a figure with averaged data over all epochs
+        # fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+        # matrix=con_mat[:,:,:,0]
+        # sns.heatmap(np.mean(matrix, axis=0), xticklabels=epochs.ch_names, yticklabels=epochs.ch_names, cmap='viridis')
+        # plt.xticks(fontsize=8, rotation=90)
+        # plt.yticks(fontsize=8)
+        # plt.title(f'{method} connectivity for all epochs in {state} state ')
+        # #save the figure
+        # plt.savefig(output_path+f'{method}_connectivity.png')
         
     # return con_time
     return print('Connectivity animation created')
