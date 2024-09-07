@@ -298,7 +298,7 @@ def calculate_and_plot_granger_causality(epochs, signals_a, signals_b,verbose=Tr
    
 
 
-def create_connectivity(epochs, output_path,method='pli',animation=False,state=''):
+def create_connectivity(epochs, output_path,xyz_loc,method='pli',axises=['r', 'a', 's'],animation=False,state=''):
     ### Important functions###
     def create_frame(matrix, band_name, ch_names, frame_number):
         plt.figure(figsize=(10, 10))
@@ -316,7 +316,7 @@ def create_connectivity(epochs, output_path,method='pli',animation=False,state='
         return Image.open(buf)
 
     # Create the animation
-    def create_animation(array, bands, ch_names,method):
+    def create_animation(array, bands, ch_names,method,details=''):
         for i, band_name in enumerate(bands):
             frames = []
             print(f"Creating animation for band: {band_name}")
@@ -327,8 +327,15 @@ def create_connectivity(epochs, output_path,method='pli',animation=False,state='
                 frames.append(frame_img)
 
             # Save the frames as an animated GIF
-            frames[0].save(output_path+f'{band_name}_{method}_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
-    
+            frames[0].save(output_path+f'{band_name}_{method}{details}_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
+
+    #Normalize between 0 and 1
+    def normalize_matrix(matrix):
+        min_value = np.min(matrix)
+        max_value = np.max(matrix)
+        normalized_matrix = (matrix - min_value) / (max_value - min_value)
+        return normalized_matrix
+        
 
 
 
@@ -402,18 +409,49 @@ def create_connectivity(epochs, output_path,method='pli',animation=False,state='
                 aec_matrix = calculate_aec(envelope)
                 aec_results[band].append(aec_matrix)
             aec_results[band] = np.array(aec_results[band])
+
+        
+ 
+
         #Transform the dictionary in a four dimenstional matrix, where the 4th dimension is the band
         #Saving a npy file for every band
         for band in aec_results.keys():
             np.save(output_path+f'connectivity_data_{band}_{method}_dense.npy', aec_results[band])
 
-        aec_results = np.array([aec_results[band] for band in aec_results.keys()])
-        aec_results= np.transpose(aec_results,(1,2,3,0))
+        aec_results_array = np.array([aec_results[band] for band in aec_results.keys()])
+        aec_results_array= np.transpose(aec_results_array,(1,2,3,0))
         # # # Create a new MNE Epochs object with the trimmed data
         # # info = epochs.info  # Keep the original info
         # # new_epochs = mne.EpochsArray(trimmed_data, info, epoch_time=epochs.times)
         print(f'Creating animations for {list(filtered_epochs.keys())}')
-        create_animation(aec_results, list(filtered_epochs.keys()), epochs.ch_names,method=method)
+        create_animation(aec_results_array, list(filtered_epochs.keys()), epochs.ch_names,method=method)
+
+        #Create correection according to distance 
+        # # Calculate the pairwise distances between channels
+        #get the names of the electrodes 
+        electrodes_names = xyz_loc['formatted_label'].values
+        #Get the euclidean distance between each pair of electrodes
+        distances = pairwise_distances(xyz_loc[axises])
+        # Normalize the distances
+        normalized_distances = normalize_matrix(distances)
+        #Lets multiply the AEC matrix by the normalized distance matrix
+        aec_distance = {}
+        for band, aec_matrices in aec_results.items():
+            aec_distance[band] = []
+            for aec_matrix in aec_matrices:
+                aec_distance[band].append(aec_matrix * normalized_distances)
+            aec_distance[band] = np.array(aec_distance[band])
+
+        #Save the data
+        for band in aec_distance.keys():
+            np.save(output_path+f'connectivity_data_{band}_{method}_distance_dense.npy', aec_distance[band])
+        
+        #Create animations for the distance corrected data
+        aec_distance_array = np.array([aec_distance[band] for band in aec_distance.keys()])
+        aec_distance_array= np.transpose(aec_distance_array,(1,2,3,0))
+        print(f'Creating animations for {list(filtered_epochs.keys())} with distance correction')
+
+        create_animation(aec_distance_array, list(filtered_epochs.keys()), epochs.ch_names,method=method,details='_distance_corrected')
     elif method == 'gc':
 
         print('Granger causality')

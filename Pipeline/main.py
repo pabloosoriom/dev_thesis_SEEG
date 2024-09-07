@@ -29,11 +29,20 @@ def main():
     input_path = '/home/pablo/works/dev_thesis_SEEG/data/'+patient+'/'+'sets/segments_ictal_SR/'
 
     
-
-    # # #Reading the data
+    
+    # # #Reading the signal data
     raw = mne.io.read_raw_fif(input_path + 'ictal-epo_6' + '.fif', preload=True)
 
-     #Additional steps 
+    # #Reading xyz schema
+    xyz_loc = pd.read_csv('/home/pablo/works/dev_thesis_SEEG/data/'+patient+'/others/'+'sEEG_locs.tsv',sep='\t')
+
+    # # # Formating both files to have according channels 
+
+    raw , xyz_loc = format_data(raw, xyz_loc)
+
+    plot_xyz(xyz_loc,outputpath=output_path)
+
+    #Additional steps 
     #Eliminate a channel
     # raw_cleaned.drop_channels(['EKG+'])
 
@@ -71,7 +80,7 @@ def main():
 
     
     #method
-    method = 'aec'
+    method = 'coh'
     print(f'Connectivity method: {method}')
     # # # Connectivity
     # Define frequency bands
@@ -80,8 +89,10 @@ def main():
         epochs=epochs,
         output_path=output_path + patient + '_',
         method=method,
+        xyz_loc=xyz_loc,
         animation=False
     )
+
 
     # # print('Problematic channels dropped from the main database')
 
@@ -182,7 +193,7 @@ def segment_processing():
 
     print(f'Total execution time: {execution_time} seconds')
 
-
+    q
 
 def plotting_ei(Ei_n, ER_matrix, channels, derivatives_d1=None, save_path=None):
     if derivatives_d1 is None:

@@ -8,6 +8,7 @@ import pandas as pd
 import mne
 from mne import io
 from scipy.fft import fft, fftfreq
+import re
 
 
 import numpy as np
@@ -54,6 +55,64 @@ def bad_channels_filter(raw, reference_channel, correlation_threshold=0.1):
     plt.show()
     
     return raw_cleaned, fig
+
+def format_data(raw,xyz_loc):
+    ## This function might change according to the format of the schema and the raw data
+    def format_label(label):
+        # Remove 'EEG '
+        label = label.replace('EEG ', '').strip()
+        # Use regular expressions to insert apostrophe before the number
+        label = re.sub(r'(\D+)(\d+)', r"\1'\2", label)
+        return label.lower()
+    xyz_loc['formatted_label']=xyz_loc['label'].apply(format_label)
+
+    
+    #Find intersection of xyz_loc['formatted_label'] and epochs.ch_names
+    intersection = set(xyz_loc['formatted_label']).intersection(raw.ch_names)
+
+    # Filter the dataframe to keep only the intersecting labels
+    df_filtered = xyz_loc[xyz_loc['formatted_label'].isin(intersection)]
+
+    # Reorder the dataframe according to chnames (which will now only contain the intersecting labels)
+    df_filtered = df_filtered.set_index('formatted_label')
+    #Getting to know which inndexes from the original to eliminate 
+    cd=pd.Series(raw.ch_names).isin(intersection)
+    idx=cd.index[~cd].tolist()
+
+    
+    #Eliminating the channels which are not in the intersection
+
+    channels_to_drop=[raw.ch_names[item] for item in idx]
+
+    raw.drop_channels(channels_to_drop)
+
+
+    xyz_loc = xyz_loc.set_index('formatted_label').reindex(raw.ch_names).reset_index()
+
+
+    return raw, xyz_loc
+
+def plot_xyz(xyz_loc, outputpath, axises=['r', 'a', 's'],label='label'):
+    fig = plt.figure(figsize=(10, 10))
+    ax = fig.add_subplot(111, projection='3d')
+
+    # Plot each electrode as a point
+    for i, row in xyz_loc.iterrows():
+        ax.scatter(row[axises[0]], row[axises[1]], row[axises[2]], color='b')
+
+    # Annotate each electrode with its name, without the "EEG" prefix and lowercase
+    for i, row in xyz_loc.iterrows():
+        ax.text(row[axises[0]], row[axises[1]], row[axises[2]], row[label][3:].lower())
+    # Set labels and title
+    ax.set_xlabel('Right (mm)')
+    ax.set_ylabel('Anterior (mm)')
+    ax.set_zlabel('Superior (mm)')
+    ax.set_title('sEEG Electrode Locations')
+    plt.savefig(outputpath + 'electrode_locations.png')
+    plt.show()
+    return print('Electrode locations plotted')
+
+
 
 
 

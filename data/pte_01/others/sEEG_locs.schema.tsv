@@ -1,0 +1,10 @@
+columnName	type	componentNames
+label	string	
+r	double	
+a	double	
+s	double	
+defined	bit	
+selected	bit	
+visible	bit	
+locked	bit	
+description	string	
