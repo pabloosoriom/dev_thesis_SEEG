@@ -302,7 +302,7 @@ def create_connectivity(epochs, output_path,xyz_loc,method='pli',axises=['r', 'a
     ### Important functions###
     def create_frame(matrix, band_name, ch_names, frame_number):
         plt.figure(figsize=(10, 10))
-        sns.heatmap(matrix, xticklabels=ch_names, yticklabels=ch_names, cmap='viridis')
+        sns.heatmap(matrix, xticklabels=ch_names, yticklabels=ch_names, cmap='viridis', vmin=0, vmax=1)
         plt.xticks(fontsize=8, rotation=90)
         plt.yticks(fontsize=8)
         plt.title(f'{band_name} - (Epoch) {frame_number}')
