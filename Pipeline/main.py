@@ -25,13 +25,13 @@ def main():
 
     # Redirect output to a file
     patient = 'pte_01'
-    output_path = '/home/pablo/works/dev_thesis_SEEG//outputs/'+patient+'/'
-    input_path = '/home/pablo/works/dev_thesis_SEEG/data/'+patient+'/'+'sets/segments_ictal_SR/'
+    output_path = '/home/pablo/works/dev_thesis_SEEG//outputs/'+patient+'/segmets_non_ictal/'
+    input_path = '/home/pablo/works/dev_thesis_SEEG/data/'+patient+'/'+'sets/segments/'
 
     
     
     # # #Reading the signal data
-    raw = mne.io.read_raw_fif(input_path + 'ictal-epo_6' + '.fif', preload=True)
+    raw = mne.io.read_raw_fif(input_path + 'interictal_spikes-epo_1' + '.fif', preload=True)
 
     # #Reading xyz schema
     xyz_loc = pd.read_csv('/home/pablo/works/dev_thesis_SEEG/data/'+patient+'/others/'+'sEEG_locs.tsv',sep='\t')
@@ -67,7 +67,7 @@ def main():
     # # # Epoching
     raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
     t_sec=raw.n_times/raw.info['sfreq']
-    epochs=mne.make_fixed_length_epochs(raw, duration=30, preload=True)
+    epochs=mne.make_fixed_length_epochs(raw, duration=5, preload=True)
 
 
     print(epochs.info)   
