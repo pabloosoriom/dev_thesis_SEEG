@@ -259,43 +259,98 @@ def get_ei_optimal_vs2(raw, window_size=5000, overlap=1):
 
 
 #Function for ploting matriz from EI
-def plotting_ei(Ei_n, ER_matrix,channels, derivatives_d1=None):
+# def plotting_ei(Ei_n, ER_matrix,channels, derivatives_d1=None):
+#     if derivatives_d1 is None:
+#         plt.imshow(ER_matrix,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
+#         #colorbar
+#         plt.colorbar()
+#         plt.yticks(np.arange(len(channels)), channels)
+#         plt.xlabel('Window number')
+#         plt.ylabel('Channel name')
+#         plt.title('ER_n')
+#         plt.show()
+
+#         #Plting a barplt of the EI values for every channel
+#         plt.bar(channels,Ei_n)
+#         plt.xlabel('Channel name')
+#         plt.ylabel('EI')
+#         plt.show()
+#     else:
+#         plt.imshow(ER_matrix,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
+#         #colorbar
+#         plt.colorbar()
+#         plt.yticks(np.arange(len(channels)), channels)
+#         plt.xlabel('Window number')
+#         plt.ylabel('Channel name')
+#         plt.title('ER_n')
+#         plt.show()
+
+#         #Plting a barplt of the EI values for every channel
+#         plt.bar(channels,Ei_n)
+#         plt.xlabel('Channel name')
+#         plt.ylabel('EI')
+#         plt.show()
+
+#         plt.imshow(derivatives_d1,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
+#         #colorbar
+#         plt.colorbar()
+#         plt.yticks(np.arange(len(channels)), channels)
+#         plt.xlabel('Window number')
+#         plt.ylabel('Channel name')
+#         plt.title('ER_n')
+#         plt.show()
+
+
+
+def plotting_ei(Ei_n, ER_matrix, channels, derivatives_d1=None, save_path=None):
     if derivatives_d1 is None:
-        plt.imshow(ER_matrix,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
-        #colorbar
+        plt.imshow(ER_matrix, cmap='viridis', interpolation='bicubic', aspect='auto', extent=[0, 40000, 0, 22])
         plt.colorbar()
         plt.yticks(np.arange(len(channels)), channels)
         plt.xlabel('Window number')
         plt.ylabel('Channel name')
         plt.title('ER_n')
-        plt.show()
+        if save_path:
+            plt.savefig(save_path + '_ER_matrix.png')  # Save ER_matrix plot
+        else:
+            plt.show()
 
-        #Plting a barplt of the EI values for every channel
-        plt.bar(channels,Ei_n)
+        plt.figure(figsize=(20, 5))
+        plt.bar(channels, Ei_n)
         plt.xlabel('Channel name')
+        plt.xticks(rotation=90)
         plt.ylabel('EI')
-        plt.show()
+        if save_path:
+            plt.savefig(save_path + '_barplot.png')  # Save barplot
+        else:
+            plt.show()
     else:
-        plt.imshow(ER_matrix,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
-        #colorbar
+        plt.imshow(ER_matrix, cmap='viridis', interpolation='bicubic', aspect='auto', extent=[0, 40000, 0, 22])
         plt.colorbar()
         plt.yticks(np.arange(len(channels)), channels)
         plt.xlabel('Window number')
         plt.ylabel('Channel name')
         plt.title('ER_n')
-        plt.show()
+        if save_path:
+            plt.savefig(save_path + '_ER_matrix.png')  # Save ER_matrix plot
+        else:
+            plt.show()
 
-        #Plting a barplt of the EI values for every channel
-        plt.bar(channels,Ei_n)
+        plt.bar(channels, Ei_n)
         plt.xlabel('Channel name')
         plt.ylabel('EI')
-        plt.show()
+        if save_path:
+            plt.savefig(save_path + '_barplot.png')  # Save barplot
+        else:
+            plt.show()
 
-        plt.imshow(derivatives_d1,cmap='viridis',interpolation='bicubic',aspect='auto',extent=[0,40000,0,22])
-        #colorbar
+        plt.imshow(derivatives_d1, cmap='viridis', interpolation='bicubic', aspect='auto', extent=[0, 40000, 0, 22])
         plt.colorbar()
         plt.yticks(np.arange(len(channels)), channels)
         plt.xlabel('Window number')
         plt.ylabel('Channel name')
         plt.title('ER_n')
-        plt.show()
+        if save_path:
+            plt.savefig(save_path + '_derivatives.png')  # Save derivatives plot
+        else:
+            plt.show()
