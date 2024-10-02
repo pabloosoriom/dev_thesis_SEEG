@@ -22,6 +22,8 @@ def plot_temporal_graph(tnet, output_path, xyz_loc):
     plt.tight_layout()
 
 
+
+
 ### Community detection ###
 def detect_communities(data, xyz_loc, raw, output_path, threshold_level=0.15, algorithm='k_clique_communities', k=2, plot=False):
     """
@@ -67,7 +69,7 @@ def detect_communities(data, xyz_loc, raw, output_path, threshold_level=0.15, al
     # Initialize the output array to store community assignments before consensus
     num_timesteps = len(communities_dict)
     num_channels = len(raw.ch_names)
-    output = [[-1 for _ in range(num_timesteps)] for _ in range(num_channels)]
+    comunities_before = [[-1 for _ in range(num_timesteps)] for _ in range(num_channels)]
     
     # Assign communities to the channels
     for t, subcommunities in communities_dict.items():
@@ -75,19 +77,40 @@ def detect_communities(data, xyz_loc, raw, output_path, threshold_level=0.15, al
             for channel in subcommunity:
                 if channel in raw.ch_names:
                     channel_idx = raw.ch_names.index(channel)
-                    output[channel_idx][t] = subcom_idx
+                    comunities_before[channel_idx][t] = subcom_idx
     
     # Perform temporal consensus
-    communities_after = teneto.communitydetection.make_temporal_consensus(output)
+    communities_after = teneto.communitydetection.make_temporal_consensus(comunities_before)
 
     # Plot the community assignment over time
     if plot:
-        plot_community_assignment(communities_after,output,algorithm,output_path)
+        plot_community_assignment(communities_after,comunities_before,algorithm,output_path)
     
     print(f'Community detection using {algorithm} completed.')
     
-    return output, communities_after
+    return comunities_before, communities_after
 
+
+def rebuild_communities(communities,raw):
+    """
+    Rebuilds the communities for each time step.
+    
+    Parameters:
+    communities (list): List of communities, where each community is represented as a list of nodes.
+    raw (mne.Raw object): Raw data object containing channel names.
+    
+    Returns:
+    dict: A dictionary where each key is a time step and the value is a dictionary of communities.
+    """
+    communities_dict = {}
+    
+    for t in range(len(communities[0])):
+        temp_com = {}
+        for i, ch in enumerate(raw.ch_names):
+            temp_com[communities[i][t]] = temp_com.get(communities[i][t], []) + [ch]
+        communities_dict[t] = temp_com
+    
+    return communities_dict
 
 def communities_algorithm(G, algorithm, k=2):
     """
@@ -152,12 +175,12 @@ def communities_algorithm(G, algorithm, k=2):
     return communities
 
 
-def plot_community_assignment(communities_after,output,algorithm,output_path,xyz_loc):
+def plot_community_assignment(communities_after,communities_before,algorithm,output_path,xyz_loc):
     #Compare the communities
     fig, axes = plt.subplots(1, 2, figsize=(15, 20))
 
     # Plot for 'Community assignment over time before temporal consensus'
-    im1 = axes[0].imshow(output, aspect='auto', cmap='tab20')
+    im1 = axes[0].imshow(communities_before, aspect='auto', cmap='tab20')
     axes[0].set_xlabel('Time step')
     axes[0].set_ylabel('Channel index')
     axes[0].set_title('Community assignment over time before temporal consensus')
@@ -187,18 +210,13 @@ def jaccard_similarity(list1, list2):
 
 
 def jaccard_metric(communities,raw,comparision_set):
-    communities_dict_after={}
-    for t in range(len(communities[0])):
-        temp_com={}
-        for i, ch in enumerate(raw.ch_names):
-            temp_com[communities[i][t]]=temp_com.get(communities[i][t],[])+[ch]
-        communities_dict_after[t]=temp_com     
+    communities_dict=rebuild_communities(communities,raw)  
     
     jaccard_index={}
-    for t in range(len(communities_dict_after)):
+    for t in range(len(communities_dict)):
         temp_jaccard={}
-        for com in communities_dict_after[t]:
-            temp_jaccard[com]=jaccard_similarity(comparision_set,communities_dict_after[t][com])
+        for com in communities_dict[t]:
+            temp_jaccard[com]=jaccard_similarity(comparision_set,communities_dict[t][com])
         jaccard_index[t]=temp_jaccard
 
     #Get the maximum for each time step, and the community channels that belong to it 
@@ -208,7 +226,11 @@ def jaccard_metric(communities,raw,comparision_set):
         max_jaccard.append(max(jaccard_index[t].values()))
         max_jaccard_com.append(max(jaccard_index[t], key=jaccard_index[t].get))
 
-    return max_jaccard,max_jaccard_com
+    dict_communities={}
+    for t in range(len(communities_dict)):
+        dict_communities[t]=communities_dict[t][max_jaccard_com[t]]
+
+    return max_jaccard,dict_communities
 
 
     

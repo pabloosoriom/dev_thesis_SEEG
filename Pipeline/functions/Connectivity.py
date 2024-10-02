@@ -12,9 +12,10 @@ import numpy as np
 from PIL import Image
 import json
 import io
+import gc
 from scipy.signal import hilbert
 
-def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'],animation=False,state=''):
+def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'],animation=True,state=''):
     ### Important functions###
     def create_frame(matrix, band_name, ch_names, frame_number):
         plt.figure(figsize=(10, 10))
@@ -57,29 +58,30 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
 
     if method =='aec&plv':
         #Get the band-pass signal for every frequency of interest
-        filtered_epochs= frequency_bands(epochs=epochs)
+        filtered_epoch_data= frequency_bands(epochs=epochs)
         
         #At first we need to mirror-padd at both ends for applying the Hilbert transform properly
         # Apply to all epochs and channels in a specific band (e.g., 'low_gamma')
         hilbert_transformed_data_bands={}
         envelop_data_bands={}
         phase_data_bands={}
-        for bands in filtered_epochs.keys():
-            hilbert_transformed_data = []
-            envelop_list=[]
-            phase_list=[]
-            for epoch_data in filtered_epochs[bands]:
-                transformed_epoch,envelop,phase = apply_hilbert_transform(epoch_data)
-                hilbert_transformed_data.append(transformed_epoch)
-                envelop_list.append(envelop)
-                phase_list.append(phase)
 
-            hilbert_transformed_data = np.array(hilbert_transformed_data)  # Shape: (n_epochs, n_channels, epoch_length)
-            hilbert_transformed_data_bands[bands]=hilbert_transformed_data
-            envelop_list=np.array(envelop_list)
-            envelop_data_bands[bands]=envelop_list
-            phase_list=np.array(phase_list)
-            phase_data_bands[bands]=phase_list
+        
+        for bands, filtered_epochs in filtered_epoch_data.items():
+            n_epochs, n_channels, epoch_len = filtered_epochs.shape
+            hilbert_transformed_data = np.empty((n_epochs, n_channels, epoch_len), dtype=np.complex64)
+            envelop_list = np.empty((n_epochs, n_channels, epoch_len), dtype=np.float32)
+            phase_list = np.empty((n_epochs, n_channels, epoch_len), dtype=np.float32)
+
+            for i, epoch_data in enumerate(filtered_epochs):
+                transformed_epoch,envelop,phase = apply_hilbert_transform(epoch_data)
+                hilbert_transformed_data[i]=transformed_epoch
+                envelop_list[i]=envelop
+                phase_list[i]=phase
+
+            hilbert_transformed_data_bands[bands] = hilbert_transformed_data
+            envelop_data_bands[bands] = envelop_list
+            phase_data_bands[bands] = phase_list
 
         # Calculate AEC for each frequency band and epoch
         aec_results = {}
@@ -90,6 +92,16 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
                 aec_matrix = calculate_aec(envelope)
                 aec_results[band].append(aec_matrix)
             aec_results[band] = np.array(aec_results[band])
+
+        #Saving a npy file for every band
+        for band in aec_results.keys():
+            np.save(output_path+f'connectivity_data_{band}_{method[0:3]}_dense.npy', aec_results[band])
+        
+        del envelop_data_bands
+        del hilbert_transformed_data_bands
+        del aec_results
+        gc.collect()
+
         
         #Calculate PLV for each frequency band and epoch
         plv_results = {}
@@ -100,26 +112,35 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
                 plv_matrix = calculate_plv(phase)
                 plv_results[band].append(plv_matrix)
             plv_results[band] = np.array(plv_results[band])
-     
-    
-
-        #Transform the dictionary in a four dimenstional matrix, where the 4th dimension is the band
-        #Saving a npy file for every band
-        for band in aec_results.keys():
-            np.save(output_path+f'connectivity_data_{band}_{method[0:3]}_dense.npy', aec_results[band])
-
+        
+        
         for band in plv_results.keys():
             np.save(output_path+f'connectivity_data_{band}_{method[4:7]}_dense.npy', plv_results[band])
 
+        del phase_data_bands
+        del plv_results
+        gc.collect()
+    
+
+        
+
         if animation:
+            #Read the data from the npy files
+            aec_results = {}
+            plv_results = {}
+            for band in filtered_epoch_data.keys():
+                aec_results[band] = np.load(output_path+f'connectivity_data_{band}_{method[0:3]}_dense.npy')
+                plv_results[band] = np.load(output_path+f'connectivity_data_{band}_{method[4:7]}_dense.npy')
+            
+
             aec_results_array = np.array([aec_results[band] for band in aec_results.keys()])
             aec_results_array= np.transpose(aec_results_array,(1,2,3,0))
 
             plv_results_array = np.array([plv_results[band] for band in plv_results.keys()])
             plv_results_array= np.transpose(plv_results_array,(1,2,3,0))
-            print(f'Creating animations for {list(filtered_epochs.keys())}')
-            create_animation(aec_results_array, list(filtered_epochs.keys()), epochs.ch_names,method=method[0:3])
-            create_animation(plv_results_array, list(filtered_epochs.keys()), epochs.ch_names,method=method[4:7])
+            print(f'Creating animations for {list(filtered_epoch_data.keys())}')
+            create_animation(aec_results_array, list(filtered_epoch_data.keys()), epochs.ch_names,method=method[0:3])
+            create_animation(plv_results_array, list(filtered_epoch_data.keys()), epochs.ch_names,method=method[4:7])
     
         #Create correection according to distance 
         # # Calculate the pairwise distances between channels
@@ -151,15 +172,15 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         
         #Create animations for the distance corrected data
         if animation:
-            print(f'Creating animations for {list(filtered_epochs.keys())} with distance correction')
+            print(f'Creating animations for {list(filtered_epoch_data.keys())} with distance correction')
             aec_distance_array = np.array([aec_distance[band] for band in aec_distance.keys()])
             aec_distance_array= np.transpose(aec_distance_array,(1,2,3,0))
             plv_distance_array = np.array([plv_distance[band] for band in plv_distance.keys()])
             plv_distance_array= np.transpose(plv_distance_array,(1,2,3,0))
 
 
-            create_animation(aec_distance_array, list(filtered_epochs.keys()), epochs.ch_names,method=method[0,3],details='_distance_corrected')
-            create_animation(plv_distance_array, list(filtered_epochs.keys()), epochs.ch_names,method=method[4,7],details='_distance_corrected')
+            create_animation(aec_distance_array, list(filtered_epoch_data.keys()), epochs.ch_names,method=method[0,3],details='_distance_corrected')
+            create_animation(plv_distance_array, list(filtered_epoch_data.keys()), epochs.ch_names,method=method[4,7],details='_distance_corrected')
     else: 
         # Freq bands of interest
         # Freq_Bands = {"theta": [4.0, 7.5], "alpha": [7.5, 13.0], 

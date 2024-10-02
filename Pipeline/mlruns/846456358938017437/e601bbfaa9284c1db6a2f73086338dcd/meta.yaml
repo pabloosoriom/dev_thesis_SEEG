@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/846456358938017437/e601bbfaa9284c1db6a2f73086338dcd/artifacts
+end_time: 1727822628664
+entry_point_name: ''
+experiment_id: '846456358938017437'
+lifecycle_stage: active
+run_id: e601bbfaa9284c1db6a2f73086338dcd
+run_name: Experiment_pte_01
+run_uuid: e601bbfaa9284c1db6a2f73086338dcd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727822403733
+status: 4
+tags: []
+user_id: pablo
