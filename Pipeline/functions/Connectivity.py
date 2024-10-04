@@ -68,7 +68,7 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
 
         
         for bands, filtered_epochs in filtered_epoch_data.items():
-            n_epochs, n_channels, epoch_len = filtered_epochs.shape
+            n_epochs, n_channels, epoch_len = filtered_epochs.get_data().shape
             hilbert_transformed_data = np.empty((n_epochs, n_channels, epoch_len), dtype=np.complex64)
             envelop_list = np.empty((n_epochs, n_channels, epoch_len), dtype=np.float32)
             phase_list = np.empty((n_epochs, n_channels, epoch_len), dtype=np.float32)
@@ -122,8 +122,6 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         gc.collect()
     
 
-        
-
         if animation:
             #Read the data from the npy files
             aec_results = {}
@@ -149,12 +147,30 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         # Normalize the distances
         normalized_distances = normalize_matrix(distances)
         #Lets multiply the AEC matrix by the normalized distance matrix
+
+        aec_results = {}
+        for band in filtered_epoch_data.keys():
+            aec_results[band] = np.load(output_path+f'connectivity_data_{band}_{method[0:3]}_dense.npy')
+
         aec_distance = {}
         for band, aec_matrices in aec_results.items():
             aec_distance[band] = []
             for aec_matrix in aec_matrices:
                 aec_distance[band].append(aec_matrix * normalized_distances)
             aec_distance[band] = np.array(aec_distance[band])
+
+        #Save the data
+        for band in aec_distance.keys():
+            np.save(output_path+f'connectivity_data_{band}_{method[0:3]}_distance_dense.npy', aec_distance[band])
+        
+        del aec_results
+        del aec_distance
+        gc.collect()
+
+        
+        plv_results = {}
+        for band in filtered_epoch_data.keys():
+            plv_results[band] = np.load(output_path+f'connectivity_data_{band}_{method[4:7]}_dense.npy')
         
         plv_distance = {}
         for band, plv_matrices in plv_results.items():
@@ -164,11 +180,13 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
             plv_distance[band] = np.array(plv_distance[band])
 
         #Save the data
-        for band in aec_distance.keys():
-            np.save(output_path+f'connectivity_data_{band}_{method[0:3]}_distance_dense.npy', aec_distance[band])
-        
+      
         for band in plv_distance.keys():
             np.save(output_path+f'connectivity_data_{band}_{method[4:7]}_distance_dense.npy', plv_distance[band])
+        
+        del plv_results
+        del plv_distance
+        gc.collect()
         
         #Create animations for the distance corrected data
         if animation:

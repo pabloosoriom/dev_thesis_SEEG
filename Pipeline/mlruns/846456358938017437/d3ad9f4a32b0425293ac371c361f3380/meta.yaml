@@ -1,8 +1,9 @@
 artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/846456358938017437/d3ad9f4a32b0425293ac371c361f3380/artifacts
+deleted_time: 1727916560367
 end_time: null
 entry_point_name: ''
 experiment_id: '846456358938017437'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: d3ad9f4a32b0425293ac371c361f3380
 run_name: Algorithm_k_clique_communities
 run_uuid: d3ad9f4a32b0425293ac371c361f3380

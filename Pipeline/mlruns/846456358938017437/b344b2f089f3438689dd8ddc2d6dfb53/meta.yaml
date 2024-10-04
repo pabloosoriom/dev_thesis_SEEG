@@ -1,8 +1,9 @@
 artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/846456358938017437/b344b2f089f3438689dd8ddc2d6dfb53/artifacts
+deleted_time: 1727916560375
 end_time: 1727826634957
 entry_point_name: ''
 experiment_id: '846456358938017437'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: b344b2f089f3438689dd8ddc2d6dfb53
 run_name: Algorithm_girvan_newman
 run_uuid: b344b2f089f3438689dd8ddc2d6dfb53

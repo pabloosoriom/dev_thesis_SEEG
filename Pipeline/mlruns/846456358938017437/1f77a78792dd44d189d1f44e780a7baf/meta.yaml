@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/846456358938017437/1f77a78792dd44d189d1f44e780a7baf/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '846456358938017437'
+lifecycle_stage: active
+run_id: 1f77a78792dd44d189d1f44e780a7baf
+run_name: Algorithm_k_clique_communities
+run_uuid: 1f77a78792dd44d189d1f44e780a7baf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727919621554
+status: 1
+tags: []
+user_id: pablo
