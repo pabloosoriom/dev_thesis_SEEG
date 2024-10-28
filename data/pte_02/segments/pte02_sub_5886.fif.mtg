@@ -1,0 +1,933 @@
+<!DOCTYPE AnyWaveMontage>
+<Montage>
+   <Channel name="t'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="t'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="t'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="t'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="t'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="t'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="t'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="t'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="t'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="t'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="o'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="o'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="o'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="o'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="o'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="o'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="o'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="o'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="o'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="o'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="oc'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="oc'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="oc'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="oc'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="oc'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="oc'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="oc'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="oc'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="oc'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="ECG2+">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="oc'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="g'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="g'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="g'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="g'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="g'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="g'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="g'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="g'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="g'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="g'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="MKR1+">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="fd'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="fd'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="fd'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="fd'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="fd'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="fd'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="fd'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="fd'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="fd'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="fd'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cc21">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cc22">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cc23">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cc24">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cc25">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cc26">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cc27">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cc28">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cc29">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cc210">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="l'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="l'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="l'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="l'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="l'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="l'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="l'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="l'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="l'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="l'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cp'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cp'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cp'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cp'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cp'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cp'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cp'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cp'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cp'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cp'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="MKR2+">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="CP1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="CP2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="CP3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="CP4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="CP5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="CP6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="CP7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="CP8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="CP9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="CP10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="n'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="n'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="n'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="n'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="n'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="n'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="n'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="n'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="n'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="n'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="lp'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="lp'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="lp'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="lp'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="lp'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="lp'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="lp'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="lp'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="lp'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="lp'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="os'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="os'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="os'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="os'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="os'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="os'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="os'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="os'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="os'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="os'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="MKR3+">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pi'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pi'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pi'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pi'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pi'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pi'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pi'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pi'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pi'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pi'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pa'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pa'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pa'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pa'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pa'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pa'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pa'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pa'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pa'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="pa'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cu'1">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cu'2">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cu'3">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cu'4">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cu'5">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cu'6">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cu'7">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cu'8">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cu'9">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="cu'10">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+   <Channel name="MKR4+">
+      <type>MEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters notch="0" lowPass="-1" highPass="-1"/>
+   </Channel>
+</Montage>

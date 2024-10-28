@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/846456358938017437/4f0090f6501749699ac798af982e3791/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '846456358938017437'
+lifecycle_stage: active
+run_id: 4f0090f6501749699ac798af982e3791
+run_name: Experiment_pte_01_aec_pre-ictal
+run_uuid: 4f0090f6501749699ac798af982e3791
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728767497622
+status: 1
+tags: []
+user_id: pablo

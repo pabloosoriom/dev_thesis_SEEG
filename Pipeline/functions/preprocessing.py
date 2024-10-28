@@ -58,14 +58,65 @@ def bad_channels_filter(raw, reference_channel, correlation_threshold=0.1):
 
 def format_data(raw,xyz_loc):
     ## This function might change according to the format of the schema and the raw data
-    def format_label(label):
-        # Remove 'EEG '
-        label = label.replace('EEG ', '').strip()
-        # Use regular expressions to insert apostrophe before the number
-        label = re.sub(r'(\D+)(\d+)', r"\1'\2", label)
-        return label.lower()
-    xyz_loc['formatted_label']=xyz_loc['label'].apply(format_label)
 
+
+    ############### For patient 01 ################
+    # def format_label(label):
+    #     # Remove 'EEG '
+    #     label = label.replace('EEG ', '').strip()
+    #     # Use regular expressions to insert apostrophe before the number
+    #     label = re.sub(r'(\D+)(\d+)', r"\1'\2", label)
+    #     return label.lower()
+    # xyz_loc['formatted_label']=xyz_loc['label'].apply(format_label)
+
+
+
+
+    ############### For patient 02 ################
+
+    def format_label(df):
+        def format_name(name):
+            """Formats the 'Name' field according to specified rules."""
+            name_str = name[0]  # Extract the string from list (e.g., [t'2])
+            if re.search(r"\D'\d+", name_str):
+                return name_str
+            # If there's no apostrophe, insert one between non-digits and digits
+            return re.sub(r"(\D)(\d+)$", r"\1'\2", name_str)  # Add apostrophe if needed
+
+        def extract_location(location):
+            """Extracts r, a, s values from the location list."""
+            r, a, s = (int(coord[0]) for coord in location)
+            return r, a, s
+
+        # Apply transformations
+        df['formatted_label'] = df['Name'].apply(format_name)
+        df[['r', 'a', 's']] = pd.DataFrame(df['Loc'].apply(extract_location).tolist())
+
+        # Return the modified DataFrame
+        return df[['formatted_label', 'r', 'a', 's']]
+
+
+    # Process the DataFrame
+    xyz_loc = format_label(xyz_loc)
+
+    ##Formating raw channels names
+    def clean_channel_name(channel):
+        """
+        Cleans a channel name by removing 'EEG', 'SEEG', and any extra spaces.
+        Keeps only the core label like 't\'1'.
+        """
+        # Remove leading/trailing spaces and split by spaces
+        parts = channel.strip().split()
+        
+        # Filter out unwanted prefixes (e.g., 'EEG', 'SEEG')
+        cleaned_parts = [part for part in parts if part not in {'EEG', 'SEEG'}]
+        
+        # Join the cleaned parts back into a string
+        return ' '.join(cleaned_parts)
+    
+    new_channels_names = [clean_channel_name(ch) for ch in raw.ch_names]
+    raw.rename_channels({old: new for old, new in zip(raw.ch_names, new_channels_names)})
+    
     
     #Find intersection of xyz_loc['formatted_label'] and epochs.ch_names
     intersection = set(xyz_loc['formatted_label']).intersection(raw.ch_names)
@@ -87,7 +138,7 @@ def format_data(raw,xyz_loc):
     raw.drop_channels(channels_to_drop)
 
 
-    xyz_loc = xyz_loc.set_index('formatted_label').reindex(raw.ch_names).reset_index()
+    xyz_loc = xyz_loc.drop_duplicates('formatted_label').set_index('formatted_label').reindex(raw.ch_names).reset_index()
 
 
     return raw, xyz_loc

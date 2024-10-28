@@ -163,9 +163,9 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         for band in aec_distance.keys():
             np.save(output_path+f'connectivity_data_{band}_{method[0:3]}_distance_dense.npy', aec_distance[band])
         
-        del aec_results
-        del aec_distance
-        gc.collect()
+        # del aec_results
+        # del aec_distance
+        # gc.collect()
 
         
         plv_results = {}

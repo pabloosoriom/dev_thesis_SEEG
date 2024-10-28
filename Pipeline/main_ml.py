@@ -7,18 +7,20 @@ import json
 import os
 from collections import defaultdict
 import gc
+import warnings
 
+warnings.filterwarnings('ignore')
 
 from functions.EpiIndex import *
 from functions.Connectivity import *
 from functions.preprocessing import *
 from functions.temporal_networks import *
 
-def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, algorithms, inside_network):
+def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, algorithms, inside_network, detail):
 
     mlflow.set_experiment('Community_Detection_Experiment')
     
-    with mlflow.start_run(run_name=f'Experiment_{patient}_{method_exp}',nested=True):
+    with mlflow.start_run(run_name=f'Experiment_{patient}_{method_exp}_{detail}',nested=True):
 
         # Track execution time
         start_time = time.time()
@@ -127,10 +129,10 @@ def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, al
         with open(output_path + f'results_metrics_before_{method_exp}.json', 'w') as f:
             json.dump(results_band_metrics_before, f)
 
-        mlflow.log_artifact(output_path + 'results_communities_after.json')
-        mlflow.log_artifact(output_path + 'results_communities_before.json')
-        mlflow.log_artifact(output_path + 'results_metrics_after.json')
-        mlflow.log_artifact(output_path + 'results_metrics_before.json')
+        mlflow.log_artifact(output_path + f'results_communities_after_{method_exp}.json')
+        mlflow.log_artifact(output_path + f'results_communities_before_{method_exp}.json')
+        mlflow.log_artifact(output_path + f'results_metrics_after_{method_exp}.json')
+        mlflow.log_artifact(output_path + f'results_metrics_before_{method_exp}.json')
 
         # Log execution time
         end_time = time.time()
@@ -138,16 +140,16 @@ def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, al
         mlflow.log_metric('Execution_Time', execution_time)
 
 def main():
-    patients = ['pte_01']  # Add more patients here
+    patients = ['pte_02']  # Add more patients here
 
     inside_network = ["m'3","sc'3","sc'4","sc'5","sc'6","y'4","y'5","y'6","y'7","y'8","y'9"]
     for patient in patients:
         output_path = f'/home/pablo/works/dev_thesis_SEEG/outputs/{patient}/'
-        input_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/sets/segments_ictal_SR/'
+        input_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/sets/segments/'
         xyz_loc_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/others/sEEG_locs.tsv'
         
         # Reading and preprocessing data
-        raw = mne.io.read_raw_fif(input_path + 'ictal-epo_6.fif', preload=True)
+        raw = mne.io.read_raw_fif(input_path + 'postictal-epo_1.fif', preload=True)
         xyz_loc = pd.read_csv(xyz_loc_path, sep='\t')
         raw, xyz_loc = format_data(raw, xyz_loc)
         raw_filtered1, _ = pass_filter(raw)
@@ -157,7 +159,7 @@ def main():
 
         # Load filtered data
         raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
-        epochs = mne.make_fixed_length_epochs(raw, duration=30, preload=True)
+        epochs = mne.make_fixed_length_epochs(raw, duration=5, preload=True)
         bad_epochs = tag_high_amplitude(epochs)
 
         if bad_epochs:
@@ -185,7 +187,7 @@ def main():
             'girvan_newman', 'k_clique_communities',
         ]
     
-        run_experiment(patient, output_path, raw, xyz_loc, bands, method_exp, norm, algorithms, inside_network)
+        run_experiment(patient, output_path, raw, xyz_loc, bands, method_exp, norm, algorithms, inside_network,detail='post-ictal')
 
 if __name__ == "__main__":
     main()
