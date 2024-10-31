@@ -88,7 +88,7 @@ def detect_communities(data, xyz_loc, raw, output_path, threshold_level=0.15, al
     
     print(f'Community detection using {algorithm} completed.')
     
-    return comunities_before, communities_after
+    return comunities_before, communities_after, tnet_bu_ar
 
 
 def rebuild_communities(communities,raw):
@@ -233,7 +233,133 @@ def jaccard_metric(communities,raw,comparision_set):
     return max_jaccard,dict_communities
 
 
+def jaccard_final_communities(final_communities,comparision_set):
+    jaccard_index={}
+    for t, com in final_communities.items():
+        jaccard_index[t]=jaccard_similarity(comparision_set,com)
+
+    return jaccard_index
+
+
+#### Final community detection ####
+
+
+
+def intra_community_density_with_size_regularization(G, community, alpha=0.6, size_threshold=15):
+    """
+    Calculate the intra-community density with size regularization for a community in a graph.
+
+    Parameters:
+    - G: The graph (networkx.Graph)
+    - community: A set of nodes representing the community
+    - alpha: Regularization factor to penalize large or small communities (default: 0.1)
+    - size_threshold: The ideal size of the community (default: 10)
+
+    Returns:
+    - density_score: The intra-community density with regularization
+    """
+    community = set(community)
+    num_nodes = len(community)
     
+    if num_nodes <= 3:
+        return 0  # If the community is too small, return density as 0
+
+    # Count edges within the community
+    intra_edges = G.subgraph(community).number_of_edges()
+
+    # Calculate intra-community density
+    possible_edges = num_nodes * (num_nodes - 1) / 2
+    if possible_edges == 0:
+        density = 0
+    else:
+        density = intra_edges / possible_edges
+    
+    # Size regularization: penalize communities that are too small or too large
+    size_penalty = alpha * abs(num_nodes - size_threshold) / size_threshold
+
+    # Regularized density score
+    density_score = density - size_penalty
+    
+    return max(0, density_score)  # Ensure non-negative density score
+
+
+
+def get_final_communities(communities,raw, tnet):
+    """
+    Finds the final communities for each time step using the given communities and temporal network.
+
+    Parameters:
+    communities (list): List of communities, where each community is represented as a list of nodes.
+    raw (mne.Raw object): Raw data object containing channel names.
+    tnet (numpy.ndarray): The temporal network data (3D array).
+    
+    
+    """
+    communities_dict_after=rebuild_communities(communities,raw)
+
+    max_density_scores=[]
+    max_density_scores_com=[]
+    best_communities={}
+    communities_tuple=[]
+
+    for t in range(len(communities_dict_after)):
+        com_t=communities_dict_after[t]
+        adj = Adjacency(tnet[:,:,t],labels=raw.ch_names)
+        G = nx.Graph(adj.to_graph())
+        density_scores = {}
+        commun=[]
+        for com, ch in com_t.items():
+            density_scores[com] = intra_community_density_with_size_regularization(G, ch)
+            commun.append(ch)
+        max_density_scores.append(max(density_scores.values()))
+        #Get the community with the maximum density score
+        best_communities[t]=commun[list(density_scores.values()).index(max(density_scores.values()))]
+        max_density_scores_com.append(max(density_scores, key=density_scores.get))
+        communities_tuple.append((best_communities[t],max_density_scores[t]))
+
+    final_communities={}
+    #Get the t and the communities with a density value different from 0
+    for t in range(len(best_communities)):
+        if max_density_scores[t]!=0:
+            final_communities[t]=best_communities[t]
+
+    return final_communities,communities_tuple
+
+
+def get_max_communities(data_dict):
+    final_array = []
+
+    # Iterate through each time step (t)
+    for t in range(len(next(iter(data_dict.values())))):  # Assuming all algorithms have the same time steps
+        max_density = float('-inf')
+        selected_algorithm = None
+        selected_community = None
+
+        # Loop through algorithms to find the max density at time t
+        for algorithm, communities in data_dict.items():
+            community, density = communities[t]
+
+            # Update the best algorithm-community pair for this time step
+            if density > max_density:
+                max_density = density
+                selected_algorithm = algorithm
+                selected_community = community
+
+        # Apply the conditional: if the max density is 0, return an empty community
+        if max_density == 0:
+            selected_community = []
+
+        # Store the result for this time step
+        final_array.append((selected_algorithm, [selected_community], max_density))
+
+    return final_array
+
+
+
+
+
+
+
     
 
 

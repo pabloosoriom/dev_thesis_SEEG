@@ -60,7 +60,7 @@ def format_data(raw,xyz_loc):
     ## This function might change according to the format of the schema and the raw data
 
 
-    ############### For patient 01 ################
+    # ############### For patient 01 ################
     # def format_label(label):
     #     # Remove 'EEG '
     #     label = label.replace('EEG ', '').strip()
@@ -72,7 +72,7 @@ def format_data(raw,xyz_loc):
 
 
 
-    ############### For patient 02 ################
+    ############## For patient 02 ################
 
     def format_label(df):
         def format_name(name):
@@ -94,10 +94,10 @@ def format_data(raw,xyz_loc):
 
         # Return the modified DataFrame
         return df[['formatted_label', 'r', 'a', 's']]
-
-
     # Process the DataFrame
     xyz_loc = format_label(xyz_loc)
+
+    
 
     ##Formating raw channels names
     def clean_channel_name(channel):

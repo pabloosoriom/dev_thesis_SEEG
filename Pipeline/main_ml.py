@@ -140,16 +140,16 @@ def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, al
         mlflow.log_metric('Execution_Time', execution_time)
 
 def main():
-    patients = ['pte_02']  # Add more patients here
+    patients = ['pte_01']  # Add more patients here
 
     inside_network = ["m'3","sc'3","sc'4","sc'5","sc'6","y'4","y'5","y'6","y'7","y'8","y'9"]
     for patient in patients:
         output_path = f'/home/pablo/works/dev_thesis_SEEG/outputs/{patient}/'
-        input_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/sets/segments/'
+        input_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/sets/segments_ictal_SR/'
         xyz_loc_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/others/sEEG_locs.tsv'
         
         # Reading and preprocessing data
-        raw = mne.io.read_raw_fif(input_path + 'postictal-epo_1.fif', preload=True)
+        raw = mne.io.read_raw_fif(input_path + 'pte01_sub_9324.fif', preload=True)
         xyz_loc = pd.read_csv(xyz_loc_path, sep='\t')
         raw, xyz_loc = format_data(raw, xyz_loc)
         raw_filtered1, _ = pass_filter(raw)
@@ -159,7 +159,7 @@ def main():
 
         # Load filtered data
         raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
-        epochs = mne.make_fixed_length_epochs(raw, duration=5, preload=True)
+        epochs = mne.make_fixed_length_epochs(raw, duration=3, preload=True)
         bad_epochs = tag_high_amplitude(epochs)
 
         if bad_epochs:
@@ -175,7 +175,7 @@ def main():
             output_path=output_path + patient + '_',
             method=method,
             xyz_loc=xyz_loc,
-            animation=False)
+            animation=True)
         
         del raw_filtered1, raw_filtered, epochs
         gc.collect()
@@ -187,7 +187,7 @@ def main():
             'girvan_newman', 'k_clique_communities',
         ]
     
-        run_experiment(patient, output_path, raw, xyz_loc, bands, method_exp, norm, algorithms, inside_network,detail='post-ictal')
+        run_experiment(patient, output_path, raw, xyz_loc, bands, method_exp, norm, algorithms, inside_network,detail='inter-ictal_epoch3s')
 
 if __name__ == "__main__":
     main()

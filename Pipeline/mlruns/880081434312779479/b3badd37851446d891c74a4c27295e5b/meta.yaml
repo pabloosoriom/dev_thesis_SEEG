@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/880081434312779479/b3badd37851446d891c74a4c27295e5b/artifacts
+end_time: 1730340169943
+entry_point_name: ''
+experiment_id: '880081434312779479'
+lifecycle_stage: active
+run_id: b3badd37851446d891c74a4c27295e5b
+run_name: Experiment_pte_01_aec_inter-ictal_epoch3s_final_com_selection
+run_uuid: b3badd37851446d891c74a4c27295e5b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1730339059117
+status: 3
+tags: []
+user_id: pablo

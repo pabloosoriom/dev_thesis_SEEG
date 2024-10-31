@@ -14,6 +14,8 @@ import json
 import io
 import gc
 from scipy.signal import hilbert
+from tqdm import tqdm
+
 
 def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'],animation=True,state=''):
     ### Important functions###
@@ -33,19 +35,38 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         return Image.open(buf)
 
     # Create the animation
-    def create_animation(array, bands, ch_names,method,details=''):
+    # def create_animation(array, bands, ch_names,method,details=''):
+    #     for i, band_name in enumerate(bands):
+    #         frames = []
+    #         print(f"Creating animation for band: {band_name}")
+    #         for j in range(array.shape[0]):
+    #             matrix = array[j, :, :, i]
+    #             print(j)
+    #             frame_img = create_frame(matrix, band_name, ch_names, j)
+    #             frames.append(frame_img)
+
+    #         # Save the frames as an animated GIF
+    #         frames[0].save(output_path+f'{band_name}_{method}{details}_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
+
+    def create_animation(array, bands, ch_names, method, details=''):
         for i, band_name in enumerate(bands):
             frames = []
             print(f"Creating animation for band: {band_name}")
-            for j in range(array.shape[0]):
+
+            # Use tqdm to show progress for each frame in the current band
+            for j in tqdm(range(array.shape[0]), desc=f'Processing frames for {band_name}'):
                 matrix = array[j, :, :, i]
-                print(j)
                 frame_img = create_frame(matrix, band_name, ch_names, j)
                 frames.append(frame_img)
 
             # Save the frames as an animated GIF
-            frames[0].save(output_path+f'{band_name}_{method}{details}_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
+            frames[0].save(
+                f"{output_path}{band_name}_{method}{details}_animation.gif", 
+                save_all=True, append_images=frames[1:], duration=500, loop=0
+            )
+        print("All animations created successfully.")
 
+    
     #Normalize between 0 and 1
     def normalize_matrix(matrix):
         min_value = np.min(matrix)
@@ -87,7 +108,7 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         aec_results = {}
         for band, envelopes in envelop_data_bands.items():
             aec_results[band] = []
-            print(f'Calculating results for band {band}')
+            print(f'Calculating {method[0:3]} results for band {band}')
             for envelope in envelopes:                
                 aec_matrix = calculate_aec(envelope)
                 aec_results[band].append(aec_matrix)
@@ -107,7 +128,7 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         plv_results = {}
         for band, phase in phase_data_bands.items():
             plv_results[band] = []
-            print(f'Calculating results for band {band}')
+            print(f'Calculating {method[4:7]} results for band {band}')
             for phase in phase:                
                 plv_matrix = calculate_plv(phase)
                 plv_results[band].append(plv_matrix)
@@ -137,7 +158,10 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
             plv_results_array = np.array([plv_results[band] for band in plv_results.keys()])
             plv_results_array= np.transpose(plv_results_array,(1,2,3,0))
             print(f'Creating animations for {list(filtered_epoch_data.keys())}')
+
+            print("Creating animations for AEC")
             create_animation(aec_results_array, list(filtered_epoch_data.keys()), epochs.ch_names,method=method[0:3])
+            print("Creating animations for PLV")
             create_animation(plv_results_array, list(filtered_epoch_data.keys()), epochs.ch_names,method=method[4:7])
     
         #Create correection according to distance 
@@ -155,6 +179,7 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         aec_distance = {}
         for band, aec_matrices in aec_results.items():
             aec_distance[band] = []
+            print(f'Normalizing distance at {method[0:3]} results for band {band}')
             for aec_matrix in aec_matrices:
                 aec_distance[band].append(aec_matrix * normalized_distances)
             aec_distance[band] = np.array(aec_distance[band])
@@ -175,6 +200,7 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         plv_distance = {}
         for band, plv_matrices in plv_results.items():
             plv_distance[band] = []
+            print(f'Normalizing distance at {method[4:7]} results for band {band}')
             for plv_matrix in plv_matrices:
                 plv_distance[band].append(plv_matrix * normalized_distances)
             plv_distance[band] = np.array(plv_distance[band])
@@ -184,9 +210,9 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         for band in plv_distance.keys():
             np.save(output_path+f'connectivity_data_{band}_{method[4:7]}_distance_dense.npy', plv_distance[band])
         
-        del plv_results
-        del plv_distance
-        gc.collect()
+        # del plv_results
+        # del plv_distance
+        # gc.collect()
         
         #Create animations for the distance corrected data
         if animation:
@@ -196,9 +222,13 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
             plv_distance_array = np.array([plv_distance[band] for band in plv_distance.keys()])
             plv_distance_array= np.transpose(plv_distance_array,(1,2,3,0))
 
+            print("Creating animations for AEC with distance correction")
+            create_animation(aec_distance_array, list(filtered_epoch_data.keys()), epochs.ch_names,method=method[0:3],details='_distance_corrected')
 
-            create_animation(aec_distance_array, list(filtered_epoch_data.keys()), epochs.ch_names,method=method[0,3],details='_distance_corrected')
-            create_animation(plv_distance_array, list(filtered_epoch_data.keys()), epochs.ch_names,method=method[4,7],details='_distance_corrected')
+            print("Creating animations for PLV with distance correction")
+            create_animation(plv_distance_array, list(filtered_epoch_data.keys()), epochs.ch_names,method=method[4:7],details='_distance_corrected')
+
+
     else: 
         # Freq bands of interest
         # Freq_Bands = {"theta": [4.0, 7.5], "alpha": [7.5, 13.0], 
@@ -263,7 +293,6 @@ def frequency_bands(epochs):
 
 def get_envelop(epoch_data):
     return np.abs(epoch_data)
-
 
 
 # Function for mirror padding and Hilbert transform
