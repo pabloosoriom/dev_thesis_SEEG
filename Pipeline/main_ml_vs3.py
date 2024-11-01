@@ -215,17 +215,17 @@ def main():
         if bad_epochs:
             epochs.drop(bad_epochs)
 
-        # # Connectivity
-        method = 'aec&plv'
-        print(f'Connectivity method: {method}')
-        # Define frequency bands
-        # Create the connectivity animation
-        create_connectivity(
-            epochs=epochs,
-            output_path=output_path + patient + '_',
-            method=method,
-            xyz_loc=xyz_loc,
-            animation=True)
+        # # # Connectivity
+        # method = 'aec&plv'
+        # print(f'Connectivity method: {method}')
+        # # Define frequency bands
+        # # Create the connectivity animation
+        # create_connectivity(
+        #     epochs=epochs,
+        #     output_path=output_path + patient + '_',
+        #     method=method,
+        #     xyz_loc=xyz_loc,
+        #     animation=True)
         
         # del raw_filtered1, raw_filtered, epochs
         # gc.collect()
