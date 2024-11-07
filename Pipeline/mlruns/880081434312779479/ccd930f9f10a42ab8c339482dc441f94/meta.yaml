@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/880081434312779479/ccd930f9f10a42ab8c339482dc441f94/artifacts
+end_time: 1731012646076
+entry_point_name: ''
+experiment_id: '880081434312779479'
+lifecycle_stage: active
+run_id: ccd930f9f10a42ab8c339482dc441f94
+run_name: Experiment_pte_02_aec_ictal_sub5886_epoch3s_many_algorithms
+run_uuid: ccd930f9f10a42ab8c339482dc441f94
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731012456538
+status: 3
+tags: []
+user_id: pablo

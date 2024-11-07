@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/880081434312779479/e6dffa2c8b15440781e4e79e43b73e2d/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '880081434312779479'
+lifecycle_stage: active
+run_id: e6dffa2c8b15440781e4e79e43b73e2d
+run_name: Experiment_pte_02_aec_inter-ictal_epoch3s_Juan_exp
+run_uuid: e6dffa2c8b15440781e4e79e43b73e2d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1730823245336
+status: 1
+tags: []
+user_id: pablo

@@ -132,10 +132,15 @@ def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, al
 
                 final_time_community= get_max_communities(tuples_compiled_after)
                 #Save the final time-series of communities
-                with open(output_path + f'final_com_{band}_{method_exp}_{n}_{algorithm}.json', 'w') as f:
+                with open(output_path + f'final_com_{band}_{method_exp}_{n}.json', 'w') as f:
                     json.dump(final_time_community, f)
+                
+                #Getting final metrics for the best communities for experiment
+
 
                 del conn
+
+
                 gc.collect()
                 results_norm_communities_after[n] = results_algorithm_communities_after
                 results_norm_communities_before[n] = results_algorithm_communities_before
@@ -184,7 +189,7 @@ def main():
     for patient in patients:
         output_path = f'/home/pablo/works/dev_thesis_SEEG/outputs/{patient}/'
         input_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/segments/'
-        xyz_loc_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/channel.mat'
+        xyz_loc_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/others/channel.mat'
         
         
         # Reading and preprocessing data
@@ -202,6 +207,10 @@ def main():
 
 
         raw, xyz_loc = format_data(raw, xyz_loc)
+        #save the xyz_loc
+        xyz_loc.to_csv(output_path + 'xyz_loc.csv', sep='\t', index=False)
+        
+
         raw_filtered1, _ = pass_filter(raw)
         raw_filtered, _ = line_noise_filter(raw_filtered1, [60, 120], True)
         raw_filtered = set_names(raw_filtered)
@@ -215,7 +224,7 @@ def main():
         if bad_epochs:
             epochs.drop(bad_epochs)
 
-        # # # Connectivity
+        # # Connectivity
         # method = 'aec&plv'
         # print(f'Connectivity method: {method}')
         # # Define frequency bands
@@ -230,20 +239,49 @@ def main():
         # del raw_filtered1, raw_filtered, epochs
         # gc.collect()
         
-        bands = ['low_gamma', 'high_gamma1']
-        method_exp = 'aec'
-        norm = ['distance_']
-        algorithms = [
-            'girvan_newman','k_clique_communities'
-        ]
+        # bands = ['theta','alpha','beta','low_gamma', 'high_gamma1']
+        # method_exp = 'aec'
+        # norm = ['','distance_']
+        # algorithms = [
+        #     'girvan_newman', 'edge_current_flow_betweenness_partition', 'greedy_modularity_communities', 'louvain_communities','kernighan_lin_bisection'
+        # ]
     
-        run_experiment(patient, output_path, raw, xyz_loc, bands, method_exp, norm, algorithms, inside_network,detail='inter-ictal_epoch3s_Juan_exp')
+        # run_experiment(patient, output_path, raw, xyz_loc, bands, method_exp, norm, algorithms, inside_network,detail='ictal_sub5886_epoch3s_many_algorithms')
 
 
         # # # Plot electrode locations
         # #Read the final communities
-        # with open('/home/pablo/works/dev_thesis_SEEG/outputs/pte_01/final_com_high_gamma1_aec_distance__girvan_newman.json') as f:
-        #     communities_data = json.load(f)
+        with open(output_path+'final_com_high_gamma1_aec_distance_.json') as f:
+            communities_data = json.load(f)
+
+        # # # Plot the electrode locations
+        plot_electrode_locations(xyz_loc=xyz_loc, communities_data=communities_data, outputpath=output_path,band='high_gamma1')
+        final_metrics_plot(communities_data=communities_data,inside_networks=inside_network, output_path=output_path,band='high_gamma1')
+
+        with open(output_path+'final_com_low_gamma_aec_distance_.json') as f:
+            communities_data = json.load(f)
+
+        # # # Plot the electrode locations
+        plot_electrode_locations(xyz_loc=xyz_loc, communities_data=communities_data, outputpath=output_path,band='low_gamma')
+        final_metrics_plot(communities_data=communities_data,inside_networks=inside_network, output_path=output_path,band='low_gamma')
+
+        
+        # # # Plot electrode locations
+        # #Read the final communities
+        with open(output_path+'final_com_high_gamma1_aec_.json') as f:
+            communities_data = json.load(f)
+
+        # # # Plot the electrode locations
+        plot_electrode_locations(xyz_loc=xyz_loc, communities_data=communities_data, outputpath=output_path,band='high_gamma1_no-norm')
+        final_metrics_plot(communities_data=communities_data,inside_networks=inside_network, output_path=output_path,band='high_gamma1_no-norm')
+
+        with open(output_path+'final_com_low_gamma_aec_.json') as f:
+            communities_data = json.load(f)
+
+        # # # Plot the electrode locations
+        plot_electrode_locations(xyz_loc=xyz_loc, communities_data=communities_data, outputpath=output_path,band='low_gamma_no-norm')
+        final_metrics_plot(communities_data=communities_data,inside_networks=inside_network, output_path=output_path,band='low_gamma_no-norm')
+        
 
 
 if __name__ == "__main__":

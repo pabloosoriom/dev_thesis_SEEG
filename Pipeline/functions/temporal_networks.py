@@ -62,6 +62,7 @@ def detect_communities(data, xyz_loc, raw, output_path, threshold_level=0.15, al
         # Create a network from the adjacency matrix
         adj = Adjacency(tnet_bu_ar[:, :, i], labels=raw.ch_names)
         G = nx.Graph(adj.to_graph())
+        print(f'Detecting communities at time step {i}...')
         
         # Select the community detection algorithm
         communities_dict[i] = communities_algorithm(G, algorithm, k)
@@ -353,6 +354,36 @@ def get_max_communities(data_dict):
         final_array.append((selected_algorithm, [selected_community], max_density))
 
     return final_array
+
+
+#### Plotting final metrics ####
+
+def final_metrics_plot(communities_data, inside_networks, output_path,band):
+    #Density score
+    density_scores = [density for _, _, density in communities_data]
+    #Jaccard index
+    jaccard_index = []
+    for _, community, _ in communities_data:
+        jaccard_index.append(jaccard_similarity(inside_networks,community[0]))
+    
+    fig, ax = plt.subplots(2, 1, figsize=(15, 10))
+    ax[0].plot(density_scores, label='Density score', color='blue')
+    ax[0].set_title(f'Max Intra-community density with size regularization over time for {band} band')
+    ax[0].set_xlabel('Time step')
+    ax[0].set_ylabel('Density score')
+    ax[0].legend()
+
+    ax[1].plot(jaccard_index, label='Jaccard index', color='red')
+    ax[1].set_title(f'Jaccard index over time for {band} band')
+    ax[1].set_xlabel('Time step')
+    ax[1].set_ylabel('Jaccard index')
+    ax[1].legend()
+
+    plt.tight_layout()
+    plt.savefig(output_path + f'final_metrics_{band}.png')
+
+
+    
 
 
 

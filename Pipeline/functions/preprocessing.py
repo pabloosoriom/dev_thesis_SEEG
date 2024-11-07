@@ -143,7 +143,7 @@ def format_data(raw,xyz_loc):
 
     return raw, xyz_loc
 
-def plot_xyz(xyz_loc, outputpath, axises=['r', 'a', 's'],label='label'):
+def plot_xyz(xyz_loc, outputpath, axises=['r', 'a', 's'],label='formatted_label'):
     fig = plt.figure(figsize=(10, 10))
     ax = fig.add_subplot(111, projection='3d')
 
@@ -153,7 +153,7 @@ def plot_xyz(xyz_loc, outputpath, axises=['r', 'a', 's'],label='label'):
 
     # Annotate each electrode with its name, without the "EEG" prefix and lowercase
     for i, row in xyz_loc.iterrows():
-        ax.text(row[axises[0]], row[axises[1]], row[axises[2]], row[label][3:].lower())
+        ax.text(row[axises[0]], row[axises[1]], row[axises[2]], row[label].lower())
     # Set labels and title
     ax.set_xlabel('Right (mm)')
     ax.set_ylabel('Anterior (mm)')

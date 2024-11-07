@@ -6,7 +6,7 @@ import nibabel as nib
 from nilearn import datasets
 from PIL import Image
 
-def plot_electrode_locations(xyz_loc, communities_data, outputpath):
+def plot_electrode_locations(xyz_loc, communities_data, outputpath, band):
     # Prepare the output directory
     images_dir = os.path.join(outputpath, "brain images")
     os.makedirs(images_dir, exist_ok=True)
@@ -71,6 +71,6 @@ def plot_electrode_locations(xyz_loc, communities_data, outputpath):
 
     # Create an animation from saved frames
     frames = [Image.open(os.path.join(images_dir, f"frame_{t:04d}.png")) for t in range(len(communities_data))]
-    animation_path = os.path.join(outputpath, "brain_community_animation.gif")
+    animation_path = os.path.join(outputpath, f"electrode_locations_{band}.gif")
     frames[0].save(animation_path, save_all=True, append_images=frames[1:], duration=500, loop=0)
     print("Animation saved at:", animation_path)
