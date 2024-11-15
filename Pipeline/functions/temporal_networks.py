@@ -7,7 +7,8 @@ import teneto
 from teneto import plot 
 from teneto import TemporalNetwork
 import matplotlib.pyplot as plt
-
+import seaborn as sns
+from tqdm import tqdm
 
 
 
@@ -25,7 +26,7 @@ def plot_temporal_graph(tnet, output_path, xyz_loc):
 
 
 ### Community detection ###
-def detect_communities(data, xyz_loc, raw, output_path, threshold_level=0.15, algorithm='k_clique_communities', k=2, plot=False):
+def detect_communities(data, xyz_loc, raw, output_path, threshold_level, algorithm='k_clique_communities', k=2, plot=False):
     """
     Detects communities over time using the given data and algorithm, and then applies temporal consensus.
     
@@ -49,7 +50,7 @@ def detect_communities(data, xyz_loc, raw, output_path, threshold_level=0.15, al
                               timetype='discrete', timeunit='epoch', nodelabels=list(xyz_loc['formatted_label'].values))
     
     # Binarize the temporal network
-    tnet_bu.binarize(threshold_type='percent', threshold_level=threshold_level)
+    tnet_bu.binarize(threshold_type='percent', threshold_level=1-threshold_level,axis='graphlet')
     
     # Get the binarized adjacency network
     tnet_bu_ar = tnet_bu.network
@@ -58,11 +59,13 @@ def detect_communities(data, xyz_loc, raw, output_path, threshold_level=0.15, al
     communities_dict = {}
     
     # Detect communities at each time step
-    for i in range(tnet_bu_ar.shape[2]):
+
+    for i in tqdm(range(tnet_bu_ar.shape[2]), desc='Detecting communities over time'):
         # Create a network from the adjacency matrix
         adj = Adjacency(tnet_bu_ar[:, :, i], labels=raw.ch_names)
         G = nx.Graph(adj.to_graph())
-        print(f'Detecting communities at time step {i}...')
+   
+        # print(f'Detecting communities at time step {i}...')
         
         # Select the community detection algorithm
         communities_dict[i] = communities_algorithm(G, algorithm, k)
@@ -142,8 +145,16 @@ def communities_algorithm(G, algorithm, k=2):
         communities = [list(c) for c in communities_generator]
     
     elif algorithm == 'k_clique_communities':
-        communities_generator = list(nx.community.k_clique_communities(G, k))
-        communities = [list(c) for c in communities_generator]
+        
+        cliques = nx.find_cliques(G)
+        cliques= [frozenset(c) for c in cliques if len(c) >= k]
+        # print(f'Number of cliques {len(cliques)}')     
+        if len(cliques) < 20000:
+            communities_generator = nx.community.k_clique_communities(G, k)
+            communities = [list(c) for c in communities_generator]
+        else:
+            #all channels
+            communities = [list(G.nodes)]
     
     elif algorithm == 'greedy_modularity_communities':
         communities_generator = nx.community.greedy_modularity_communities(G)
@@ -367,13 +378,13 @@ def final_metrics_plot(communities_data, inside_networks, output_path,band):
         jaccard_index.append(jaccard_similarity(inside_networks,community[0]))
     
     fig, ax = plt.subplots(2, 1, figsize=(15, 10))
-    ax[0].plot(density_scores, label='Density score', color='blue')
+    ax[0].plot(density_scores, label='Density score', color='blue', marker='o')
     ax[0].set_title(f'Max Intra-community density with size regularization over time for {band} band')
     ax[0].set_xlabel('Time step')
     ax[0].set_ylabel('Density score')
     ax[0].legend()
 
-    ax[1].plot(jaccard_index, label='Jaccard index', color='red')
+    ax[1].plot(jaccard_index, label='Jaccard index', color='red', marker='o')
     ax[1].set_title(f'Jaccard index over time for {band} band')
     ax[1].set_xlabel('Time step')
     ax[1].set_ylabel('Jaccard index')
@@ -384,7 +395,62 @@ def final_metrics_plot(communities_data, inside_networks, output_path,band):
 
 
     
+###Threshold calculation###
+def plot_weight_distribution_with_threshold(data, outputpath, band, bins=30, percentile=90,method_exp='aec'):
+    """
+    Plots the density distribution of edge weights over time and adds a magnitude-based threshold line.
 
+    Parameters
+    ----------
+    data : 3D numpy array
+        Temporal network data in the form (nodes, nodes, time).
+    bins : int, optional
+        Number of bins for the histogram, by default 30.
+    percentile : int, optional
+        Percentile for magnitude-based threshold, by default 90 (top 10% of weights).
+    """
+
+    data=data.transpose(1,2,0)
+
+    num_timepoints = data.shape[2]
+    fig, axs = plt.subplots(num_timepoints, 1, figsize=(10, 3 * num_timepoints))
+    
+    # Check if only one subplot axis is returned
+    if num_timepoints == 1:
+        axs = [axs]
+
+    thresholds = []
+
+    for t in range(num_timepoints):
+        weights = data[:, :, t].flatten()  # Flatten the matrix to get all edge weights
+        weights = np.array(weights, dtype=np.float64)  # Convert to numpy array             
+        
+        # Calculate threshold based on the specified percentile
+        threshold_value = np.percentile(weights, percentile)
+        thresholds.append(threshold_value)
+        # Plot histogram and KDE for the weights
+        ax = axs[t]
+        sns.histplot(weights, bins=bins, kde=True, ax=ax, color="blue", alpha=0.6)
+        
+        # Add threshold line to plot
+        ax.axvline(threshold_value, color='red', linestyle='--', label=f'Threshold ({percentile}th percentile)')
+        
+        # Set plot labels, title, and legend
+        ax.set_title(f'Time Point {t + 1} - Weight Distribution with Threshold')
+        ax.set_xlabel('Edge Weight')
+        ax.set_ylabel('Density')
+        ax.legend()
+    plt.title(f'Edge Weight Distribution with Threshold at {percentile}th Percentile for {band} Band for method {method_exp}')
+    plt.tight_layout()
+    plt.savefig(outputpath + f'edge_weight_distribution_{band}_{method_exp}.png')
+    # plt.show()
+
+    # Calculate the mean of all threshold values
+    mean_threshold = np.mean(thresholds)
+
+    # print(f'Selected threshold value at the {percentile}th percentile is: {threshold_value}')
+    print(f"Mean threshold value across time points: {mean_threshold}")
+    return mean_threshold
 
 
 

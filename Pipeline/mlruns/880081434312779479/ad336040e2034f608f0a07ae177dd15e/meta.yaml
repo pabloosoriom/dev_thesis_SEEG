@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/880081434312779479/ad336040e2034f608f0a07ae177dd15e/artifacts
+end_time: 1731083678880
+entry_point_name: ''
+experiment_id: '880081434312779479'
+lifecycle_stage: active
+run_id: ad336040e2034f608f0a07ae177dd15e
+run_name: Algorithm_edge_current_flow_betweenness_partition
+run_uuid: ad336040e2034f608f0a07ae177dd15e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731083591324
+status: 3
+tags: []
+user_id: pablo

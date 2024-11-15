@@ -1,16 +1,12 @@
 ##Different connectivity measures
 import matplotlib.pyplot as plt
 import mne
-from mne_connectivity import spectral_connectivity_epochs
 from sklearn.metrics import pairwise_distances
-from nltools.data import Brain_Data, Design_Matrix, Adjacency
 import matplotlib.animation as animation
 from mne_connectivity import spectral_connectivity_time
-import networkx as nx
 import seaborn as sns
 import numpy as np
 from PIL import Image
-import json
 import io
 import gc
 from scipy.signal import hilbert
@@ -34,19 +30,7 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         buf.seek(0)
         return Image.open(buf)
 
-    # Create the animation
-    # def create_animation(array, bands, ch_names,method,details=''):
-    #     for i, band_name in enumerate(bands):
-    #         frames = []
-    #         print(f"Creating animation for band: {band_name}")
-    #         for j in range(array.shape[0]):
-    #             matrix = array[j, :, :, i]
-    #             print(j)
-    #             frame_img = create_frame(matrix, band_name, ch_names, j)
-    #             frames.append(frame_img)
 
-    #         # Save the frames as an animated GIF
-    #         frames[0].save(output_path+f'{band_name}_{method}{details}_animation.gif', save_all=True, append_images=frames[1:], duration=500, loop=0)
 
     def create_animation(array, bands, ch_names, method, details=''):
         for i, band_name in enumerate(bands):
@@ -82,6 +66,7 @@ def create_connectivity(epochs, output_path,xyz_loc,method,axises=['r', 'a', 's'
         filtered_epoch_data= frequency_bands(epochs=epochs)
         
         #At first we need to mirror-padd at both ends for applying the Hilbert transform properly
+        
         # Apply to all epochs and channels in a specific band (e.g., 'low_gamma')
         hilbert_transformed_data_bands={}
         envelop_data_bands={}

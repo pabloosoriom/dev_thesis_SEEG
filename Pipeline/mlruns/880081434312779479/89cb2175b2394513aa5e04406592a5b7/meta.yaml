@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/880081434312779479/89cb2175b2394513aa5e04406592a5b7/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '880081434312779479'
+lifecycle_stage: active
+run_id: 89cb2175b2394513aa5e04406592a5b7
+run_name: Experiment_pte_02_plv_ictal_sub5886_epoch3s_many_algorithms_percentile_90_plv
+run_uuid: 89cb2175b2394513aa5e04406592a5b7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731635113579
+status: 1
+tags: []
+user_id: pablo

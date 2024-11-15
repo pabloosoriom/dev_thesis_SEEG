@@ -13,7 +13,6 @@ matplotlib.use('Agg')  # Use non-interactive backend
 
 warnings.filterwarnings('ignore')
 
-from functions.EpiIndex import *
 from functions.Connectivity import *
 from functions.preprocessing import *
 from functions.temporal_networks import *

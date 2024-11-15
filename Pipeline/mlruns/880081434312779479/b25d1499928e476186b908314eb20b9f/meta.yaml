@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/880081434312779479/b25d1499928e476186b908314eb20b9f/artifacts
+end_time: 1731602734945
+entry_point_name: ''
+experiment_id: '880081434312779479'
+lifecycle_stage: active
+run_id: b25d1499928e476186b908314eb20b9f
+run_name: Algorithm_girvan_newman
+run_uuid: b25d1499928e476186b908314eb20b9f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731602732990
+status: 3
+tags: []
+user_id: pablo

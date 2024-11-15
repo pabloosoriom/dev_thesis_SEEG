@@ -1,0 +1,15 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/880081434312779479/7dc62105c2c4458da3d09cabee84f2ab/artifacts
+end_time: 1731031050877
+entry_point_name: ''
+experiment_id: '880081434312779479'
+lifecycle_stage: active
+run_id: 7dc62105c2c4458da3d09cabee84f2ab
+run_name: Algorithm_kernighan_lin_bisection
+run_uuid: 7dc62105c2c4458da3d09cabee84f2ab
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731031048746
+status: 3
+tags: []
+user_id: pablo

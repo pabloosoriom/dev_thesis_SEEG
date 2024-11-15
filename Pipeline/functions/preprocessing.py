@@ -6,7 +6,6 @@ base de datos, utilizando un filtro a través de un análisis de correlación. P
 import numpy as np
 import pandas as pd
 import mne
-from mne import io
 from scipy.fft import fft, fftfreq
 import re
 
@@ -167,8 +166,8 @@ def plot_xyz(xyz_loc, outputpath, axises=['r', 'a', 's'],label='formatted_label'
 
 
 
-def pass_filter(raw, high_pass=1,low_pass=110, verbose=False):
-    raw_low_pass = raw.copy().filter(l_freq=high_pass, h_freq=low_pass)
+def pass_filter(raw, low_pass=1,high_pass=110, verbose=False):
+    raw_low_pass = raw.copy().filter(l_freq=low_pass, h_freq=high_pass,verbose=False)
     
     
     fig = raw.plot_psd()

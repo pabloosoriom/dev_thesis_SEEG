@@ -9,7 +9,7 @@ from mne_connectivity import spectral_connectivity_epochs
 import seaborn as sns
 import scipy.io as sio
 
-from functions.EpiIndex import *
+from Exploration.EpiIndex import *
 from functions.Connectivity import *
 from functions.preprocessing import *
 from functions.temporal_networks import *
