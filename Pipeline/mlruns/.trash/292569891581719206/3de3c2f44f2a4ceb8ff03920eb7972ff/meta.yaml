@@ -1,0 +1,16 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/292569891581719206/3de3c2f44f2a4ceb8ff03920eb7972ff/artifacts
+deleted_time: 1732031754885
+end_time: 1731788722565
+entry_point_name: ''
+experiment_id: '292569891581719206'
+lifecycle_stage: deleted
+run_id: 3de3c2f44f2a4ceb8ff03920eb7972ff
+run_name: Algorithm_greedy_modularity_communities
+run_uuid: 3de3c2f44f2a4ceb8ff03920eb7972ff
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731788720400
+status: 3
+tags: []
+user_id: pablo

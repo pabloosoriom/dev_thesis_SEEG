@@ -1,0 +1,16 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/846456358938017437/7cbbdac0b3fa4162b3a6896627c247f6/artifacts
+deleted_time: 1732031701693
+end_time: null
+entry_point_name: ''
+experiment_id: '846456358938017437'
+lifecycle_stage: deleted
+run_id: 7cbbdac0b3fa4162b3a6896627c247f6
+run_name: Experiment_pte_01_aec_ictal t=1
+run_uuid: 7cbbdac0b3fa4162b3a6896627c247f6
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1728764271512
+status: 1
+tags: []
+user_id: pablo

@@ -1,0 +1,16 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/880081434312779479/3631a15957e749c1bdfebec9a1c2de7c/artifacts
+deleted_time: 1732031706688
+end_time: null
+entry_point_name: ''
+experiment_id: '880081434312779479'
+lifecycle_stage: deleted
+run_id: 3631a15957e749c1bdfebec9a1c2de7c
+run_name: Experiment_pte_02_aec_ictal_sub5886_epoch3s_Th_rdp_0.25
+run_uuid: 3631a15957e749c1bdfebec9a1c2de7c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1730993066920
+status: 1
+tags: []
+user_id: pablo

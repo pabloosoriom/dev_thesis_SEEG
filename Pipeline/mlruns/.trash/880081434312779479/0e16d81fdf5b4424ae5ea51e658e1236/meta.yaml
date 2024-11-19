@@ -1,0 +1,16 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/880081434312779479/0e16d81fdf5b4424ae5ea51e658e1236/artifacts
+deleted_time: 1732031706688
+end_time: 1731097510987
+entry_point_name: ''
+experiment_id: '880081434312779479'
+lifecycle_stage: deleted
+run_id: 0e16d81fdf5b4424ae5ea51e658e1236
+run_name: Algorithm_louvain_communities
+run_uuid: 0e16d81fdf5b4424ae5ea51e658e1236
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731097510674
+status: 3
+tags: []
+user_id: pablo

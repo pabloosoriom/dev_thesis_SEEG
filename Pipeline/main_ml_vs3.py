@@ -22,27 +22,34 @@ from functions.plotter_comunities import plot_electrode_locations
 
 
 def main():
-    patients = ['pte_02']  # Add more patients here
+    patients = ['pte_03']  # Add more patients here
 
-    # inside_network = ["m'3","sc'3","sc'4","sc'5","sc'6","y'4","y'5","y'6","y'7","y'8","y'9"]
-    inside_network=["cp'1","cp'2","cp'3","os'1","os'2","os'3","lp'1", "lp'2"]
+    inside_network = ["m'3","sc'3","sc'4","sc'5","sc'6","y'4","y'5","y'6","y'7","y'8","y'9"]
+    # inside_network=["cp'1","cp'2","cp'3","os'1","os'2","os'3","lp'1", "lp'2"]
     for patient in patients:
         output_path = f'/home/pablo/works/dev_thesis_SEEG/outputs/{patient}/'
         input_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/segments/'
-        xyz_loc_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/others/channel.mat'
-        
+        xyz_loc_path = f'/home/pablo/works/dev_thesis_SEEG/data/{patient}/others/sEEG_locs.tsv'
         
         # Reading and preprocessing data
-        raw = mne.io.read_raw_fif(input_path + 'pte02_sub_5886.fif', preload=True)
+        raw = mne.io.read_raw_fif(input_path + 'pte03_sub_0000.fif', preload=True)
 
         #XYZ location
+
+
         #Pat 01
         # xyz_loc = pd.read_csv(xyz_loc_path, sep='\t')   
 
         #Pat 02
-        xyz = sio.loadmat(xyz_loc_path) 
-        xyz=xyz['Channel']
-        xyz_loc=pd.DataFrame(xyz[0])
+        # xyz = sio.loadmat(xyz_loc_path) 
+        # xyz=xyz['Channel']
+        # xyz_loc=pd.DataFrame(xyz[0])
+
+        #Pat 03
+        xyz_loc = pd.read_csv(xyz_loc_path, sep=r'\s+', header=None, skiprows=1)
+        xyz_loc = xyz_loc.iloc[:, :4]
+        xyz_loc.columns = ['formatted_label','r', 'a', 's']
+        xyz_loc.reset_index(drop=True, inplace=True)
 
 
 
@@ -67,36 +74,38 @@ def main():
         # Connectivity
         method = 'aec&plv'
         print(f'Connectivity method: {method}')
-        Define frequency bands
-        # Create the connectivity animation
-        create_connectivity(
-            epochs=epochs,
-            output_path=output_path + patient + '_',
-            method=method,
-            xyz_loc=xyz_loc,
-            animation=True)
+        ## Define frequency bands
+        ## Create the connectivity animation
+        # create_connectivity(
+        #     epochs=epochs,
+        #     output_path=output_path + patient + '_',
+        #     method=method,
+        #     xyz_loc=xyz_loc,
+        #     animation=True)
         
         del raw_filtered1, raw_filtered, epochs
         gc.collect()
         
-        bands = ['theta','alpha','beta','low_gamma', 'high_gamma1']
+        bands = ['high_gamma1']
         method_exp = 'plv'
         norm = ['','distance_']
         algorithms = [
-           'k_clique_communities','girvan_newman', 'edge_current_flow_betweenness_partition', 'greedy_modularity_communities', 'louvain_communities','kernighan_lin_bisection'
+           'girvan_newman'
         ]
-        #,'girvan_newman', 'edge_current_flow_betweenness_partition', 'greedy_modularity_communities', 'louvain_communities','kernighan_lin_bisection'
-        percentile=90
+        #'k_clique_communities','girvan_newman', 'edge_current_flow_betweenness_partition', 'greedy_modularity_communities', 'louvain_communities','kernighan_lin_bisection'
+        percentile=0.90
+
+        print(f'Processing patient {patient} with percentile {percentile}')
     
-        run_experiment(patient, output_path, raw, xyz_loc, bands, method_exp, norm, algorithms,inside_network,percentile,detail='ictal_sub5886_epoch3s_many_algorithms_percentile_90_plv')
-        load_and_plot_community_data(xyz_loc=xyz_loc, output_path=output_path, inside_network=inside_network, bands=bands, norm_settings=norm, method_exp=method_exp)
+        run_experiment(patient, output_path, raw, xyz_loc, bands, method_exp, norm, algorithms,inside_network,percentile,detail='ictal_sub000_epoch3s_many_algorithms_percentile_90_plv')
+        # load_and_plot_community_data(xyz_loc=xyz_loc, output_path=output_path, inside_network=inside_network, bands=bands, norm_settings=norm, method_exp=method_exp)
         print(f'Finished processing patient {patient}')
 
 
 
 def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, algorithms, inside_network,percentile, detail):
 
-    mlflow.set_experiment('Community_Detection_Experiment_vs2')
+    mlflow.set_experiment('Community_Detection_Experiment_vs3')
     
     with mlflow.start_run(run_name=f'Experiment_{patient}_{method_exp}_{detail}',nested=True):
 
@@ -144,7 +153,7 @@ def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, al
                             for k in [2, 3, 4]:
                                 communities_before, communities_after, tnet = detect_communities(
                                     conn, xyz_loc=xyz_loc, raw=raw, 
-                                    output_path=output_path, threshold_level=percentile, algorithm=algorithm, k=k
+                                    output_path=output_path, threshold_level_=percentile, algorithm=algorithm, k=k
                                 )
 
 
@@ -175,7 +184,7 @@ def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, al
                         else:
                             communities_before, communities_after,tnet = detect_communities(
                                 conn, xyz_loc=xyz_loc, raw=raw, 
-                                output_path=output_path, threshold_level=threshold_magnitude, algorithm=algorithm
+                                output_path=output_path, threshold_level_=percentile, algorithm=algorithm
                             )
 
                             #Find the best communities according to density score with regularization

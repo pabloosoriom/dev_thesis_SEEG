@@ -1,0 +1,16 @@
+artifact_uri: file:///home/pablo/works/dev_thesis_SEEG/Pipeline/mlruns/880081434312779479/a9c286a41fa54eb39c0da799c73a62cb/artifacts
+deleted_time: 1732031706688
+end_time: 1731621588968
+entry_point_name: ''
+experiment_id: '880081434312779479'
+lifecycle_stage: deleted
+run_id: a9c286a41fa54eb39c0da799c73a62cb
+run_name: Experiment_pte_02_aec_ictal_sub5886_epoch3s_many_algorithms_percentile_95
+run_uuid: a9c286a41fa54eb39c0da799c73a62cb
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1731621583816
+status: 4
+tags: []
+user_id: pablo

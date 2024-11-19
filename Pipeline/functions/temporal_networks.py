@@ -26,7 +26,7 @@ def plot_temporal_graph(tnet, output_path, xyz_loc):
 
 
 ### Community detection ###
-def detect_communities(data, xyz_loc, raw, output_path, threshold_level, algorithm='k_clique_communities', k=2, plot=False):
+def detect_communities(data, xyz_loc, raw, output_path, threshold_level_, algorithm='k_clique_communities', k=2, plot=False):
     """
     Detects communities over time using the given data and algorithm, and then applies temporal consensus.
     
@@ -49,11 +49,21 @@ def detect_communities(data, xyz_loc, raw, output_path, threshold_level, algorit
     tnet_bu = TemporalNetwork(N=data.shape[0], T=data.shape[2], nettype='wu', from_array=data,
                               timetype='discrete', timeunit='epoch', nodelabels=list(xyz_loc['formatted_label'].values))
     
+    print('Binarizing the temporal network...')
+    th=1-threshold_level_
+    print('Threshold level:', th)
     # Binarize the temporal network
-    tnet_bu.binarize(threshold_type='percent', threshold_level=1-threshold_level,axis='graphlet')
+    tnet_bu.binarize(threshold_type='percent', threshold_level=1-threshold_level_,axis='graphlet')
     
     # Get the binarized adjacency network
     tnet_bu_ar = tnet_bu.network
+
+    #Calculate metrics for the temporal networks
+    calculate_temporal_metrics(tnet_bu_ar, time_labels=None, output_path=output_path, details='Binarized Network')
+
+    calculate_temporal_metrics(data, time_labels=None, output_path=output_path, details='Original Network')
+
+
     
     # Initialize a dictionary to store communities
     communities_dict = {}
@@ -453,6 +463,77 @@ def plot_weight_distribution_with_threshold(data, outputpath, band, bins=30, per
     return mean_threshold
 
 
+
+
+def calculate_temporal_metrics(data, time_labels=None, output_path=None, details=''):
+    """
+    Calculate and plot temporal graph metrics: node strength, eigen-centrality, betweenness centrality, 
+    and clustering coefficient.
+
+    Parameters
+    ----------
+    data : 3D numpy array
+        Temporal network data of shape (nodes, nodes, time).
+    time_labels : list, optional
+        Labels for time points, defaults to integers starting from 1.
+
+    Returns
+    -------
+    metrics : dict
+        Dictionary containing the temporal evolution of each metric.
+    """
+    # Initialize storage for metrics
+    num_timepoints = data.shape[2]
+    metrics = {"Node Strength": [], "Eigen-Centrality": [], 
+               "Betweenness Centrality": [], "Clustering Coefficient": []}
+
+    # Iterate through each graph in the temporal array
+    for t in range(num_timepoints):
+        adjacency_matrix = data[:, :, t]
+        G = nx.from_numpy_array(adjacency_matrix)
+
+        # Node Strength (sum of edge weights connected to a node)
+        node_strength = np.sum(adjacency_matrix, axis=1)
+        avg_node_strength = np.mean(node_strength)
+        metrics["Node Strength"].append(avg_node_strength)
+
+        # Eigen-Centrality
+        eigen_centrality = nx.eigenvector_centrality_numpy(G)
+        avg_eigen_centrality = np.mean(list(eigen_centrality.values()))
+        metrics["Eigen-Centrality"].append(avg_eigen_centrality)
+
+        # Betweenness Centrality
+        betweenness = nx.betweenness_centrality(G)
+        avg_betweenness = np.mean(list(betweenness.values()))
+        metrics["Betweenness Centrality"].append(avg_betweenness)
+
+        # Clustering Coefficient
+        clustering_coeffs = nx.clustering(G)
+        avg_clustering_coeff = np.mean(list(clustering_coeffs.values()))
+        metrics["Clustering Coefficient"].append(avg_clustering_coeff)
+
+    # Generate time labels if not provided
+    if time_labels is None:
+        time_labels = list(range(0, num_timepoints))
+
+    # Plot metrics over time
+    fig, axs = plt.subplots(2, 2, figsize=(15, 10))
+    axs = axs.flatten()
+    metric_names = list(metrics.keys())
+
+    for i, (metric_name, metric_values) in enumerate(metrics.items()):
+        ax = axs[i]
+        ax.plot(time_labels, metric_values, marker='o', color='b')
+        ax.set_title(metric_name)
+        ax.set_xlabel("Time")
+        ax.set_ylabel("Average Value")
+
+    plt.suptitle(f"Temporal Evolution of Graph Metrics {details}")
+    plt.tight_layout()
+    plt.savefig(output_path + f"temporal_metrics{details}.png")
+    plt.show()
+    
+    return None
 
 
 
