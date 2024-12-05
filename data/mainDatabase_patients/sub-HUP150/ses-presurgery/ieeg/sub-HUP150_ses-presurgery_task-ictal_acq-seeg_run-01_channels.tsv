@@ -67,7 +67,7 @@ RG9	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 RH1	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 RH10	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 RH11	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
-RH12	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
+RH12	SEEG	µV	0.0	256.0	StereoEEG	512.0	bad	n/a
 RH2	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 RH3	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 RH4	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a

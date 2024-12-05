@@ -55,7 +55,7 @@ def bad_channels_filter(raw, reference_channel, correlation_threshold=0.1):
     
     return raw_cleaned, fig
 
-def format_data(raw, xyz_loc, events, channels):
+def format_data(raw, xyz_loc, events=None, channels=None):
     ## This function might change according to the format of the schema and the raw data
 
 
@@ -120,27 +120,36 @@ def format_data(raw, xyz_loc, events, channels):
     # new_channels_names = [clean_channel_name(ch) for ch in raw.ch_names]
     # raw.rename_channels({old: new for old, new in zip(raw.ch_names, new_channels_names)})
 
-    #Inside_network
-    good_channels=channels[channels['status']=='good']
-    inside_network=list(good_channels[(good_channels['status_description'] == 'resect') |
-        (good_channels['status_description'] == 'soz') |
-        (good_channels['status_description'] == 'resect,soz') |
-        (good_channels['status_description'] == 'soz,resect')
-    ]['name'])
-    good_channels=list(good_channels['name'])
-    xyz_loc=xyz_loc[['name','x','y','z']]
-    xyz_loc.columns = ['formatted_label','r','a','s']
-    #Select those who are good channels
+
+    ############## For Main Final Database ################
+    #Inside_network   [Data Formating for Main Database]
+    # good_channels=channels[channels['status']=='good']
+    # inside_network=list(good_channels[(good_channels['status_description'] == 'resect') |
+    #     (good_channels['status_description'] == 'soz') |
+    #     (good_channels['status_description'] == 'resect,soz') |
+    #     (good_channels['status_description'] == 'soz,resect')
+    # ]['name'])
+    # good_channels=list(good_channels['name'])
+    # xyz_loc=xyz_loc[['name','x','y','z']]
+    # xyz_loc.columns = ['formatted_label','r','a','s']
+    # #Select those who are good channels
+    # xyz_loc=xyz_loc[xyz_loc['formatted_label'].isin(good_channels)].reset_index(drop=True)
+
+    # crisis_center=float(events['onset'][0])  #Getting the first onset event
+    # # Define the time window
+    # tmin=crisis_center-30
+    # tmax=crisis_center+30
+    # raw=raw.copy().crop(tmin=tmin, tmax=tmax)
+
+    ############### For simulated data ################
+    good_channels=xyz_loc[xyz_loc['status']=='good']
+    inside_network=list(good_channels[good_channels['status_description']=='soz']['Channel'])
+    good_channels=list(good_channels['Channel'])
+    xyz_loc = xyz_loc[['Channel', 'r', 'a', 's']]
+    xyz_loc.columns=['formatted_label', 'r', 'a', 's']
     xyz_loc=xyz_loc[xyz_loc['formatted_label'].isin(good_channels)].reset_index(drop=True)
 
-    crisis_center=float(events['onset'][0])  #Getting the first onset event
-    # Define the time window
-    tmin=crisis_center-30
-    tmax=crisis_center+30
-    raw=raw.copy().crop(tmin=tmin, tmax=tmax)
 
-    
-    
     #Find intersection of xyz_loc['formatted_label'] and epochs.ch_names
     intersection = set(xyz_loc['formatted_label']).intersection(raw.ch_names)
 

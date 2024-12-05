@@ -60,7 +60,7 @@ LE07	SEEG	µV	0	256	StereoEEG	512	good	n/a
 LE08	SEEG	µV	0	256	StereoEEG	512	good	n/a
 LE09	SEEG	µV	0	256	StereoEEG	512	good	n/a
 LE10	SEEG	µV	0	256	StereoEEG	512	good	n/a
-LE11	SEEG	µV	0	256	StereoEEG	512	good	n/a
+LE11	SEEG	µV	0	256	StereoEEG	512	bad	n/a
 LE12	SEEG	µV	0	256	StereoEEG	512	bad	n/a
 LF01	SEEG	µV	0	256	StereoEEG	512	good	resect,soz
 LF02	SEEG	µV	0	256	StereoEEG	512	good	resect,soz

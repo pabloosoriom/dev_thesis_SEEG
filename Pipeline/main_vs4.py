@@ -21,8 +21,8 @@ from functions.plotter_comunities import plot_electrode_locations
 
 
 def main():
-    patients = ['sub-HUP142']  # Add more patients here
-    #Which dataset are we getting for the patient
+    patients = ['sub-HUP117','sub-HUP130','sub-HUP134','sub-HUP139','sub-HUP140','sub-HUP141','sub-HUP144']  #Patients to process
+    
     ref_data=0
 
     for patient in patients:
@@ -153,7 +153,7 @@ def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, al
                         # Save the results
                         results_algorithm_communities_after[f'{k}_{algorithm}'] = final_communities_before
                         results_algorithm_communities_before[f'{k}_{algorithm}'] = final_communities_after
-                        tuples_compiled_after[algorithm] = final_com_time_after
+                        tuples_compiled_after[f'{k}_{algorithm}'] = final_com_time_after
 
 
                         results_algorithm_metrics_after[f'{k}_{algorithm}'] = jaccard_final_communities_after
@@ -183,6 +183,10 @@ def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, al
                     results_algorithm_metrics_before[algorithm] = jaccard_final_communities_before
                     
             #######Finding the best array for the community representation, to get only one final time-series of communities with the ones with the higher density score
+            #Save the final time-series of communities
+            with open(output_path + f'Tuples_com_{band}_{method_exp}_{n}.json', 'w') as f:
+                json.dump(tuples_compiled_after, f)
+
 
             final_time_community= get_max_communities(tuples_compiled_after)
             #Save the final time-series of communities
@@ -222,6 +226,8 @@ def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, al
     with open(output_path + f'results_metrics_before_{method_exp}.json', 'w') as f:
         json.dump(results_band_metrics_before, f)
 
+    with open(output_path + f'final_com_time_after_{method_exp}.json', 'w') as f:
+        json.dump(final_com_time_after_dict, f)
     # Log execution time
     end_time = time.time()
     execution_time = end_time - start_time

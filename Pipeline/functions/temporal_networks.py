@@ -49,9 +49,7 @@ def detect_communities(data, xyz_loc, raw, output_path, threshold_level_, algori
     tnet_bu = TemporalNetwork(N=data.shape[0], T=data.shape[2], nettype='wu', from_array=data,
                               timetype='discrete', timeunit='epoch', nodelabels=list(xyz_loc['formatted_label'].values))
     
-    print('Binarizing the temporal network...')
     th=1-threshold_level_
-    print('Threshold level:', th)
     # Binarize the temporal network
     tnet_bu.binarize(threshold_type='percent', threshold_level=1-threshold_level_,axis='graphlet')
     

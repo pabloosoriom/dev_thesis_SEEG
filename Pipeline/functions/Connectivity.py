@@ -266,7 +266,8 @@ def frequency_bands(epochs):
     'alpha': (8, 12),
     'beta': (15, 25),
     'low_gamma': (35, 50),
-    'high_gamma1': (70, 110)
+    'high_gamma1': (70, 110),
+    'full_gamma': (30, 110)
     }
 
     filtered_epochs = {}

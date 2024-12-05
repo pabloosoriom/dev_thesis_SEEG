@@ -28,7 +28,7 @@ F7	SEEG	µV	0.0	250.0	StereoEEG	500.0	bad	n/a
 F8	SEEG	µV	0.0	250.0	StereoEEG	500.0	bad	n/a
 FP1	SEEG	µV	0.0	250.0	StereoEEG	500.0	bad	n/a
 FP2	SEEG	µV	0.0	250.0	StereoEEG	500.0	bad	n/a
-FZ	SEEG	µV	0.0	250.0	StereoEEG	500.0	good	n/a
+FZ	SEEG	µV	0.0	250.0	StereoEEG	500.0	bad	n/a
 HIPP1	SEEG	µV	0.0	250.0	StereoEEG	500.0	good	resect
 HIPP2	SEEG	µV	0.0	250.0	StereoEEG	500.0	good	resect
 HIPP3	SEEG	µV	0.0	250.0	StereoEEG	500.0	good	resect

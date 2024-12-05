@@ -67,7 +67,7 @@ LG04	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LG05	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LG06	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LG07	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
-LG08	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
+LG08	SEEG	µV	0.0	512.0	StereoEEG	1024.0	bad	n/a
 LH01	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LH02	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LH04	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
