@@ -20,12 +20,34 @@ from functions.plotter_comunities import plot_electrode_locations
 from functions.plotter_comunities import plot_AUC
 
 
-
-
+# 'sub-HUP139',
+# 'sub-HUP180',
+# 'sub-HUP146',
+# 'sub-HUP177',
+# 'sub-HUP185',
+# 'sub-HUP117',
+# 'sub-HUP173',
+# 'sub-HUP160',
+# 'sub-HUP148',
+# 'sub-HUP150',
+# 'sub-HUP134',
+# 'sub-HUP157',
+# 'sub-HUP130',
+# 'sub-HUP140',
+# 'sub-HUP141',
+# 'sub-HUP144',
+# 'sub-HUP164',
+# 'sub-HUP142',
+# 'sub-HUP163',
 def main():
-    patients = ['S1','S2','S3','S4','S5']  #Patients to process
-    percentiles=[0.90]
-    ref_data="x2x1"
+    patients = [
+       'sub-HUP185',
+'sub-HUP117',
+'sub-HUP173',
+'sub-HUP160',
+    ]  #Patients to process
+    percentiles=[0.95] #Percentiles to process
+    ref_data=0
       
     for patient in patients:
         for percentile in percentiles:
@@ -43,27 +65,25 @@ def main():
             output_path = f'/home/pablo/works/dev_thesis_SEEG/outputs/{patient}/ref_{ref_data}/percentile_{percentile}/'
 
 
-            ########## For main Database  ##############
-            # #Define input paths
-            # main_path='/home/pablo/works/dev_thesis_SEEG/data/mainDatabase_patients/'
-            # # Document with file data
-            # doc_file_data=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+patient+'_ses-presurgery_scans.tsv',sep='\t')
-            # raw=mne.io.read_raw_edf(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data],preload=True)
-            # xyz_loc=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/ieeg/'+patient+'_ses-presurgery_acq-seeg_space-fsaverage_electrodes.tsv',sep='\t')
-            # events=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data].replace('_ieeg.edf','_events.tsv'),sep='\t')
-            # channels=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data].replace('_ieeg.edf','_channels.tsv'),sep='\t')
-
-
-            ########## For main Database  ##############
+            ######### For main Database  ##############
             #Define input paths
-            main_path='/home/pablo/works/dev_thesis_SEEG/data/TVB_patients'
+            main_path='/home/pablo/works/dev_thesis_SEEG/data/mainDatabase_patients/'
             # Document with file data
-            raw=mne.io.read_raw_fif(main_path+'/'+patient+'/'+f'{patient}_{ref_data}.fif',preload=True)
-            xyz_loc=pd.read_csv(main_path+'/'+patient+'/'+'xyz_loc.csv',sep=',')
-           
+            doc_file_data=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+patient+'_ses-presurgery_scans.tsv',sep='\t')
+            raw=mne.io.read_raw_edf(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data],preload=True)
+            xyz_loc=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/ieeg/'+patient+'_ses-presurgery_acq-seeg_space-fsaverage_electrodes.tsv',sep='\t')
+            events=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data].replace('_ieeg.edf','_events.tsv'),sep='\t')
+            channels=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data].replace('_ieeg.edf','_channels.tsv'),sep='\t')
+            raw, xyz_loc, inside_network= format_data_database(raw, xyz_loc, events, channels)
 
 
-            raw, xyz_loc, inside_network= format_data(raw, xyz_loc, events=None, channels=None)
+            # ########## For simulated Database  ##############
+            # #Define input paths
+            # main_path='/home/pablo/works/dev_thesis_SEEG/data/TVB_patients'
+            # # Document with file data
+            # raw=mne.io.read_raw_fif(main_path+'/'+patient+'/'+f'{patient}_{ref_data}.fif',preload=True)
+            # xyz_loc=pd.read_csv(main_path+'/'+patient+'/'+'xyz_loc.csv',sep=',')
+            # raw, xyz_loc, inside_network= format_data(raw, xyz_loc, events=None, channels=None)
 
             #save the xyz_loc
             xyz_loc.to_csv(output_path + 'xyz_loc.csv', sep='\t', index=False)
@@ -83,22 +103,22 @@ def main():
             #     epochs.drop(bad_epochs)
 
             # Connectivity
-            method = 'aec&plv'
-            print(f'Connectivity method: {method}')
+            # method = 'aec&plv'
+            # print(f'Connectivity method: {method}')
             # Define frequency bands
-            # Create the connectivity animation
-            create_connectivity(
-                epochs=epochs,
-                output_path=output_path + patient + '_',
-                method=method,
-                xyz_loc=xyz_loc,
-                animation=True)
+            # # Create the connectivity animation
+            # create_connectivity(
+            #     epochs=epochs,
+            #     output_path=output_path + patient + '_',
+            #     method=method,
+            #     xyz_loc=xyz_loc,
+            #     animation=False)
             
             del raw_filtered1, raw_filtered, epochs
             gc.collect()
             
             bands = ['alpha','beta','theta','full_gamma','low_gamma','high_gamma1']
-            method_exp = 'aec'
+            method_exp = 'plv'
             norm = ['','distance_']
             algorithms = [
             'k_clique_communities','girvan_newman', 'edge_current_flow_betweenness_partition', 'greedy_modularity_communities', 'louvain_communities','kernighan_lin_bisection'
@@ -107,6 +127,8 @@ def main():
             run_experiment(patient, output_path, raw, xyz_loc, bands, method_exp, norm, algorithms,inside_network,percentile)
             load_and_plot_community_data(xyz_loc=xyz_loc, output_path=output_path, inside_network=inside_network, bands=bands, norm_settings=norm, method_exp=method_exp)
             print(f'Finished processing patient {patient}')
+            gc.collect()
+
 
 
 

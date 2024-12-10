@@ -15,7 +15,7 @@ LF7	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LF9	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LG1	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LG2	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
-LG3	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
+LG3	SEEG	µV	0.0	512.0	StereoEEG	1024.0	bad	n/a
 LG4	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LG5	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LG6	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
@@ -90,8 +90,8 @@ RF6	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RF7	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RF8	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RF9	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
-RG1	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
-RG2	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
+RG1	SEEG	µV	0.0	512.0	StereoEEG	1024.0	bad	n/a
+RG2	SEEG	µV	0.0	512.0	StereoEEG	1024.0	bad	n/a
 RG3	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RG4	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RG5	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
@@ -113,7 +113,7 @@ RI12	SEEG	µV	0.0	512.0	StereoEEG	1024.0	bad	n/a
 RI2	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RI3	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RI4	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
-RI5	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
+RI5	SEEG	µV	0.0	512.0	StereoEEG	1024.0	bad	n/a
 RI6	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RI7	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RI8	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a

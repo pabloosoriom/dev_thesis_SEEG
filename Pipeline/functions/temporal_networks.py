@@ -157,7 +157,7 @@ def communities_algorithm(G, algorithm, k=2):
         cliques = nx.find_cliques(G)
         cliques= [frozenset(c) for c in cliques if len(c) >= k]
         # print(f'Number of cliques {len(cliques)}')     
-        if len(cliques) < 20000:
+        if len(cliques) < 14000:
             communities_generator = nx.community.k_clique_communities(G, k)
             communities = [list(c) for c in communities_generator]
         else:

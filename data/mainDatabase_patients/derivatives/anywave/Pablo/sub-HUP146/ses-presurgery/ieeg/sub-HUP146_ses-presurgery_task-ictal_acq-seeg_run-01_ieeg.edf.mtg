@@ -1,0 +1,895 @@
+<!DOCTYPE AnyWaveMontage>
+<Montage>
+   <Channel name="EKG1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LE1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LE11">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LE3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LE5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LE7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LE9">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LF1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LF11">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LF3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LF5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LF7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LF9">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LG1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LG2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LG3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LG4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LG5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LG6">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LG7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LG8">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LH1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LH2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LH3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LH4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LH5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LH6">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LH7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LH8">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LI1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LI3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LI5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="LI7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA10">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA11">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA12">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA6">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA8">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RA9">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB10">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB11">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB12">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB6">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB8">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RB9">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RC1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RC2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RC3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RC4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RC5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RD1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RD10">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RD2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RD3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RD4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RD5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RD6">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RD7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RD8">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RD9">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RE1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RE11">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RE3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RE5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RE7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RE9">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF10">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF11">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF12">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF6">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF8">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RF9">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RG1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RG2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RG3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RG4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RG5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RG6">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RG7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RG8">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RH1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RH2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RH3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RH4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RH5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RH6">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RH7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RH8">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI10">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI11">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI12">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI6">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI7">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI8">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RI9">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RJ1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RJ2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RJ3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RJ4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RJ5">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RK1">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RK2">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RK3">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <Channel name="RK4">
+      <type>SEEG</type>
+      <reference></reference>
+      <color>black</color>
+      <filters highPass="-1" notch="0" lowPass="-1"/>
+   </Channel>
+   <AsRecordedChannels>
+      <Channel name="EKG1" type="SEEG"/>
+      <Channel name="EKG2" type="SEEG"/>
+      <Channel name="LE1" type="SEEG"/>
+      <Channel name="LE11" type="SEEG"/>
+      <Channel name="LE3" type="SEEG"/>
+      <Channel name="LE5" type="SEEG"/>
+      <Channel name="LE7" type="SEEG"/>
+      <Channel name="LE9" type="SEEG"/>
+      <Channel name="LF1" type="SEEG"/>
+      <Channel name="LF11" type="SEEG"/>
+      <Channel name="LF3" type="SEEG"/>
+      <Channel name="LF5" type="SEEG"/>
+      <Channel name="LF7" type="SEEG"/>
+      <Channel name="LF9" type="SEEG"/>
+      <Channel name="LG1" type="SEEG"/>
+      <Channel name="LG2" type="SEEG"/>
+      <Channel name="LG3" type="SEEG"/>
+      <Channel name="LG4" type="SEEG"/>
+      <Channel name="LG5" type="SEEG"/>
+      <Channel name="LG6" type="SEEG"/>
+      <Channel name="LG7" type="SEEG"/>
+      <Channel name="LG8" type="SEEG"/>
+      <Channel name="LH1" type="SEEG"/>
+      <Channel name="LH2" type="SEEG"/>
+      <Channel name="LH3" type="SEEG"/>
+      <Channel name="LH4" type="SEEG"/>
+      <Channel name="LH5" type="SEEG"/>
+      <Channel name="LH6" type="SEEG"/>
+      <Channel name="LH7" type="SEEG"/>
+      <Channel name="LH8" type="SEEG"/>
+      <Channel name="LI1" type="SEEG"/>
+      <Channel name="LI3" type="SEEG"/>
+      <Channel name="LI5" type="SEEG"/>
+      <Channel name="LI7" type="SEEG"/>
+      <Channel name="RA1" type="SEEG"/>
+      <Channel name="RA10" type="SEEG"/>
+      <Channel name="RA11" type="SEEG"/>
+      <Channel name="RA12" type="SEEG"/>
+      <Channel name="RA2" type="SEEG"/>
+      <Channel name="RA3" type="SEEG"/>
+      <Channel name="RA4" type="SEEG"/>
+      <Channel name="RA5" type="SEEG"/>
+      <Channel name="RA6" type="SEEG"/>
+      <Channel name="RA7" type="SEEG"/>
+      <Channel name="RA8" type="SEEG"/>
+      <Channel name="RA9" type="SEEG"/>
+      <Channel name="RB1" type="SEEG"/>
+      <Channel name="RB10" type="SEEG"/>
+      <Channel name="RB11" type="SEEG"/>
+      <Channel name="RB12" type="SEEG"/>
+      <Channel name="RB2" type="SEEG"/>
+      <Channel name="RB3" type="SEEG"/>
+      <Channel name="RB4" type="SEEG"/>
+      <Channel name="RB5" type="SEEG"/>
+      <Channel name="RB6" type="SEEG"/>
+      <Channel name="RB7" type="SEEG"/>
+      <Channel name="RB8" type="SEEG"/>
+      <Channel name="RB9" type="SEEG"/>
+      <Channel name="RC1" type="SEEG"/>
+      <Channel name="RC2" type="SEEG"/>
+      <Channel name="RC3" type="SEEG"/>
+      <Channel name="RC4" type="SEEG"/>
+      <Channel name="RC5" type="SEEG"/>
+      <Channel name="RD1" type="SEEG"/>
+      <Channel name="RD10" type="SEEG"/>
+      <Channel name="RD2" type="SEEG"/>
+      <Channel name="RD3" type="SEEG"/>
+      <Channel name="RD4" type="SEEG"/>
+      <Channel name="RD5" type="SEEG"/>
+      <Channel name="RD6" type="SEEG"/>
+      <Channel name="RD7" type="SEEG"/>
+      <Channel name="RD8" type="SEEG"/>
+      <Channel name="RD9" type="SEEG"/>
+      <Channel name="RE1" type="SEEG"/>
+      <Channel name="RE11" type="SEEG"/>
+      <Channel name="RE3" type="SEEG"/>
+      <Channel name="RE5" type="SEEG"/>
+      <Channel name="RE7" type="SEEG"/>
+      <Channel name="RE9" type="SEEG"/>
+      <Channel name="RF1" type="SEEG"/>
+      <Channel name="RF10" type="SEEG"/>
+      <Channel name="RF11" type="SEEG"/>
+      <Channel name="RF12" type="SEEG"/>
+      <Channel name="RF2" type="SEEG"/>
+      <Channel name="RF3" type="SEEG"/>
+      <Channel name="RF4" type="SEEG"/>
+      <Channel name="RF5" type="SEEG"/>
+      <Channel name="RF6" type="SEEG"/>
+      <Channel name="RF7" type="SEEG"/>
+      <Channel name="RF8" type="SEEG"/>
+      <Channel name="RF9" type="SEEG"/>
+      <Channel name="RG1" type="SEEG"/>
+      <Channel name="RG2" type="SEEG"/>
+      <Channel name="RG3" type="SEEG"/>
+      <Channel name="RG4" type="SEEG"/>
+      <Channel name="RG5" type="SEEG"/>
+      <Channel name="RG6" type="SEEG"/>
+      <Channel name="RG7" type="SEEG"/>
+      <Channel name="RG8" type="SEEG"/>
+      <Channel name="RH1" type="SEEG"/>
+      <Channel name="RH2" type="SEEG"/>
+      <Channel name="RH3" type="SEEG"/>
+      <Channel name="RH4" type="SEEG"/>
+      <Channel name="RH5" type="SEEG"/>
+      <Channel name="RH6" type="SEEG"/>
+      <Channel name="RH7" type="SEEG"/>
+      <Channel name="RH8" type="SEEG"/>
+      <Channel name="RI1" type="SEEG"/>
+      <Channel name="RI10" type="SEEG"/>
+      <Channel name="RI11" type="SEEG"/>
+      <Channel name="RI12" type="SEEG"/>
+      <Channel name="RI2" type="SEEG"/>
+      <Channel name="RI3" type="SEEG"/>
+      <Channel name="RI4" type="SEEG"/>
+      <Channel name="RI5" type="SEEG"/>
+      <Channel name="RI6" type="SEEG"/>
+      <Channel name="RI7" type="SEEG"/>
+      <Channel name="RI8" type="SEEG"/>
+      <Channel name="RI9" type="SEEG"/>
+      <Channel name="RJ1" type="SEEG"/>
+      <Channel name="RJ2" type="SEEG"/>
+      <Channel name="RJ3" type="SEEG"/>
+      <Channel name="RJ4" type="SEEG"/>
+      <Channel name="RJ5" type="SEEG"/>
+      <Channel name="RK1" type="SEEG"/>
+      <Channel name="RK2" type="SEEG"/>
+      <Channel name="RK3" type="SEEG"/>
+      <Channel name="RK4" type="SEEG"/>
+   </AsRecordedChannels>
+</Montage>
