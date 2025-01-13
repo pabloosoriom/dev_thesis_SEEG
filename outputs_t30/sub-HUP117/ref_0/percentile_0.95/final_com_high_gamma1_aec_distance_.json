@@ -1,0 +1,1 @@
+[["girvan_newman", [["ACCC1", "AMFG-A3", "AMFG-A4", "HIPP1", "HIPP2", "HIPP3", "HIPP4", "INS-A3", "MTG1", "MTG2", "MTG3", "MTG4", "OF1", "OF2", "OF3", "OF4", "OFAL4", "STG1"]], 0.23947712418300654], ["louvain_communities", [["AMFG-A3", "HIPP1", "HIPP2", "HIPP4", "MTG3", "OF1", "OF2", "OF4"]], 0.25571428571428567]]

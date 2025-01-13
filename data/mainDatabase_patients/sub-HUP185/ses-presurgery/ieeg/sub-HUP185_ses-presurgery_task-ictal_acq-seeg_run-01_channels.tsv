@@ -111,7 +111,7 @@ RA07	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 RA08	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 RA09	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 RA10	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
-RA12	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
+RA12	SEEG	µV	0.0	256.0	StereoEEG	512.0	bad	n/a
 RB01	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 RB02	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 RB03	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a

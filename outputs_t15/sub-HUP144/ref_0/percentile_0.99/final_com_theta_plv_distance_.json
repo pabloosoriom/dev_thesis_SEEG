@@ -1,0 +1,1 @@
+[["greedy_modularity_communities", [["RD7", "RD8", "RG2", "RM7"]], 0.06], ["3_k_clique_communities", [["RB11", "RG4", "RG7", "RM8"]], 0.39333333333333337], ["3_k_clique_communities", [["RB11", "RG4", "RG7", "RH1", "RM8"]], 0.29999999999999993], ["girvan_newman", [["RA11", "RA4", "RB11", "RD8", "RL6", "RL7", "RL8", "RM6", "RM7"]], 0.06555555555555562]]

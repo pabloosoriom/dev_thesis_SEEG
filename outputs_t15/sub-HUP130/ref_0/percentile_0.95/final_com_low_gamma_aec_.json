@@ -1,0 +1,1 @@
+[["3_k_clique_communities", [["LC5", "LC6", "LC7", "LC8"]], 0.56], ["4_k_clique_communities", [["LA4", "LA5", "LA6", "LA7", "LA8", "LB5", "LB6", "LB7", "LB8", "LC4"]], 0.6000000000000001], ["4_k_clique_communities", [["LA1", "LB1", "LB2", "LB3"]], 0.56], ["girvan_newman", [["RE1", "RE2", "RE3", "RE4", "RE5", "RE6", "RE7"]], 0.5847619047619048]]

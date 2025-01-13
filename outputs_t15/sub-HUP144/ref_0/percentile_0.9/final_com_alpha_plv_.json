@@ -1,0 +1,1 @@
+[["4_k_clique_communities", [["RI2", "RI3", "RI4", "RI5", "RI6", "RI7"]], 0.5066666666666667], ["3_k_clique_communities", [["RB4", "RB6", "RB7", "RC2", "RC3", "RC4", "RC5"]], 0.4895238095238095], ["4_k_clique_communities", [["RI3", "RI4", "RI5", "RI6", "RI7"]], 0.5], ["louvain_communities", [["RB4", "RB5", "RB6", "RB7", "RB8", "RC2", "RC3", "RC4", "RC5"]], 0.7322222222222222]]

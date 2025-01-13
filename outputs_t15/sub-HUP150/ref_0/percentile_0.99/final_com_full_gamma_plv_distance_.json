@@ -1,0 +1,1 @@
+[["4_k_clique_communities", [["RC8", "RE10", "RF7", "RF8", "RJ1"]], 0.5], ["4_k_clique_communities", [["RB8", "RC8", "RE10", "RF7", "RF8", "RJ1"]], 0.5066666666666667], ["3_k_clique_communities", [["RC8", "RE10", "RF7", "RF8"]], 0.39333333333333337], ["girvan_newman", [["RC8", "RD7", "RD8", "RF7", "RF8"]], 0.19999999999999996]]

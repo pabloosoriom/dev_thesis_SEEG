@@ -1,0 +1,1 @@
+[["greedy_modularity_communities", [["ACCC1", "ACCC2", "AMFG-A3", "AMFG-B4", "HIPP1", "HIPP2", "HIPP3", "MTG3", "MTG4", "OF1", "OF2", "OF4", "OFAL4", "STG1"]], 0.45450549450549454], ["louvain_communities", [["AMFG-A3", "AMFG-A4", "HIPP3", "HIPP4", "MTG3", "MTG4", "OF1", "OF2", "OF3", "OF4", "OFAL4", "STG1"]], 0.4103030303030303]]

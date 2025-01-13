@@ -97,7 +97,10 @@ def plot_AUC(final_communities_data, inside_network, output_path, band,method_ex
     # Step 2: Normalize cumulative densities
     max_density = max(contact_densities.values())
     min_density = min(contact_densities.values())
-    normalized_densities = {k: (v - min_density) / (max_density - min_density) for k, v in contact_densities.items()}
+    if max_density == 0:
+        normalized_densities = {k: 0 for k, v in contact_densities.items()}
+    else:
+        normalized_densities = {k: (v - min_density) / (max_density - min_density) for k, v in contact_densities.items()}
 
     # Step 3: Prepare for AUC calculation
     y_true = np.array([1 if contact in inside_network else 0 for contact in normalized_densities.keys()])

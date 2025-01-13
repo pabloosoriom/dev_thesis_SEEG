@@ -1,0 +1,1 @@
+[["greedy_modularity_communities", [["LA1", "LA2", "LA3", "LA4", "LA5", "RA1", "RA2", "RH2", "RH4", "RI1", "RI3", "RI5", "RJ1", "RK7", "RL12"]], 0.1523809523809524], ["louvain_communities", [["LA2", "LA6", "LA7", "RA1", "RH4", "RH5", "RI3", "RI5", "RI6", "RI7", "RK7"]], 0.02181818181818182]]

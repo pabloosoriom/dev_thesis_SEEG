@@ -1,0 +1,1 @@
+[["greedy_modularity_communities", [["LDA6", "LDB2", "LDB3", "LDB5", "LDC1", "LDC2", "LDC5", "LDC8", "LDG11", "LDG12", "LDG9"]], 0.1309090909090909], ["louvain_communities", [["LDB3", "LDC2", "LDC8", "LDG11", "LDG12"]], 0.19999999999999996]]

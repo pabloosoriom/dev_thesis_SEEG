@@ -13,7 +13,7 @@ LA06	SEEG	µV	0	256	StereoEEG	512	good	n/a
 LA07	SEEG	µV	0	256	StereoEEG	512	good	n/a
 LA08	SEEG	µV	0	256	StereoEEG	512	good	n/a
 LA09	SEEG	µV	0	256	StereoEEG	512	good	n/a
-LA10	SEEG	µV	0	256	StereoEEG	512	good	n/a
+LA10	SEEG	µV	0	256	StereoEEG	512	bad	n/a
 LA11	SEEG	µV	0	256	StereoEEG	512	bad	n/a
 LB01	SEEG	µV	0	256	StereoEEG	512	good	n/a
 LB02	SEEG	µV	0	256	StereoEEG	512	good	n/a

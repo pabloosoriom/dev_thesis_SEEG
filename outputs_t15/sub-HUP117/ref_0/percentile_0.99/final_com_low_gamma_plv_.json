@@ -1,0 +1,1 @@
+[["2_k_clique_communities", [["HIPP1", "HIPP2", "HIPP4", "MTG1", "MTG2"]], 0.09999999999999998], ["2_k_clique_communities", [["HIPP3", "HIPP4", "MTG1", "MTG2"]], 0.39333333333333337], ["louvain_communities", [["HIPP3", "HIPP4", "MTG1", "MTG2"]], 0.39333333333333337], ["2_k_clique_communities", [["HIPP1", "HIPP2", "HIPP3", "HIPP4", "MTG1", "MTG2"]], 0.10666666666666669]]

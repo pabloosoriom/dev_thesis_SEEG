@@ -22,7 +22,7 @@ LB06	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 LB07	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 LB08	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
 LB09	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
-LB10	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a
+LB10	SEEG	µV	0.0	256.0	StereoEEG	512.0	bad	n/a
 LB11	SEEG	µV	0.0	256.0	StereoEEG	512.0	bad	n/a
 LB12	SEEG	µV	0.0	256.0	StereoEEG	512.0	bad	n/a
 LC01	SEEG	µV	0.0	256.0	StereoEEG	512.0	good	n/a

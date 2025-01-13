@@ -36,7 +36,7 @@ LE1	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LE2	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LE3	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 LE4	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
-LE6	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
+LE6	SEEG	µV	0.0	512.0	StereoEEG	1024.0	bad	n/a
 LE7	SEEG	µV	0.0	512.0	StereoEEG	1024.0	bad	n/a
 LE8	SEEG	µV	0.0	512.0	StereoEEG	1024.0	bad	n/a
 LF1	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a

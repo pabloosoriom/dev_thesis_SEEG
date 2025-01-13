@@ -103,7 +103,7 @@ RK5	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RK6	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RK7	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RK8	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
-RL1	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
+RL1	SEEG	µV	0.0	512.0	StereoEEG	1024.0	bad	n/a
 RL10	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	soz
 RL11	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a
 RL12	SEEG	µV	0.0	512.0	StereoEEG	1024.0	good	n/a

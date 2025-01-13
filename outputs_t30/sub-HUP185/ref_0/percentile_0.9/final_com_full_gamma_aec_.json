@@ -1,0 +1,1 @@
+[["louvain_communities", [["LA01", "LA02", "LA03", "LA04", "LA05", "LA06", "LA07", "LA08", "LA09", "LB01", "LB02", "LB03", "LB04", "LB05", "LC01", "LC02", "LC03", "LC04"]], 0.6381699346405229], ["greedy_modularity_communities", [["LA01", "LA02", "LA03", "LA04", "LA05", "LB01", "LB02", "LB03", "LB04", "LC01", "LC02", "LC03", "LC04", "LC05"]], 0.7182417582417582]]
