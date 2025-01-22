@@ -45,7 +45,7 @@ def main():
         # 'S2',
         # 'S3',
         # 'S4',
-        'S5'
+        # 'S5'
     ]  #Patients to process
     percentiles=[0.9,0.95,0.99] #Percentiles to process
     ref_data='x1'
