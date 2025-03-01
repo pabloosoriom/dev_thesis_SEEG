@@ -47,26 +47,32 @@ from functions.plotter_comunities import plot_AUC
 # 'S5'
 def main():
     patients = [
-        'sub-HUP185',
-
+        #  'S1',
+        # 'S2',
+        # 'S3',
+        # 'S4',
+        'S5'
     ]  #Patients to process
-    percentiles=[0.9,0.95,0.99] #Percentiles to process
-    ref_data=0
+    percentiles=[
+        0.9,
+    0.95,
+    0.99] #Percentiles to process
+    ref_data='x1'
     experiment=''
     for patient in patients:
         for percentile in percentiles:
             print(f'Processing patient {patient} in file {ref_data} for percentile {percentile}')
             #Check if there is a folder for the patient. If not, create it
-            if not os.path.exists(f'/home/pablo/works/dev_thesis_SEEG/aditional_experiments/{patient}{experiment}/'):
-                os.makedirs(f'/home/pablo/works/dev_thesis_SEEG/aditional_experiments/{patient}{experiment}/')
+            if not os.path.exists(f'/home/pablo/works/dev_thesis_SEEG/outputs_simil_t60/{patient}{experiment}/'):
+                os.makedirs(f'/home/pablo/works/dev_thesis_SEEG/outputs_simil_t60/{patient}{experiment}/')
 
-            if not os.path.exists(f'/home/pablo/works/dev_thesis_SEEG/aditional_experiments/{patient}{experiment}/ref_{ref_data}/'):
-                os.makedirs(f'/home/pablo/works/dev_thesis_SEEG/aditional_experiments/{patient}{experiment}/ref_{ref_data}/')
+            if not os.path.exists(f'/home/pablo/works/dev_thesis_SEEG/outputs_simil_t60/{patient}{experiment}/ref_{ref_data}/'):
+                os.makedirs(f'/home/pablo/works/dev_thesis_SEEG/outputs_simil_t60/{patient}{experiment}/ref_{ref_data}/')
 
-            if not os.path.exists(f'/home/pablo/works/dev_thesis_SEEG/aditional_experiments/{patient}{experiment}/ref_{ref_data}/percentile_{percentile}/'):
-                os.makedirs(f'/home/pablo/works/dev_thesis_SEEG/aditional_experiments/{patient}{experiment}/ref_{ref_data}/percentile_{percentile}/')
+            if not os.path.exists(f'/home/pablo/works/dev_thesis_SEEG/outputs_simil_t60/{patient}{experiment}/ref_{ref_data}/percentile_{percentile}/'):
+                os.makedirs(f'/home/pablo/works/dev_thesis_SEEG/outputs_simil_t60/{patient}{experiment}/ref_{ref_data}/percentile_{percentile}/')
             
-            output_path = f'/home/pablo/works/dev_thesis_SEEG/aditional_experiments/{patient}{experiment}/ref_{ref_data}/percentile_{percentile}/'
+            output_path = f'/home/pablo/works/dev_thesis_SEEG/outputs_simil_t60/{patient}{experiment}/ref_{ref_data}/percentile_{percentile}/'
 
 
             ######### For main Database  ##############
@@ -74,23 +80,23 @@ def main():
 
 
             #Define input paths
-            main_path='/home/pablo/works/dev_thesis_SEEG/data/mainDatabase_patients/'
-            # Document with file data
-            doc_file_data=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+patient+'_ses-presurgery_scans.tsv',sep='\t')
-            raw=mne.io.read_raw_edf(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data],preload=True)
-            xyz_loc=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/ieeg/'+patient+'_ses-presurgery_acq-seeg_space-fsaverage_electrodes.tsv',sep='\t')
-            events=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data].replace('_ieeg.edf','_events.tsv'),sep='\t')
-            channels=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data].replace('_ieeg.edf','_channels.tsv'),sep='\t')
-            raw, xyz_loc, inside_network= format_data_database(raw, xyz_loc, events, channels)
+            # main_path='/home/pablo/works/dev_thesis_SEEG/data/mainDatabase_patients/'
+            # # Document with file data
+            # doc_file_data=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+patient+'_ses-presurgery_scans.tsv',sep='\t')
+            # raw=mne.io.read_raw_edf(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data],preload=True)
+            # xyz_loc=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/ieeg/'+patient+'_ses-presurgery_acq-seeg_space-fsaverage_electrodes.tsv',sep='\t')
+            # events=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data].replace('_ieeg.edf','_events.tsv'),sep='\t')
+            # channels=pd.read_csv(main_path+'/'+patient+'/'+'ses-presurgery/'+doc_file_data['filename'][ref_data].replace('_ieeg.edf','_channels.tsv'),sep='\t')
+            # raw, xyz_loc, inside_network= format_data_database(raw, xyz_loc, events, channels)
 
 
             # # ########## For simulated Database  ##############
             # #Define input paths
-            # main_path='/home/pablo/works/dev_thesis_SEEG/data/TVB_patients'
-            # # Document with file data
-            # raw=mne.io.read_raw_fif(main_path+'/'+patient+'/'+f'{patient}_{ref_data}.fif',preload=True)
-            # xyz_loc=pd.read_csv(main_path+'/'+patient+'/'+'xyz_loc.csv',sep=',')
-            # raw, xyz_loc, inside_network= format_data(raw, xyz_loc, events=None, channels=None)
+            main_path='/home/pablo/works/dev_thesis_SEEG/data/TVB_patients'
+            # Document with file data
+            raw=mne.io.read_raw_fif(main_path+'/'+patient+'/'+f'{patient}_{ref_data}.fif',preload=True)
+            xyz_loc=pd.read_csv(main_path+'/'+patient+'/'+'xyz_loc.csv',sep=',')
+            raw, xyz_loc, inside_network= format_data(raw, xyz_loc, events=None, channels=None)
 
             #save the xyz_loc
             xyz_loc.to_csv(output_path + 'xyz_loc.csv', sep='\t', index=False)
@@ -103,29 +109,29 @@ def main():
 
             # Load filtered data
             raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
-            epochs = mne.make_fixed_length_epochs(raw, duration=15, preload=True)
+            epochs = mne.make_fixed_length_epochs(raw, duration=60, preload=True)
             # bad_epochs = tag_high_amplitude(epochs)
 
             # if bad_epochs:
             #     epochs.drop(bad_epochs)
 
             # Connectivity
-            method = 'aec&plv'
-            print(f'Connectivity method: {method}')
-            # Define frequency bands
-            # Create the connectivity animation
-            create_connectivity(
-                epochs=epochs,
-                output_path=output_path + patient + '_',
-                method=method,
-                xyz_loc=xyz_loc,
-                animation=False)
+            # method = 'aec&plv'
+            # print(f'Connectivity method: {method}')
+            # # Define frequency bands
+            # # Create the connectivity animation
+            # create_connectivity(
+            #     epochs=epochs,
+            #     output_path=output_path + patient + '_',
+            #     method=method,
+            #     xyz_loc=xyz_loc,
+            #     animation=False)
             
             del raw_filtered1, raw_filtered, epochs
             gc.collect()
             
             bands = ['alpha','beta','theta','full_gamma','low_gamma','high_gamma1']
-            method_exp = 'aec'
+            method_exp = 'plv'
             norm = ['','distance_']
             algorithms = [
             'k_clique_communities','girvan_newman', 'edge_current_flow_betweenness_partition', 'greedy_modularity_communities', 'louvain_communities','kernighan_lin_bisection'
