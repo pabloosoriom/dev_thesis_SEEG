@@ -79,7 +79,7 @@ def plot_electrode_locations(xyz_loc, communities_data, outputpath, band):
     print("Animation saved at:", animation_path)
 
 
-def plot_AUC(final_communities_data, inside_network, output_path, band,method_exp, n):
+def plot_AUC(final_communities_data, inside_network,xyz_loc,output_path, band,method_exp, n):
     # Example list
     communities = final_communities_data
 
@@ -97,10 +97,22 @@ def plot_AUC(final_communities_data, inside_network, output_path, band,method_ex
     # Step 2: Normalize cumulative densities
     max_density = max(contact_densities.values())
     min_density = min(contact_densities.values())
-    if max_density == 0:
-        normalized_densities = {k: 0 for k, v in contact_densities.items()}
-    else:
-        normalized_densities = {k: (v - min_density) / (max_density - min_density) for k, v in contact_densities.items()}
+    if max_density == min_density:
+        if max_density == 0:
+            max_density = 1
+        else:
+            min_density = 0
+
+
+
+    normalized_densities = {k: (v - min_density) / (max_density - min_density) for k, v in contact_densities.items()}
+
+    for key in xyz_loc['formatted_label']:
+        if key not in normalized_densities:
+            normalized_densities[key] = 0
+
+
+
 
     # Step 3: Prepare for AUC calculation
     y_true = np.array([1 if contact in inside_network else 0 for contact in normalized_densities.keys()])

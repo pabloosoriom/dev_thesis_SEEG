@@ -47,11 +47,11 @@ from functions.plotter_comunities import plot_AUC
 # 'S5'
 def main():
     patients = [
-        #  'S1',
-        # 'S2',
-        # 'S3',
-        # 'S4',
-        'S5'
+         'S1',
+'S2',
+'S3',
+'S4',
+'S5'
     ]  #Patients to process
     percentiles=[
         0.9,
@@ -102,24 +102,24 @@ def main():
             xyz_loc.to_csv(output_path + 'xyz_loc.csv', sep='\t', index=False)
             
 
-            raw_filtered1, _ = pass_filter(raw)
-            raw_filtered, _ = line_noise_filter(raw_filtered1, [60], True)
-            raw_filtered = set_names(raw_filtered)
-            raw_filtered.save(output_path + patient + '_filtered.fif', overwrite=True)
+            # raw_filtered1, _ = pass_filter(raw)
+            # raw_filtered, _ = line_noise_filter(raw_filtered1, [60], True)
+            # raw_filtered = set_names(raw_filtered)
+            # raw_filtered.save(output_path + patient + '_filtered.fif', overwrite=True)
 
             # Load filtered data
             raw = mne.io.read_raw_fif(output_path + patient + '_filtered.fif', preload=True)
-            epochs = mne.make_fixed_length_epochs(raw, duration=60, preload=True)
+            # epochs = mne.make_fixed_length_epochs(raw, duration=60, preload=True)
             # bad_epochs = tag_high_amplitude(epochs)
 
             # if bad_epochs:
             #     epochs.drop(bad_epochs)
 
             # Connectivity
-            # method = 'aec&plv'
-            # print(f'Connectivity method: {method}')
-            # # Define frequency bands
-            # # Create the connectivity animation
+            method = 'aec&plv'
+            print(f'Connectivity method: {method}')
+            # Define frequency bands
+            # Create the connectivity animation
             # create_connectivity(
             #     epochs=epochs,
             #     output_path=output_path + patient + '_',
@@ -127,8 +127,8 @@ def main():
             #     xyz_loc=xyz_loc,
             #     animation=False)
             
-            del raw_filtered1, raw_filtered, epochs
-            gc.collect()
+            # del raw_filtered1, raw_filtered, epochs
+            # gc.collect()
             
             bands = ['alpha','beta','theta','full_gamma','low_gamma','high_gamma1']
             method_exp = 'plv'
@@ -156,64 +156,72 @@ def run_experiment(patient, output_path,raw, xyz_loc,bands, method_exp, norm, al
             threshold_magnitude= plot_weight_distribution_with_threshold(conn,output_path,band,bins=30,percentile=percentile, method_exp=method_exp)
             # print(f'Mean threshold magnitude: {threshold_magnitude}')
 
-            tuples_compiled_after = {}
-            for algorithm in algorithms:
-                print(f'Running: Band={band}, Method={method_exp}, Normalization={n}, Algorithm={algorithm}')
+            # tuples_compiled_after = {}
+            # for algorithm in algorithms:
+            #     print(f'Running: Band={band}, Method={method_exp}, Normalization={n}, Algorithm={algorithm}')
                                 
-                if algorithm in ['edge_current_flow_betweenness_partition', 'k_clique_communities']:
-                    for k in [2, 3, 4]:
-                        _, communities_after, tnet = detect_communities(
-                            conn, xyz_loc=xyz_loc, raw=raw, 
-                            output_path=output_path, threshold_level_=percentile, algorithm=algorithm, k=k
-                        )
+            #     if algorithm in ['edge_current_flow_betweenness_partition', 'k_clique_communities']:
+            #         for k in [2, 3, 4]:
+            #             _, communities_after, tnet = detect_communities(
+            #                 conn, xyz_loc=xyz_loc, raw=raw, 
+            #                 output_path=output_path, threshold_level_=percentile, algorithm=algorithm, k=k
+            #             )
 
 
-                        #Find the best communities according to density score with regularization 
-                        _,final_com_time_after=get_final_communities(communities_after,raw,tnet)
+            #             #Find the best communities according to density score with regularization 
+            #             _,final_com_time_after=get_final_communities(communities_after,raw,tnet)
 
 
-                        # Save the results
+            #             # Save the results
                  
-                        tuples_compiled_after[f'{k}_{algorithm}'] = final_com_time_after
+            #             tuples_compiled_after[f'{k}_{algorithm}'] = final_com_time_after
 
-                else:
-                    _, communities_after,tnet = detect_communities(
-                        conn, xyz_loc=xyz_loc, raw=raw, 
-                        output_path=output_path, threshold_level_=percentile, algorithm=algorithm
-                    )
+            #     else:
+            #         _, communities_after,tnet = detect_communities(
+            #             conn, xyz_loc=xyz_loc, raw=raw, 
+            #             output_path=output_path, threshold_level_=percentile, algorithm=algorithm
+            #         )
 
-                    #Find the best communities according to density score with regularization
-                    _,final_com_time_after=get_final_communities(communities_after,raw,tnet)
+            #         #Find the best communities according to density score with regularization
+            #         _,final_com_time_after=get_final_communities(communities_after,raw,tnet)
 
 
                 
-                    tuples_compiled_after[algorithm] = final_com_time_after
+            #         tuples_compiled_after[algorithm] = final_com_time_after
 
 
                     
-            #######Finding the best array for the community representation, to get only one final time-series of communities with the ones with the higher density score
-            #Save the final time-series of communities
-            with open(output_path + f'Tuples_com_{band}_{method_exp}_{n}.json', 'w') as f:
-                json.dump(tuples_compiled_after, f)
+            # #######Finding the best array for the community representation, to get only one final time-series of communities with the ones with the higher density score
+            # #Save the final time-series of communities
+            # with open(output_path + f'Tuples_com_{band}_{method_exp}_{n}.json', 'w') as f:
+            #     json.dump(tuples_compiled_after, f)
 
 
-            final_time_community= get_max_communities(tuples_compiled_after)
-            #Save the final time-series of communities
-            with open(output_path + f'final_com_{band}_{method_exp}_{n}.json', 'w') as f:
-                json.dump(final_time_community, f)
+            # final_time_community= get_max_communities(tuples_compiled_after)
+            # #Save the final time-series of communities
+            # with open(output_path + f'final_com_{band}_{method_exp}_{n}.json', 'w') as f:
+            #     json.dump(final_time_community, f)
             
 
             
 
-            del conn, tuples_compiled_after, final_time_community         
-            gc.collect()
+            # del conn, tuples_compiled_after, final_time_community         
+            # gc.collect()
             
             
             #plot AUC
+            # with open(output_path + f'Tuples_com_{band}_{method_exp}_{n}.json') as f:
+            #     final_communities_data = json.load(f)
+            # del final_communities_data 
+            # gc.collect()
+            
+
+            # read the final communities data from the file
             with open(output_path + f'Tuples_com_{band}_{method_exp}_{n}.json') as f:
                 final_communities_data = json.load(f)
-            
-            plot_AUC(final_communities_data, inside_network, output_path, band,method_exp, n)
+             
+
+            plot_AUC(final_communities_data, inside_network,xyz_loc, output_path, band,method_exp, n)
     end_time = time.time()
     execution_time = end_time - start_time
     print(f'Execution time: {execution_time} seconds')

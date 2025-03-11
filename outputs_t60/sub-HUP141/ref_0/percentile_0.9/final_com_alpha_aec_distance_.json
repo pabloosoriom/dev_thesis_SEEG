@@ -1,1 +1,1 @@
-[["greedy_modularity_communities", [["LA03", "LB01", "LC01", "LF03", "RE03", "RE04", "RF04", "RF05", "RF06", "RF07", "RF08", "RG02", "RH04", "RI03", "RJ01", "RJ02", "RJ05", "RJ06"]], 0.3963398692810458]]
+[["louvain_communities", [["LB01", "RB10", "RG04", "RJ03"]], 0.56]]
